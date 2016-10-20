@@ -28,9 +28,9 @@ class HomeController extends Controller
     	$data = null;
     	if(Auth::user()->is_admin)
     	{
-    		$data['socios_count'] = User::where('is_admin', false)->count();
+    		//todo
     	}
-        return view('home', $data);
+        return view('home');
         //return Auth::user()->role->enabled ? '1' : '0';
     }
 }

@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sesion extends Model
 {
-	protected $table = 'vfp_sesion';
+    use SoftDeletes;
 
-    protected $dates = ['fecha', 'fechach', 'fechafac'];
+	protected $table = 'vfp_sesion';
+    protected $dates = ['fecha', 'fechach', 'fechafac', 'deleted_at'];
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -29,6 +32,6 @@ class Sesion extends Model
      * @var array
      */
     protected $hidden = [
-        'vfptable', 'created_at', 'updated_at',
+        'vfptable', 'created_at', 'updated_at', 'deleted',
     ];
 }

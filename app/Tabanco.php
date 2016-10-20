@@ -3,15 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tabanco extends Model
 {
-	protected $table = 'vfp_tabanco';
+    use SoftDeletes;
 
+	protected $table = 'vfp_tabanco';
     protected $casts = [
         'estado' => 'boolean',
         'flg_ing' => 'boolean',
     ];
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -32,6 +35,6 @@ class Tabanco extends Model
      * @var array
      */
     protected $hidden = [
-        'vfptable', 'created_at', 'updated_at',
+        'vfptable', 'created_at', 'updated_at', 'deleted',
     ];
 }

@@ -35,50 +35,16 @@
                 </div>
                 <div class="form-group">
                   <label for="permissions">Roles</label>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Agregar, modificar y deshabilitar cuentas de Administrador
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Sincronizar socios y asociarlos a locales
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Ver datos de locales y socios
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Ver reportes de socios morosos
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Enviar mensajes globales
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Subir documentos
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Contabilidad Externa
-                    </label>
-                  </div>
+                  @foreach($roles as $role)
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" name="{{ $role->name }}" value="{{ $role->id }}">
+                          {{ $role->description }}
+                      </label>
+                    </div>
+                  @endforeach
                 </div>
-                La contraseña será generada automáticamente y enviada al correo electrónico del nuevo administrador.
+                La contraseña será el mismo nombre de usuario de la cuenta, la cual podrá ser cambiada posteriormente.
               </div>
               <!-- /.box-body -->
 

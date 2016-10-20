@@ -82,6 +82,7 @@ class CreateVfpmaeCueTable extends Migration
             $table->integer('debep12')->nullable();
             $table->integer('haberp12')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -92,6 +93,7 @@ class CreateVfpmaeCueTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('vfp_mae_cue');
     }
 }

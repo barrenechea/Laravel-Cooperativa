@@ -13,17 +13,17 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
+        Schema::enableForeignKeyConstraints();
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('type_id')->unsigned();
             $table->integer('sector_id')->unsigned();
+            $table->integer('partner_id')->unsigned()->nullable();
             $table->string('code');
-
-            $table->integer('user_id')->unsigned()->nullable();
 
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');
         });
     }
 
@@ -34,6 +34,7 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('locations');
     }
 }

@@ -71,6 +71,7 @@ class CreateVfptabaux10Table extends Migration
             $table->string('pais')->nullable();
             $table->string('segmento')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -81,6 +82,7 @@ class CreateVfptabaux10Table extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('vfp_tabaux10');
     }
 }

@@ -3,16 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tabaux10 extends Model
 {
-	protected $table = 'vfp_tabaux10';
+    use SoftDeletes;
 
+	protected $table = 'vfp_tabaux10';
     protected $casts = [
         'concredito' => 'boolean',
     ];
+    protected $dates = ['fecha', 'deleted_at'];
 
-    protected $dates = ['fecha'];
     /**
      * The attributes that are mass assignable.
      *
@@ -38,6 +40,6 @@ class Tabaux10 extends Model
      * @var array
      */
     protected $hidden = [
-        'vfptable', 'created_at', 'updated_at',
+        'vfptable', 'created_at', 'updated_at', 'deleted',
     ];
 }

@@ -39,6 +39,7 @@ class CreateVfptabancoTable extends Migration
             $table->integer('ano')->nullable();
             $table->boolean('flg_ing')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -49,6 +50,7 @@ class CreateVfptabancoTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('vfp_tabanco');
     }
 }

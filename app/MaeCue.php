@@ -3,10 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MaeCue extends Model
 {
+    use SoftDeletes;
+
 	protected $table = 'vfp_mae_cue';
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -32,6 +36,6 @@ class MaeCue extends Model
      * @var array
      */
     protected $hidden = [
-        'vfptable', 'created_at', 'updated_at',
+        'vfptable', 'created_at', 'updated_at', 'deleted',
     ];
 }

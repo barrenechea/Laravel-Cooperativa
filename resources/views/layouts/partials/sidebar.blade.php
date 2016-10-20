@@ -10,7 +10,7 @@
 
             @if(Auth::user()->is_admin)
             <!-- Admin options -->
-            @if(Auth::user()->role->can_handle_admins || Auth::user()->role->can_sync_users)
+            @if(Auth::user()->roles->where('name', 'can_handle_admins')->count() > 0 || Auth::user()->roles->where('name', 'can_sync_users')->count() > 0)
             <!-- New Users -->
             <li class="treeview">
               <a href="#">
@@ -20,16 +20,16 @@
                 </span>
               </a>
               <ul class="treeview-menu" style="display: none;">
-                @if(Auth::user()->role->can_handle_admins)
+                @if(Auth::user()->roles->where('name', 'can_handle_admins')->count() > 0)
                 <li><a href="{{ url('register/admin') }}"><i class="fa fa-circle-o"></i> Administrador</a></li>
                 @endif
-                @if(Auth::user()->role->can_sync_users)
+                @if(Auth::user()->roles->where('name', 'can_sync_users')->count() > 0)
                 <li><a href="{{ url('register/socio') }}"><i class="fa fa-circle-o"></i> Socio</a></li>
                 @endif
               </ul>
             </li>
             @endif
-            @if(Auth::user()->role->can_view_data)
+            @if(Auth::user()->roles->where('name', 'can_view_data')->count() > 0)
             <!-- View options -->
             <li class="treeview">
               <a href="#">
@@ -39,7 +39,7 @@
                 </span>
               </a>
               <ul class="treeview-menu" style="display: none;">
-                @if(Auth::user()->role->can_view_overdue)
+                @if(Auth::user()->roles->where('name', 'can_view_overdue')->count() > 0)
                 <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de morosos</a></li>
                 @endif
                 <li><a href="#"><i class="fa fa-circle-o"></i> Por local</a></li>
@@ -47,15 +47,15 @@
               </ul>
             </li>
             @endif
-            @if(Auth::user()->role->can_send_messages)
+            @if(Auth::user()->roles->where('name', 'can_send_messages')->count() > 0)
             <!-- Message option -->
             <li><a href="#"><i class="fa fa-envelope"></i> <span>Nuevo mensaje</span></a></li>
             @endif
-            @if(Auth::user()->role->can_upload)
+            @if(Auth::user()->roles->where('name', 'can_upload')->count() > 0)
             <!-- Message option -->
             <li><a href="#"><i class="fa fa-upload"></i> <span>Subir archivo</span></a></li>
             @endif
-            @if(Auth::user()->role->can_external_accounting)
+            @if(Auth::user()->roles->where('name', 'can_external_accounting')->count() > 0)
             <!-- Message option -->
             <li><a href="#"><i class="fa fa-money"></i> <span>Contabilidad externa</span></a></li>
             @endif

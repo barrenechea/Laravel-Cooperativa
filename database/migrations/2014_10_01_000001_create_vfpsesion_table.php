@@ -44,6 +44,7 @@ class CreateVfpsesionTable extends Migration
             $table->integer('haber')->nullable();
             $table->char('estado', 1)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -54,6 +55,7 @@ class CreateVfpsesionTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('vfp_sesion');
     }
 }

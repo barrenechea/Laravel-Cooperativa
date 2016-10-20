@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
-use App\Sesion;
 use App\Tabaux10;
+use App\Role;
 
 class RegisterController extends Controller
 {
@@ -22,6 +22,8 @@ class RegisterController extends Controller
 
     public function admin()
     {
-        return view('register\admin');
+        $roles = Role::all();
+
+        return view('register\admin', ['roles' => $roles]);
     }
 }
