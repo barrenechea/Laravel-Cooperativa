@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBillDetailsTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +14,15 @@ class CreateBillDetailsTable extends Migration
     public function up()
     {
         Schema::enableForeignKeyConstraints();
-        Schema::create('billdetails', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('bill_id')->unsigned();
-            $table->integer('location_id')->unsigned();
+            $table->integer('billdetail_id')->unsigned();
+            $table->integer('vfpsesion_id')->unsigned();
             $table->integer('amount');
             $table->timestamps();
 
-            $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade');
-            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->foreign('billdetail_id')->references('id')->on('billdetails')->onDelete('cascade');
+            $table->foreign('vfpsesion_id')->references('id')->on('vfpsesion')->onDelete('cascade');
         });
     }
 
@@ -34,6 +34,6 @@ class CreateBillDetailsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('billdetails');
+        Schema::dropIfExists('payments');
     }
 }

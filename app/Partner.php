@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sector extends Model
+class Partner extends Model
 {
     public $timestamps = false;
-	protected $table = 'sectors';
+	protected $table = 'partners';
+    protected $casts = [ 'has_file' => 'boolean', ];
 
     protected $fillable = [
-    	'name',
+    	'user_id', 'address', 'phone'
     ];
 
     public function locations()
@@ -18,8 +19,8 @@ class Sector extends Model
         return $this->hasMany('App\Location');
     }
 
-    public function bills()
+    public function user()
     {
-        return $this->belongsToMany('App\Bill');
+        return $this->belongsTo('App\User');
     }
 }

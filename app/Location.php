@@ -6,24 +6,40 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+    public $timestamps = false;
     protected $table = 'locations';
 
     protected $fillable = [
-    	'type_id', 'code', 'user_id'
+    	'type_id', 'sector_id', 'partner_id', 'code'
     ];
+
+    public function percentages()
+    {
+        return $this->hasMany('App\Percentage');
+    }
+
+    public function billdetails()
+    {
+        return $this->hasMany('App\Billdetail');
+    }
 
     public function type()
     {
-        return $this->hasOne('App\Type');
+        return $this->belongsTo('App\Type');
     }
 
     public function sector()
     {
-        return $this->hasOne('App\Sector');
+        return $this->belongsTo('App\Sector');
     }
 
-    public function user()
+    public function partner()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Partner');
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group');
     }
 }

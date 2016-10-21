@@ -9,7 +9,7 @@ class Tabanco extends Model
 {
     use SoftDeletes;
 
-	protected $table = 'vfp_tabanco';
+	protected $table = 'vfptabanco';
     protected $casts = [
         'estado' => 'boolean',
         'flg_ing' => 'boolean',

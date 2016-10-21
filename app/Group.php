@@ -4,18 +4,23 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sector extends Model
+class Group extends Model
 {
     public $timestamps = false;
-	protected $table = 'sectors';
+	protected $table = 'groups';
 
     protected $fillable = [
-    	'name',
+    	'description'
     ];
+
+    public function percentages()
+    {
+        return $this->hasMany('App\Percentage');
+    }
 
     public function locations()
     {
-        return $this->hasMany('App\Location');
+        return $this->belongsToMany('App\Location');
     }
 
     public function bills()

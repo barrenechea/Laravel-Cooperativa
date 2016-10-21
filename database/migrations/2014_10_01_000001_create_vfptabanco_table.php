@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVfptabancoTable extends Migration
+class CreateVFPTabancoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVfptabancoTable extends Migration
      */
     public function up()
     {
-        Schema::create('vfp_tabanco', function (Blueprint $table) {
+        Schema::create('vfptabanco', function (Blueprint $table) {
             $table->increments('id');
             $table->string('vfptable');
             $table->string('codempre')->nullable();
@@ -51,6 +51,6 @@ class CreateVfptabancoTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('vfp_tabanco');
+        Schema::dropIfExists('vfptabanco');
     }
 }

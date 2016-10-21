@@ -9,7 +9,7 @@ class MaeCue extends Model
 {
     use SoftDeletes;
 
-	protected $table = 'vfp_mae_cue';
+	protected $table = 'vfpmaecue';
     protected $dates = ['deleted_at'];
 
     /**

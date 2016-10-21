@@ -9,7 +9,7 @@ class Sesion extends Model
 {
     use SoftDeletes;
 
-	protected $table = 'vfp_sesion';
+	protected $table = 'vfpsesion';
     protected $dates = ['fecha', 'fechach', 'fechafac', 'deleted_at'];
     
     /**

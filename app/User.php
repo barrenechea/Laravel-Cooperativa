@@ -10,23 +10,23 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $casts = [ 'is_admin' => 'boolean', ];
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name', 'username', 'password', 'email', 'is_admin'
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function partner()
+    {
+        return $this->hasOne('App\Partner');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
+    }
 
     public function roles()
     {

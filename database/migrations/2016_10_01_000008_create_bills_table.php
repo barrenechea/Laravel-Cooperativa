@@ -20,6 +20,8 @@ class CreateBillsTable extends Migration
             $table->integer('amount');
             $table->boolean('is_uf')->default(false);
             $table->string('description');
+            $table->string('vfptable');
+            $table->string('vfpcode');
 
             $table->boolean('active');
             $table->date('end_bill')->nullable();

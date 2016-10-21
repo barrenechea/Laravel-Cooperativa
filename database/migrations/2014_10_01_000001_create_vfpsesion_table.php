@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVfpsesionTable extends Migration
+class CreateVFPSesionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVfpsesionTable extends Migration
      */
     public function up()
     {
-        Schema::create('vfp_sesion', function (Blueprint $table) {
+        Schema::create('vfpsesion', function (Blueprint $table) {
             $table->increments('id');
             $table->string('vfptable');
             $table->char('tipo', 1)->nullable();
@@ -56,6 +56,6 @@ class CreateVfpsesionTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('vfp_sesion');
+        Schema::dropIfExists('vfpsesion');
     }
 }

@@ -9,10 +9,8 @@ class Tabaux10 extends Model
 {
     use SoftDeletes;
 
-	protected $table = 'vfp_tabaux10';
-    protected $casts = [
-        'concredito' => 'boolean',
-    ];
+	protected $table = 'vfptabaux10';
+    protected $casts = [ 'concredito' => 'boolean' ];
     protected $dates = ['fecha', 'deleted_at'];
 
     /**
