@@ -25,12 +25,29 @@ class HomeController extends Controller
      */
     public function index()
     {
-    	$data = null;
-    	if(Auth::user()->is_admin)
-    	{
-    		//todo
-    	}
+        if(Auth::user()->is_admin)
+        {
+            //todo
+        }
         return view('home');
-        //return Auth::user()->role->enabled ? '1' : '0';
+    }
+
+    public function init()
+    {
+        if(Auth::user()->initialized)
+            return redirect('/home');
+
+        return view('init');
+    }
+
+    public function initsave(Request $request)
+    {
+        // ToDo validate form
+        Auth::user()->password = bcrypt($request->input('password'));
+        // ToDo include Partner addition
+        Auth::user()->initialized = true;
+        Auth::user()->save();
+
+        return redirect('/home');
     }
 }

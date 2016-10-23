@@ -9,9 +9,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $casts = [ 'is_admin' => 'boolean', ];
+    protected $casts = [ 'is_admin' => 'boolean', 'initialized' => 'boolean', ];
     protected $fillable = [
-        'name', 'username', 'password', 'email', 'is_admin'
+        'name', 'username', 'password', 'email', 'is_admin', 'initialized'
     ];
     
     protected $hidden = [

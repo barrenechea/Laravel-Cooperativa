@@ -5,11 +5,15 @@
     <section class="sidebar">
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
+            <li class="header">MENÚ</li>
             <li><a href="{{ url('home') }}"><i class='fa fa-home'></i> <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
 
             @if(Auth::user()->is_admin)
             <!-- Admin options -->
+            @if(Auth::user()->roles->where('name', 'can_manage_system')->count() > 0)
+            <!-- Message option -->
+            <li><a href="{{ url('system') }}"><i class="fa fa-exclamation-triangle"></i> <span>Administrar sistema</span></a></li>
+            @endif
             @if(Auth::user()->roles->where('name', 'can_handle_admins')->count() > 0 || Auth::user()->roles->where('name', 'can_sync_users')->count() > 0)
             <!-- New Users -->
             <li class="treeview">
@@ -24,7 +28,7 @@
                 <li><a href="{{ url('register/admin') }}"><i class="fa fa-circle-o"></i> Administrador</a></li>
                 @endif
                 @if(Auth::user()->roles->where('name', 'can_sync_users')->count() > 0)
-                <li><a href="{{ url('register/socio') }}"><i class="fa fa-circle-o"></i> Socio</a></li>
+                <li><a href="{{ url('register/partner') }}"><i class="fa fa-circle-o"></i> Socio</a></li>
                 @endif
               </ul>
             </li>
@@ -42,7 +46,7 @@
                 @if(Auth::user()->roles->where('name', 'can_view_overdue')->count() > 0)
                 <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de morosos</a></li>
                 @endif
-                <li><a href="#"><i class="fa fa-circle-o"></i> Por local</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> Por ubicación</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i> Por socio</a></li>
               </ul>
             </li>

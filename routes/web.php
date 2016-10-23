@@ -26,10 +26,26 @@ Route::get('api', function () {
 
 // Auth required routes
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('home', 'HomeController@index');
+	Route::get('init', 'HomeController@init');
+	Route::post('init', 'HomeController@initsave');
 
-    Route::group(['prefix' => 'register'], function () {
-    	Route::get('socio', 'RegisterController@socio');
-    	Route::get('admin', 'RegisterController@admin');
+	Route::group(['middleware' => ['init']], function () {
+		Route::get('home', 'HomeController@index');
+		
+		Route::get('system', 'SystemController@index');
+		Route::group(['prefix' => 'system'], function () {
+	    	Route::post('addsector', 'SystemController@addsector');
+	    	Route::post('addtype', 'SystemController@addtype');
+	    	Route::post('addlocation', 'SystemController@addlocation');
+		});
+
+	    Route::group(['prefix' => 'register'], function () {
+	    	Route::get('partner', 'RegisterController@partner');
+	    	Route::post('partner', 'RegisterController@registerpartner');
+	    	Route::get('admin', 'RegisterController@admin');
+	    	Route::post('admin', 'RegisterController@registeradmin');
+		});
 	});
+    
 });
+

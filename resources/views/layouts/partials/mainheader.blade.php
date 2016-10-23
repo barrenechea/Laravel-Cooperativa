@@ -4,9 +4,11 @@
     <!-- Logo -->
     <a href="{{ url('/home') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini">Coop</span>
+        <!-- <span class="logo-mini">Coop</span> -->
+        <span class="logo-mini"><img src="{{ asset('/img/logo_small.png') }}" alt="Baby logo" /></span>
+        
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg">{{ Auth::user()->is_admin ? 'Panel de Admin.' : 'Panel de Socio' }}</span>
+        <span class="logo-lg"><img src="{{ asset('/img/logo_medium_white.png') }}" alt="Logo blanco" /></span>
     </a>
 
     <!-- Header Navbar -->
