@@ -58,7 +58,7 @@
 	</div><!-- /.row -->
 	
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-6">
 			<div class="box box-success">
             <div class="box-header with-border">
               <h3 class="box-title">Agregar sector</h3>
@@ -82,14 +82,10 @@
               </div>
               <!-- /.box-footer -->
             </form>
-          </div>
+      </div>
 		</div>
-    </div>
-
-
-    <div class="row">
-		<div class="col-md-12">
-			<div class="box box-danger">
+    <div class="col-md-6">
+      <div class="box box-danger">
             <div class="box-header with-border">
               <h3 class="box-title">Agregar tipo</h3>
             </div>
@@ -112,10 +108,9 @@
               </div>
               <!-- /.box-footer -->
             </form>
-          </div>
-		</div>
+      </div>
     </div>
-
+  </div>
 
     <div class="row">
 		<div class="col-md-12">
@@ -132,6 +127,7 @@
                   <label for="sector_id" class="col-sm-2 control-label">Sector</label>
                   <div class="col-sm-10">
                   	<select class="form-control select2" id="sector_id" name="sector_id" required>
+                      <option value="" disabled selected hidden>{{ $sectors->count() > 0 ? 'Seleccione un sector' : 'No hay sectores ingresados en el sistema' }}</option>
                     @foreach($sectors->toArray() as $sector)
                       <option value="{{$sector['id']}}">{{ $sector['name'] }}</option>
                     @endforeach
@@ -141,7 +137,8 @@
                 <div class="form-group">
                   <label for="sector_id" class="col-sm-2 control-label">Tipo</label>
                   <div class="col-sm-10">
-                  	<select class="form-control" id="type_id" name="type_id" required>
+                  	<select class="form-control select2" id="type_id" name="type_id" required>
+                      <option value="" disabled selected hidden>{{ $types->count() > 0 ? 'Seleccione un tipo' : 'No hay tipos ingresados en el sistema' }}</option>
                     @foreach($types->toArray() as $type)
                       <option value="{{$type['id']}}">{{ $type['name'] }}</option>
                     @endforeach

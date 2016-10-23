@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class File extends Model
+class Fileentry extends Model
 {
 	public $timestamps = false;
-	protected $table = 'files';
+	protected $table = 'fileentries';
 
     protected $fillable = [
-    	'message_id', 'url'
+    	'message_id', 'filename', 'mime', 'original_filename'
     ];
 
     public function message()

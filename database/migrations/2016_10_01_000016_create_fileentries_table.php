@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilesTable extends Migration
+class CreateFileentriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,12 @@ class CreateFilesTable extends Migration
     public function up()
     {
         Schema::enableForeignKeyConstraints();
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('fileentries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('message_id')->unsigned();
-            $table->string('url');
+            $table->string('filename');
+            $table->string('mime');
+            $table->string('original_filename');
 
             $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
         });
@@ -31,6 +33,6 @@ class CreateFilesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('fileentries');
     }
 }

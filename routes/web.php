@@ -31,12 +31,18 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::group(['middleware' => ['init']], function () {
 		Route::get('home', 'HomeController@index');
-		
+
 		Route::get('system', 'SystemController@index');
 		Route::group(['prefix' => 'system'], function () {
 	    	Route::post('addsector', 'SystemController@addsector');
 	    	Route::post('addtype', 'SystemController@addtype');
 	    	Route::post('addlocation', 'SystemController@addlocation');
+		});
+
+		Route::get('fileentry', 'FileEntryController@index');
+		Route::group(['prefix' => 'fileentry'], function () {
+			Route::get('get/{filename}', ['as' => 'getentry', 'uses' => 'FileEntryController@get']);
+			Route::post('add', ['as' => 'addentry', 'uses' => 'FileEntryController@add']);
 		});
 
 	    Route::group(['prefix' => 'register'], function () {

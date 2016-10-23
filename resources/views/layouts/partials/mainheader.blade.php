@@ -26,7 +26,7 @@
                     </li>
                 @else
                     <li>
-                        <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Salir</a>
+                        <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Salir [{{Auth::user()->name}}]</a>
                     </li>
                 @endif
             </ul>

@@ -9,7 +9,7 @@
     <div class="login-box">
         <div class="login-logo">
             <img src="{{ asset('/img/logobig.png') }}" alt="Logo" />
-        </div><!-- /.login-logo -->
+        </div>
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <strong>Ups!</strong> {{ trans('adminlte_lang::message.someproblems') }}<br><br>
@@ -27,27 +27,27 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if(!Auth::user()->is_admin)
         <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Dirección de residencia" name="address"/>
+            <input type="text" class="form-control" placeholder="Dirección de residencia" name="address" required />
             <span class="glyphicon glyphicon-home form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Teléfono de contacto" name="phone"/>
+            <input type="text" class="form-control" placeholder="Teléfono de contacto" name="phone" required />
             <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
         </div>
         @endif
         <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Nueva contraseña" name="password"/>
+            <input type="password" class="form-control" placeholder="Nueva contraseña" name="password" required />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Guardar</button>
-            </div><!-- /.col -->
+            </div>
         </div>
     </form>
-</div><!-- /.login-box-body -->
+</div>
 
-</div><!-- /.login-box -->
+</div>
 
     @include('layouts.partials.scripts_auth')
 

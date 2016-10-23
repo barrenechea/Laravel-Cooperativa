@@ -18,24 +18,30 @@
         <div class="col-md-12">
           <!-- general form elements -->
           <div class="box box-primary">
-            <!-- form start -->
-            <form role="form" action="{{ url('/register/admin') }}" method="post">
+            <form role="form" class="form-horizontal" action="{{ url('/register/admin') }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="username">Nombre de Usuario</label>
-                   <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese Nombre de usuario">
+                  <label for="username" class="col-sm-2 control-label">Nombre de Usuario</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese nombre de usuario" required>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="name">Nombre y apellido</label>
-                   <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese Nombre y apellido">
+                  <label for="name" class="col-sm-2 control-label">Nombre y apellido</label>
+                  <div class="col-sm-10">
+                   <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese nombre y apellido" required>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="username">Correo electrónico</label>
-                   <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese Correo electrónico">
+                  <label for="username" class="col-sm-2 control-label">Correo electrónico</label>
+                  <div class="col-sm-10">
+                   <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese correo electrónico" required>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="permissions">Roles</label>
+                  <label for="permissions" class="col-sm-2 control-label">Roles</label>
+                  <div class="col-sm-10">
                   @foreach($roles as $role)
                     <div class="checkbox">
                       <label>
@@ -44,13 +50,14 @@
                       </label>
                     </div>
                   @endforeach
+                  </div>
                 </div>
-                La contraseña será generada y enviada automáticamente por correo electrónico.
+                <p class="col-sm-12 help-block">La contraseña será generada y enviada automáticamente por correo electrónico.</p>
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Registrar</button>
+                <button type="submit" class="btn btn-primary pull-right">Registrar administrador</button>
               </div>
             </form>
           </div>

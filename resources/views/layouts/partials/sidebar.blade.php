@@ -57,7 +57,7 @@
             @endif
             @if(Auth::user()->roles->where('name', 'can_upload')->count() > 0)
             <!-- Message option -->
-            <li><a href="#"><i class="fa fa-upload"></i> <span>Subir archivo</span></a></li>
+            <li><a href="{{ url('fileentry') }}"><i class="fa fa-upload"></i> <span>Subir archivo</span></a></li>
             @endif
             @if(Auth::user()->roles->where('name', 'can_external_accounting')->count() > 0)
             <!-- Message option -->

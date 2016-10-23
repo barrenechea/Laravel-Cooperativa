@@ -1,15 +1,11 @@
 <?php
 
-/*
- * Taken from
- * https://github.com/laravel/framework/blob/5.2/src/Illuminate/Auth/Console/stubs/make/controllers/HomeController.stub
- */
-
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Message;
 use App\User;
 
 /**
@@ -25,11 +21,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $lastMsg = Message::latest()->where('has_file', false)->first();
+
         if(Auth::user()->is_admin)
         {
             //todo
         }
-        return view('home');
+        return view('home', ['msg' => $lastMsg]);
     }
 
     public function init()

@@ -19,26 +19,31 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <!-- form start -->
-            <form role="form">
+            <form role="form" class="form-horizontal">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
-                    <label>Identidad</label>
-                    <select class="form-control select2" id="run">
-                    @foreach($data as $user)
-                      <option value="{{$user['kod']}}">{{ $user['desc'] }}, RUN {{$user['kod']}}</option>
-                    @endforeach
-                    </select>
+                    <label for="run" class="col-sm-2 control-label">Identidad</label>
+                    <div class="col-sm-10">
+                      <select class="form-control select2" id="run" name="run" required>
+                      @foreach($data as $user)
+                        <option value="{{$user['kod']}}">{{ $user['desc'] }}, RUN {{$user['kod']}}</option>
+                      @endforeach
+                      </select>
+                    </div>
                   </div>
                 <div class="form-group">
-                  <label for="email">Correo electrónico</label>
-                  <input type="email" class="form-control" id="name" placeholder="Ingrese correo electrónico">
+                  <label for="email" class="col-sm-2 control-label">Correo electrónico</label>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" id="name" placeholder="Ingrese correo electrónico" required>
+                  </div>
                 </div>
-                El nombre de usuario del socio será su RUN (ej: 12345678-9).<br/>
-                La contraseña será generada y enviada automáticamente por correo electrónico.
+                <p class="col-sm-12 help-block">El nombre de usuario del socio será su RUN (ej: 12345678-9).</p>
+                <p class="col-sm-12 help-block">La contraseña será generada y enviada automáticamente por correo electrónico.</p>
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Registrar</button>
+                <button type="submit" class="btn btn-primary pull-right">Registrar socio</button>
               </div>
             </form>
           </div>

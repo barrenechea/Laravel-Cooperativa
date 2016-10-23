@@ -7,10 +7,8 @@
 
         <title>RESTful API</title>
 
-        <!-- Fonts -->
         <link href="//fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-        <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
