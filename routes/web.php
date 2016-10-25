@@ -32,11 +32,22 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::group(['middleware' => ['init']], function () {
 		Route::get('home', 'HomeController@index');
 
-		Route::get('system', 'SystemController@index');
 		Route::group(['prefix' => 'system'], function () {
+			Route::get('base', 'SystemController@base');
 	    	Route::post('addsector', 'SystemController@addsector');
 	    	Route::post('addtype', 'SystemController@addtype');
 	    	Route::post('addlocation', 'SystemController@addlocation');
+
+	    	Route::get('group', 'SystemController@group');
+	    	Route::post('addgroup', 'SystemController@addgroup');
+	    	Route::get('grouppct', 'SystemController@grouppct');
+	    	Route::post('addgrouppct', 'SystemController@addgrouppct');
+
+		});
+
+		Route::group(['prefix' => 'messages'], function () {
+			Route::get('add', 'MessageController@addindex');
+			Route::post('add', 'MessageController@add');
 		});
 
 		Route::get('fileentry', 'FileEntryController@index');

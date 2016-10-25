@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Message;
 use App\User;
 
+use Validator;
+
 /**
  * Class HomeController
  * @package App\Http\Controllers
@@ -40,7 +42,28 @@ class HomeController extends Controller
 
     public function initsave(Request $request)
     {
-        // ToDo validate form
+
+        if(Auth::user()->is_admin)
+        {
+            $validator = Validator::make($request->all(), [
+                'password' => 'required|min:6|max:255',
+            ]);
+        }
+        else
+        {
+            $validator = Validator::make($request->all(), [
+                'address' => 'required|max:255',
+                'phone' => 'required|max:255',
+                'password' => 'required|min:6|max:255',
+            ]);
+        }
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         Auth::user()->password = bcrypt($request->input('password'));
         // ToDo include Partner addition
         Auth::user()->initialized = true;

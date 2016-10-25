@@ -24,19 +24,19 @@
                 <div class="form-group">
                   <label for="username" class="col-sm-2 control-label">Nombre de Usuario</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese nombre de usuario" required>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese nombre de usuario" value="{{ old('username') }}" required>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="name" class="col-sm-2 control-label">Nombre y apellido</label>
                   <div class="col-sm-10">
-                   <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese nombre y apellido" required>
+                   <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese nombre y apellido" required value="{{ old('name') }}">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="username" class="col-sm-2 control-label">Correo electrónico</label>
                   <div class="col-sm-10">
-                   <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese correo electrónico" required>
+                   <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese correo electrónico" required value="{{ old('email') }}">
                   </div>
                 </div>
                 <div class="form-group">
@@ -45,7 +45,8 @@
                   @foreach($roles as $role)
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" id="roles[]" name="roles[]" value="{{ $role->id }}">
+                        <input type="checkbox" id="roles[]" name="roles[]" value="{{ $role->id }}"
+                        {{ (old('roles') && in_array($role->id, old('roles'))) ? 'checked' : '' }}>
                           {{ $role->description }}
                       </label>
                     </div>

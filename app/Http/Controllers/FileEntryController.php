@@ -11,6 +11,8 @@ use App\Http\Requests;
 use App\Fileentry;
 use App\Message;
 
+use Validator;
+
 class FileEntryController extends Controller
 {
     public function index()
@@ -20,6 +22,17 @@ class FileEntryController extends Controller
 
 	public function add(Request $request)
 	{
+		$validator = Validator::make($request->all(), [
+            'message' => 'required|max:255',
+            'filefield' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
 		$file = $request->file('filefield');
 		$extension = $file->getClientOriginalExtension();
 		Storage::disk('local')->put($file->getFilename().'.'.$extension, File::get($file));

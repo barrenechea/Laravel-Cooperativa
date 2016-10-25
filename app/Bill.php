@@ -24,6 +24,11 @@ class Bill extends Model
         return $this->belongsToMany('App\Sector');
     }
 
+    public function locations()
+    {
+        return $this->belongsToMany('App\Location');
+    }
+
     public function groups()
     {
         return $this->belongsToMany('App\Group');

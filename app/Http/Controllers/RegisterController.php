@@ -11,6 +11,7 @@ use App\Tabaux10;
 use App\Role;
 use App\Mail\Password;
 
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -50,6 +51,17 @@ class RegisterController extends Controller
 
     public function registeradmin(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|unique:users|max:255',
+            'name' => 'required|max:255',
+            'email' => 'required|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
         // Validar form
         $password = str_random(8);
         $user = new User($request->all());

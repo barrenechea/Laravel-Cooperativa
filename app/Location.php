@@ -42,4 +42,9 @@ class Location extends Model
     {
         return $this->belongsToMany('App\Group');
     }
+
+    public function bills()
+    {
+        return $this->belongsToMany('App\Bill');
+    }
 }

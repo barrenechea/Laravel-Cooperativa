@@ -10,9 +10,23 @@
 
             @if(Auth::user()->is_admin)
             <!-- Admin options -->
-            @if(Auth::user()->roles->where('name', 'can_manage_system')->count() > 0)
-            <!-- Message option -->
-            <li><a href="{{ url('system') }}"><i class="fa fa-exclamation-triangle"></i> <span>Administrar sistema</span></a></li>
+            @if(Auth::user()->roles->where('name', 'can_manage_sector_type_location')->count() > 0)
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-exclamation-triangle"></i>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i><span>Administrar sistema</span>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                @if(Auth::user()->roles->where('name', 'can_manage_sector_type_location')->count() > 0)
+                <li><a href="{{ url('system/base') }}"><i class="fa fa-circle-o"></i> Sector, tipo, ubicación</a></li>
+                @endif
+                @if(Auth::user()->roles->where('name', 'can_manage_groups')->count() > 0)
+                <li><a href="{{ url('system/group') }}"><i class="fa fa-circle-o"></i> Agregar grupos</a></li>
+                @endif
+              </ul>
+            </li>
             @endif
             @if(Auth::user()->roles->where('name', 'can_handle_admins')->count() > 0 || Auth::user()->roles->where('name', 'can_sync_users')->count() > 0)
             <!-- New Users -->
@@ -53,7 +67,7 @@
             @endif
             @if(Auth::user()->roles->where('name', 'can_send_messages')->count() > 0)
             <!-- Message option -->
-            <li><a href="#"><i class="fa fa-envelope"></i> <span>Nuevo mensaje</span></a></li>
+            <li><a href="{{ url('messages/add') }}"><i class="fa fa-envelope"></i> <span>Nuevo mensaje</span></a></li>
             @endif
             @if(Auth::user()->roles->where('name', 'can_upload')->count() > 0)
             <!-- Message option -->

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-	Administrar sistema
+	Administrar Sectores, Tipos y Ubicaciones
 @endsection
 
 @section('contentheader_title')
-  Administrar sistema
+  Administrar Sectores, Tipos y Ubicaciones
 @endsection
 
 @section('main-content')
