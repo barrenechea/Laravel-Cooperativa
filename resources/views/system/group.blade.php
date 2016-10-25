@@ -21,7 +21,7 @@
             <div class="icon">
               <i class="fa fa-building"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{ url('/list/group') }}" class="small-box-footer">
               Ver listado <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>

@@ -21,7 +21,7 @@
             <div class="icon">
               <i class="fa fa-building"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{ url('/list/sector') }}" class="small-box-footer">
               Ver listado <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -36,7 +36,7 @@
             <div class="icon">
               <i class="fa fa-filter"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{ url('/list/type') }}" class="small-box-footer">
               Ver listado <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -50,7 +50,7 @@
             <div class="icon">
               <i class="fa fa-shopping-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{ url('/list/location') }}" class="small-box-footer">
               Ver listado <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>

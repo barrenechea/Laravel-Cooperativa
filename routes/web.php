@@ -32,6 +32,13 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::group(['middleware' => ['init']], function () {
 		Route::get('home', 'HomeController@index');
 
+		Route::group(['prefix' => 'register'], function () {
+	    	Route::get('partner', 'RegisterController@partner');
+	    	Route::post('partner', 'RegisterController@registerpartner');
+	    	Route::get('admin', 'RegisterController@admin');
+	    	Route::post('admin', 'RegisterController@registeradmin');
+		});
+
 		Route::group(['prefix' => 'system'], function () {
 			Route::get('base', 'SystemController@base');
 	    	Route::post('addsector', 'SystemController@addsector');
@@ -42,7 +49,6 @@ Route::group(['middleware' => ['auth']], function () {
 	    	Route::post('addgroup', 'SystemController@addgroup');
 	    	Route::get('grouppct', 'SystemController@grouppct');
 	    	Route::post('addgrouppct', 'SystemController@addgrouppct');
-
 		});
 
 		Route::group(['prefix' => 'messages'], function () {
@@ -56,12 +62,14 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::post('add', ['as' => 'addentry', 'uses' => 'FileEntryController@add']);
 		});
 
-	    Route::group(['prefix' => 'register'], function () {
-	    	Route::get('partner', 'RegisterController@partner');
-	    	Route::post('partner', 'RegisterController@registerpartner');
-	    	Route::get('admin', 'RegisterController@admin');
-	    	Route::post('admin', 'RegisterController@registeradmin');
+		Route::group(['prefix' => 'list'], function () {
+			Route::get('sector', 'ListController@listsector');
+	    	Route::get('type', 'ListController@listtype');
+	    	Route::get('location', 'ListController@listlocation');
+	    	Route::get('group', 'ListController@listgroup');
+	    	Route::get('admin', 'ListController@listadmin');
 		});
+	    
 	});
     
 });

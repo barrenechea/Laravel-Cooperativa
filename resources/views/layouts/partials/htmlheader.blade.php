@@ -9,6 +9,7 @@
     <!-- Ionicons -->
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/plugins/datatables/jquery.dataTables_themeroller.css') }}">
     <!-- Theme style -->
     <link href="{{ asset('/css/AdminLTE.css') }}" rel="stylesheet" type="text/css" />
     

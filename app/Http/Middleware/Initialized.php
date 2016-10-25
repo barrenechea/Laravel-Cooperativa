@@ -17,6 +17,7 @@ class Initialized
      */
     public function handle($request, Closure $next)
     {
+        //dd($request);
         if(!Auth::user()->initialized)
             return redirect('/init');
         
