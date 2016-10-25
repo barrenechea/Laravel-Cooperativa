@@ -100,7 +100,7 @@ class SystemController extends Controller
 
         $locations = Location::whereIn('id', Session::get('locations'))->get();
 
-        return view('system\grouppct', ['locations' => $locations]);
+        return view('system.grouppct', ['locations' => $locations]);
     }
 
     public function addgrouppct(Request $request)

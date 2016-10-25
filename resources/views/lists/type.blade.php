@@ -23,7 +23,7 @@
                 <tr>
                   <td>{{ $type->name }}</td>
                   <td>{{ $type->locations()->count() }}</td>
-                  <td>{{ $type->id }}</td>
+                  <td><a href="#" class="btn btn-block btn-primary btn-xs">Ver detalle</a></td>
                 </tr>
                 @endforeach
               </table>

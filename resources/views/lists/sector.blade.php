@@ -23,7 +23,7 @@
                 <tr>
                   <td>{{ $sector->name }}</td>
                   <td>{{ $sector->locations()->count() }}</td>
-                  <td>{{ $sector->id }}</td>
+                  <td><a href="#" class="btn btn-block btn-primary btn-xs">Ver detalle</a></td>
                 </tr>
                 @endforeach
               </table>

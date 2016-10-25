@@ -15,6 +15,7 @@
                 <tr>
                   <th>Descripción</th>
                   <th>Ubicaciones asociadas</th>
+                  <th>Basado en porcentajes</th>
                   <th>Accion</th>
                 </tr>
                 </thead>
@@ -23,7 +24,8 @@
                 <tr>
                   <td>{{ $group->description }}</td>
                   <td>{{ $group->locations()->count() }}</td>
-                  <td>{{ $group->id }}</td>
+                  <td>{{ $group->percentages()->count() > 0 ? 'Si' : 'No' }}</td>
+                  <td><a href="#" class="btn btn-block btn-primary btn-xs">Ver detalle</a></td>
                 </tr>
                 @endforeach
               </table>

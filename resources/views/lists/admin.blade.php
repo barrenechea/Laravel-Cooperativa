@@ -31,8 +31,7 @@
                   @else
                   <td><span class="label label-danger">Desactivada</span></td>
                   @endif
-                  
-                  <td>{{ $admin->id }}</td>
+                  <td><a href="#" class="btn btn-block btn-primary btn-xs">Modificar roles</a></td>
                 </tr>
                 @endforeach
               </table>
