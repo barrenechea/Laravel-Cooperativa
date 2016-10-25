@@ -21,7 +21,7 @@ class SystemController extends Controller
     	$sectors = Sector::all();
     	$types = Type::all();
     	$locations = Location::all()->count();
-        return view('system\base', ['sectors' => $sectors, 'types' => $types, 'locations' => $locations]);
+        return view('system.base', ['sectors' => $sectors, 'types' => $types, 'locations' => $locations]);
     }
 
     public function addsector(Request $request)
@@ -55,7 +55,7 @@ class SystemController extends Controller
     {
         $groups = Group::all()->count();
         $locations = Location::all();
-        return view('system\group', ['groups' => $groups, 'locations' => $locations]);
+        return view('system.group', ['groups' => $groups, 'locations' => $locations]);
     }
 
     public function addgroup(Request $request)
