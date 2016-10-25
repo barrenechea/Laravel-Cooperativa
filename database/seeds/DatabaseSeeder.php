@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => bcrypt('admin'),
             'email' => 'sebastian@barrenechea.cl',
-            'is_admin' = 1,
-            'initialized' = 0,
+            'is_admin' => 1,
+            'initialized' => 0,
         ]);
 
         DB::table('roles')->insert([
