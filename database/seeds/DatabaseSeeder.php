@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
-use App\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,60 +11,103 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-    	$user = new User();
-    	$user->name = 'Sebastián Barrenechea';
-    	$user->username = 'admin';
-    	$user->password = bcrypt('admin');
-    	$user->email = 'sebastian@barrenechea.cl';
-    	$user->is_admin = true;
-    	$user->initialized = false;
-    	$user->save();
+    	DB::table('users')->insert([
+            'name' => 'Sebastián Barrenechea',
+            'username' => 'admin',
+            'password' => bcrypt('admin'),
+            'email' => 'sebastian@barrenechea.cl',
+            'is_admin' = 1,
+            'initialized' = 0,
+        ]);
 
-    	$role = new Role();
-    	$role->name = 'can_handle_admins';
-    	$role->description = 'Agregar, modificar y deshabilitar cuentas de Administrador';
-    	$role->save();
+        DB::table('roles')->insert([
+            'name' => 'can_handle_admins',
+            'description' => 'Agregar, modificar y deshabilitar cuentas de Administrador',
+        ]);
 
-    	$role = new Role();
-    	$role->name = 'can_manage_sector_type_location';
-    	$role->description = 'Administrar sectores, tipos y lugares';
-    	$role->save();
+        DB::table('roles')->insert([
+            'name' => 'can_manage_sector_type_location',
+            'description' => 'Administrar sectores, tipos y lugares',
+        ]);
 
-    	$role = new Role();
-    	$role->name = 'can_manage_groups';
-    	$role->description = 'Administrar grupos de socios';
-    	$role->save();
+        DB::table('roles')->insert([
+            'name' => 'can_manage_groups',
+            'description' => 'Administrar grupos de socios',
+        ]);
 
-    	$role = new Role();
-    	$role->name = 'can_sync_users';
-    	$role->description = 'Sincronizar socios y asociarlos a locales';
-    	$role->save();
+        DB::table('roles')->insert([
+            'name' => 'can_sync_users',
+            'description' => 'Sincronizar socios y asociarlos a locales',
+        ]);
 
-    	$role = new Role();
-    	$role->name = 'can_view_data';
-    	$role->description = 'Ver datos de locales y socios';
-    	$role->save();
+        DB::table('roles')->insert([
+            'name' => 'can_view_data',
+            'description' => 'Ver datos de locales y socios',
+        ]);
 
-    	$role = new Role();
-    	$role->name = 'can_view_overdue';
-    	$role->description = 'Ver reportes de socios morosos';
-    	$role->save();
+        DB::table('roles')->insert([
+            'name' => 'can_view_overdue',
+            'description' => 'Ver reportes de socios morosos',
+        ]);
 
-    	$role = new Role();
-    	$role->name = 'can_send_messages';
-    	$role->description = 'Enviar mensajes globales';
-    	$role->save();
+        DB::table('roles')->insert([
+            'name' => 'can_send_messages',
+            'description' => 'Enviar mensajes globales',
+        ]);
 
-    	$role = new Role();
-    	$role->name = 'can_upload';
-    	$role->description = 'Subir documentos';
-    	$role->save();
+        DB::table('roles')->insert([
+            'name' => 'can_upload',
+            'description' => 'Subir documentos',
+        ]);
 
-    	$role = new Role();
-    	$role->name = 'can_external_accounting';
-    	$role->description = 'Contabilidad externa';
-    	$role->save();
+        DB::table('roles')->insert([
+            'name' => 'can_external_accounting',
+            'description' => 'Contabilidad externa',
+        ]);
 
-    	$user->roles()->sync([1,2,3,4,5,6,7,8,9]);
+        DB::table('role_user')->insert([
+            'role_id' => 1,
+            'user_id' => 1,
+        ]);
+
+        DB::table('role_user')->insert([
+            'role_id' => 2,
+            'user_id' => 1,
+        ]);
+
+        DB::table('role_user')->insert([
+            'role_id' => 3,
+            'user_id' => 1,
+        ]);
+
+        DB::table('role_user')->insert([
+            'role_id' => 4,
+            'user_id' => 1,
+        ]);
+
+        DB::table('role_user')->insert([
+            'role_id' => 5,
+            'user_id' => 1,
+        ]);
+
+        DB::table('role_user')->insert([
+            'role_id' => 6,
+            'user_id' => 1,
+        ]);
+
+        DB::table('role_user')->insert([
+            'role_id' => 7,
+            'user_id' => 1,
+        ]);
+
+        DB::table('role_user')->insert([
+            'role_id' => 8,
+            'user_id' => 1,
+        ]);
+
+        DB::table('role_user')->insert([
+            'role_id' => 9,
+            'user_id' => 1,
+        ]);
     }
 }
