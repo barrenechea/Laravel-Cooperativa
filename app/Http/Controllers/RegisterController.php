@@ -53,7 +53,7 @@ class RegisterController extends Controller
         $partner->phone = ' ';
         $partner->save();
 
-        $when = \Carbon\Carbon::now()->addMinutes(2);
+        $when = Carbon::now()->addMinutes(2);
 
         Mail::to($user)->later($when, new Password($user, $password, true));
 
