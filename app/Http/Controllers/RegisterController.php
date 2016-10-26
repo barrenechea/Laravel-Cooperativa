@@ -53,7 +53,9 @@ class RegisterController extends Controller
         $partner->phone = ' ';
         $partner->save();
 
-        Mail::to($user)->queue(new Password($user, $password, true));
+        $when = Carbon\Carbon::now()->addMinutes(2);
+
+        Mail::to($user)->later($when, new Password($user, $password, true));
 
         Session::flash('success', 'La cuenta ha sido ingresada exitosamente!');
 
