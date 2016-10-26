@@ -10,19 +10,13 @@
 <script src="{{ asset('/plugins/select2/select2.full.min.js') }}"></script>
 
 <script src="{{ asset('/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('/plugins/datatables/datatables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
 	    $(".select2").select2();
+	    $('.table').DataTable();
     });
-</script>
-
-<!-- datatables script -->
-<script>
-  $(function () {
-    $('.table').DataTable();
-  });
 </script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
