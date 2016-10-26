@@ -53,9 +53,7 @@ class RegisterController extends Controller
         $partner->phone = ' ';
         $partner->save();
 
-        $when = \Carbon\Carbon::now()->addMinutes(2);
-
-        Mail::to($user)->later($when, new Password($user, $password, true));
+        Mail::to($user)->send(new Password($user, $password, true));
 
         Session::flash('success', 'La cuenta ha sido ingresada exitosamente!');
 
@@ -94,7 +92,8 @@ class RegisterController extends Controller
         if($request->input('roles'))
             $user->roles()->sync($request->input('roles'));
 
-        Mail::to($user)->queue(new Password($user, $password, true));
+        Mail::to($user)->send(new Password($user, $password, true));
+        
         Session::flash('success', 'La cuenta ha sido ingresada exitosamente y se ha enviado un mail al nuevo administrador!');
 
         return redirect('/register/admin');
