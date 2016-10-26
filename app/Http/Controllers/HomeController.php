@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Message;
 use App\User;
+use App\Partner;
 
 use Validator;
 
@@ -46,12 +47,14 @@ class HomeController extends Controller
         if(Auth::user()->is_admin)
         {
             $validator = Validator::make($request->all(), [
+                'name' => 'required|max:255',
                 'password' => 'required|min:6|max:255',
             ]);
         }
         else
         {
             $validator = Validator::make($request->all(), [
+                'name' => 'required|max:255',
                 'address' => 'required|max:255',
                 'phone' => 'required|max:255',
                 'password' => 'required|min:6|max:255',
@@ -64,10 +67,17 @@ class HomeController extends Controller
                         ->withInput();
         }
 
+        Auth::user()->name = $request->input('name');
         Auth::user()->password = bcrypt($request->input('password'));
         // ToDo include Partner addition
         Auth::user()->initialized = true;
         Auth::user()->save();
+        if(!Auth::user()->is_admin)
+        {
+            $partner = Partner::where('user_id', Auth::user()->id)->firstOrFail();
+            $partner->address = $request->input('address');
+            $partner->phone = $request->input('phone');
+        }
 
         return redirect('/home');
     }

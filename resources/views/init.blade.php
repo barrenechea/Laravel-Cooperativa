@@ -25,13 +25,17 @@
     <p class="login-box-msg"> Llene los siguientes datos antes de poder acceder a su cuenta </p>
     <form action="{{ url('/init') }}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <div class="form-group has-feedback">
+            <input type="text" class="form-control" placeholder="Nombre y apellido" name="name" value="{{ old('name') ? old('name') : Auth::user()->name }}" required />
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
         @if(!Auth::user()->is_admin)
         <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Dirección de residencia" name="address" required />
+            <input type="text" class="form-control" placeholder="Dirección de residencia" name="address" value="{{ old('address') }}" required />
             <span class="glyphicon glyphicon-home form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Teléfono de contacto" name="phone" required />
+            <input type="text" class="form-control" placeholder="Teléfono de contacto" name="phone" value="{{ old('phone') }}" required />
             <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
         </div>
         @endif

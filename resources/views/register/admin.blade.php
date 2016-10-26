@@ -22,7 +22,7 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="username" class="col-sm-2 control-label">Nombre de Usuario</label>
+                  <label for="username" class="col-sm-2 control-label">Nombre de usuario</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese nombre de usuario" value="{{ old('username') }}" required>
                   </div>

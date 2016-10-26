@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
-use App\Tabaux10;
+use App\Partner;
 use App\Role;
-use App\Mail\Password;
+use App\Tabaux10;
 
+use App\Mail\Password;
 use Validator;
 
 class RegisterController extends Controller
@@ -26,20 +27,37 @@ class RegisterController extends Controller
 
     public function registerpartner(Request $request)
     {
-        // Validar form
+        $validator = Validator::make($request->all(), [
+            'run' => 'required|max:255',
+            'email' => 'required|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $tabaux10 = Tabaux10::where('kod', $request->input('run'))->firstOrFail();
+        
         $password = str_random(8);
         $user = new User($request->all());
-        $user->is_admin = false;
+        $user->name = $tabaux10->desc;
+        $user->username = $tabaux10->kod;
         $user->password = bcrypt($password);
         $user->save();
 
-        $user->roles()->sync($request->input('roles'));
+        $partner = new Partner();
+        $partner->user_id = $user->id;
+        $partner->address = ' ';
+        $partner->phone = ' ';
+        $partner->save();
 
         Mail::to($user)->queue(new Password($user, $password, true));
 
-        \Session::flash('success', 'La cuenta ha sido ingresada exitosamente!');
+        Session::flash('success', 'La cuenta ha sido ingresada exitosamente!');
 
-        return redirect('/register/partner');
+        return redirect()->back();
     }
 
     public function admin()
