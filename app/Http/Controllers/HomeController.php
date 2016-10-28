@@ -8,6 +8,10 @@ use App\Http\Requests;
 use App\Message;
 use App\User;
 use App\Partner;
+use App\Group;
+use App\Sector;
+use App\Type;
+Use App\Location;
 
 use Validator;
 
@@ -24,13 +28,19 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $sectors = Sector::all()->count();
+        $types = Type::all()->count();
+        $locations = Location::all()->count();
+        $groups = Group::all()->count();
         $lastMsg = Message::latest()->where('has_file', false)->first();
+        $admins = User::where('is_admin', true)->count();
+        $partners = Partner::all()->count();
 
         if(Auth::user()->is_admin)
         {
             //todo
         }
-        return view('home', ['msg' => $lastMsg]);
+        return view('home', ['msg' => $lastMsg, 'groups' => $groups, 'sectors' => $sectors, 'types' => $types, 'locations' => $locations, 'admins' => $admins, 'partners' => $partners]);
     }
 
     public function init()

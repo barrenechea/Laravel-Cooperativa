@@ -13,7 +13,7 @@ class Message extends Model
     	'user_id', 'message', 'has_file'
     ];
 
-    public function file()
+    public function fileentry()
     {
         return $this->hasOne('App\Fileentry');
     }

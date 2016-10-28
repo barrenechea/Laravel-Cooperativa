@@ -11,6 +11,7 @@ use App\Location;
 use App\Group;
 use App\Percentage;
 use App\User;
+use App\Partner;
 
 class ListController extends Controller
 {
@@ -40,7 +41,13 @@ class ListController extends Controller
 
     public function listadmin()
     {
-    	$admin = User::where('is_admin', true)->get();
-        return view('lists.admin', ['admins' => $admin]);
+        $admins = User::where('is_admin', true)->get();
+        return view('lists.admin', ['admins' => $admins]);
+    }
+
+    public function listpartner()
+    {
+        $partner = Partner::all();
+        return view('lists.partner', ['partners' => $partner]);
     }
 }

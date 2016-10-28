@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="box box-primary">
-            <form role="form" class="form-horizontal" action="{{ url('/fileentry/add') }}" method="post" enctype="multipart/form-data">
+            <form id="form" role="form" class="form-horizontal" action="{{ url('/fileentry/add') }}" method="post" enctype="multipart/form-data">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
                 <div class="form-group">
@@ -31,10 +31,28 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary pull-right">Agregar sector</button>
+                <input type="button" value="Subir archivo" data-toggle="modal" data-target="#modal" class="btn btn-primary pull-right" />
               </div>
               <!-- /.box-footer -->
             </form>
+            <div class="modal fade modal-warning" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>¿Está seguro que desea subir el archivo?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">No</button>
+                    <button type="button" id="submit" class="btn btn-outline">Si, subir archivo</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 		</div>
   </div>

@@ -47,24 +47,6 @@
               </ul>
             </li>
             @endif
-            @if(Auth::user()->roles->where('name', 'can_view_data')->count() > 0)
-            <!-- View options -->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-search"></i>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i><span>Ver datos</span>
-                </span>
-              </a>
-              <ul class="treeview-menu" style="display: none;">
-                @if(Auth::user()->roles->where('name', 'can_view_overdue')->count() > 0)
-                <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de morosos</a></li>
-                @endif
-                <li><a href="#"><i class="fa fa-circle-o"></i> Por ubicación</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Por socio</a></li>
-              </ul>
-            </li>
-            @endif
             @if(Auth::user()->roles->where('name', 'can_send_messages')->count() > 0)
             <!-- Message option -->
             <li><a href="{{ url('messages/add') }}"><i class="fa fa-envelope"></i> <span>Nuevo mensaje</span></a></li>
@@ -78,6 +60,22 @@
             <li><a href="#"><i class="fa fa-money"></i> <span>Contabilidad externa</span></a></li>
             @endif
             @endif
+            <!-- View options -->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-eye"></i>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i><span>Ver</span>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                @if(Auth::user()->roles->where('name', 'can_view_overdue')->count() > 0)
+                <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de morosos</a></li>
+                @endif
+                <li><a href="{{ url('view/messages') }}"><i class="fa fa-circle-o"></i> Mensajes</a></li>
+                <li><a href="{{ url('view/files') }}"><i class="fa fa-circle-o"></i> Archivos</a></li>
+              </ul>
+            </li>
         </ul><!-- /.sidebar-menu -->
 
     </section>

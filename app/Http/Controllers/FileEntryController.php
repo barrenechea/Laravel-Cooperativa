@@ -56,9 +56,9 @@ class FileEntryController extends Controller
 		
 	}
 
-	public function get($filename)
+	public function get($id)
 	{
-		$entry = Fileentry::where('filename', $filename)->firstOrFail();
+		$entry = Fileentry::where('id', $id)->firstOrFail();
 		$pathToFile = storage_path().'/app/'.$entry->filename;
 		
 		return response()->download($pathToFile, $entry->original_filename, ['Content-Type' => $entry->mime]);

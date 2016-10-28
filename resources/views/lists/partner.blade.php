@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('htmlheader_title', 'Listado de Administradores')
+@section('htmlheader_title', 'Listado de Socios')
 
-@section('contentheader_title', 'Listado de Administadores')
+@section('contentheader_title', 'Listado de Socios')
 
 @section('main-content')
 <div class="row">
@@ -14,23 +14,17 @@
                 <thead>
                 <tr>
                   <th>Nombre y apellido</th>
-                  <th>Usuario</th>
                   <th>Email</th>
-                  <th>Estado</th>
+                  <th>Locales asociados</th>
                   <th>Accion</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($admins as $admin)
+                @foreach($partners as $partner)
                 <tr>
-                  <td>{{ $admin->name }}</td>
-                  <td>{{ $admin->username }}</td>
-                  <td>{{ $admin->email }}</td>
-                  @if($admin->roles()->count() > 0)
-                  <td><span class="label label-success">Activada</span></td>
-                  @else
-                  <td><span class="label label-danger">Desactivada</span></td>
-                  @endif
+                  <td>{{ $partner->user->name }}</td>
+                  <td>{{ $partner->user->email }}</td>
+                  <td>{{ $partner->locations()->count() }}</td>
                   <td><a href="#" class="btn btn-block btn-primary btn-xs">Modificar</a></td>
                 </tr>
                 @endforeach

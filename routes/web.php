@@ -58,7 +58,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::get('fileentry', 'FileEntryController@index');
 		Route::group(['prefix' => 'fileentry'], function () {
-			Route::get('get/{filename}', ['as' => 'getentry', 'uses' => 'FileEntryController@get']);
+			Route::get('get/{id}', ['as' => 'getentry', 'uses' => 'FileEntryController@get']);
 			Route::post('add', ['as' => 'addentry', 'uses' => 'FileEntryController@add']);
 		});
 
@@ -68,6 +68,12 @@ Route::group(['middleware' => ['auth']], function () {
 	    	Route::get('location', 'ListController@listlocation');
 	    	Route::get('group', 'ListController@listgroup');
 	    	Route::get('admin', 'ListController@listadmin');
+	    	Route::get('partner', 'ListController@listpartner');
+		});
+
+		Route::group(['prefix' => 'view'], function () {
+			Route::get('messages', 'ViewController@messages');
+	    	Route::get('files', 'ViewController@files');
 		});
 	    
 	});
