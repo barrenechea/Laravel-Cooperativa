@@ -26,11 +26,11 @@
     <form action="{{ url('/login') }}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="{{ trans('adminlte_lang::message.username') }}" name="username"/>
+            <input type="text" class="form-control" placeholder="{{ trans('adminlte_lang::message.username') }}" name="username" required />
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="{{ trans('adminlte_lang::message.password') }}" name="password"/>
+            <input type="password" class="form-control" placeholder="{{ trans('adminlte_lang::message.password') }}" name="password" required />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">

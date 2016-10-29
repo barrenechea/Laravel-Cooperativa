@@ -93,7 +93,7 @@
             <div class="inner">
               <h3>{{ $partners }}</h3>
 
-              <p>Socio{{$partners == 1 ? '' : 'es'}}</p>
+              <p>Socio{{$partners == 1 ? '' : 's'}}</p>
             </div>
             <div class="icon">
               <i class="fa fa-user"></i>
