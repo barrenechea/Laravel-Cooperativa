@@ -11,7 +11,7 @@
 @section('main-content')
 	<div class="row">
 		<div class="col-md-6">
-			<div class="box box-success">
+			<div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Agregar sector</h3>
             </div>
@@ -27,17 +27,24 @@
                     <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese descripción (Ejemplo: Alameda Santiago)" required>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="code" class="col-sm-2 control-label">Código</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="code" name="code" placeholder="Ingrese código (Ejemplo: AS)" required>
+                  </div>
+                </div>
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-success pull-right">Agregar sector</button>
+                <button type="submit" class="btn btn-primary pull-right">Agregar sector</button>
               </div>
               <!-- /.box-footer -->
             </form>
       </div>
 		</div>
     <div class="col-md-6">
-      <div class="box box-danger">
+      <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Agregar tipo</h3>
             </div>
@@ -56,7 +63,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-danger pull-right">Agregar tipo</button>
+                <button type="submit" class="btn btn-primary pull-right">Agregar tipo</button>
               </div>
               <!-- /.box-footer -->
             </form>
@@ -66,7 +73,7 @@
 
     <div class="row">
 		<div class="col-md-12">
-			<div class="box box-info">
+			<div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Agregar ubicación</h3>
             </div>
@@ -106,7 +113,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-info pull-right">Agregar ubicación</button>
+                <button type="submit" class="btn btn-primary pull-right">Agregar ubicación</button>
               </div>
               <!-- /.box-footer -->
             </form>

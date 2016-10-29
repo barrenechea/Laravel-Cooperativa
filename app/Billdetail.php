@@ -8,8 +8,10 @@ class Billdetail extends Model
 {
 	protected $table = 'billdetails';
 
+    protected $dates = ['overdue_date'];
+
     protected $fillable = [
-    	'bill_id', 'location_id', 'amount'
+    	'bill_id', 'location_id', 'amount', 'overdue_date', 'overdue_amount'
     ];
 
     public function payments()

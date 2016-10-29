@@ -14,6 +14,7 @@
                 <thead>
                 <tr>
                   <th>Nombre</th>
+                  <th>Código</th>
                   <th>Ubicaciones asociadas</th>
                   <th>Accion</th>
                 </tr>
@@ -22,6 +23,7 @@
                 @foreach($sectors as $sector)
                 <tr>
                   <td>{{ $sector->name }}</td>
+                  <td>{{ $sector->code }}</td>
                   <td>{{ $sector->locations()->count() }}</td>
                   <td><a href="#" class="btn btn-block btn-primary btn-xs">Ver detalle</a></td>
                 </tr>

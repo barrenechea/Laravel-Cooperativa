@@ -10,7 +10,7 @@ class Sector extends Model
 	protected $table = 'sectors';
 
     protected $fillable = [
-    	'name',
+    	'name', 'code'
     ];
 
     public function locations()

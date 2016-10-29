@@ -125,13 +125,13 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Testing canvas graph</h3>
+              <h3 class="box-title">Consolidado de Egresos Cooperativa</h3>
             </div>
             <div class="box-body">
               <div class="row">
                 <div class="col-md-12">
                   <div class="chart">
-                    <canvas id="salesChart" width="1200" height="150"></canvas>
+                    <canvas id="salesChart" width="900" height="150"></canvas>
                   </div>
                 </div>
               </div>
@@ -139,44 +139,70 @@
           </div>
         </div>
       </div>
-	<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script src="plugins/chartjs/Chart.min.js"></script>
+  <script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+  <script src="{{ asset('/plugins/chartjs/Chart.min.js') }}"></script>
 	<script>
-		$(function () {
-        var config = {
-            type: 'line',
-            data: {
-                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
-                datasets: [{
-		          label: "Egresos Cooperativa",
-		          data: [28, 48, 40, 19, 86, 27, 90],
-                  borderColor: "rgba(60,141,188,0.8)",
-		          backgroundColor: "rgba(60,141,188,0.9)",
-        		}]
-            },
-            options: {
-                responsive: false,
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        ticks: {
-                            userCallback: function(dataLabel, index) {
-                                return index % 2 === 0 ? dataLabel : '';
-                            }
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        beginAtZero: false
-                    }]
-                }
-            }
-        };
+$(function () {
+  'use strict';
+  var salesChart = new Chart($("#salesChart").get(0).getContext("2d"));
 
-        window.onload = function() {
-            var ctx = document.getElementById("salesChart").getContext("2d");
-            window.myLine = new Chart(ctx, config);
-        };
-  });
+  var salesChartData = {
+    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+    datasets: [
+      {
+        label: "Gastos",
+        fillColor: "rgba(60,141,188,0.9)",
+        strokeColor: "rgba(60,141,188,0.8)",
+        pointColor: "#3b8bba",
+        pointStrokeColor: "rgba(60,141,188,1)",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(60,141,188,1)",
+        data: [28, 48, 40, 19, 86, 27]
+      }
+    ]
+  };
+
+  var salesChartOptions = {
+    //Boolean - If we should show the scale at all
+    showScale: true,
+    //Boolean - Whether grid lines are shown across the chart
+    scaleShowGridLines: true,
+    //String - Colour of the grid lines
+    scaleGridLineColor: "rgba(0,0,0,.05)",
+    //Number - Width of the grid lines
+    scaleGridLineWidth: 1,
+    //Boolean - Whether to show horizontal lines (except X axis)
+    scaleShowHorizontalLines: true,
+    //Boolean - Whether to show vertical lines (except Y axis)
+    scaleShowVerticalLines: true,
+    //Boolean - Whether the line is curved between points
+    bezierCurve: true,
+    //Number - Tension of the bezier curve between points
+    bezierCurveTension: 0.3,
+    //Boolean - Whether to show a dot for each point
+    pointDot: true,
+    //Number - Radius of each point dot in pixels
+    pointDotRadius: 2,
+    //Number - Pixel width of point dot stroke
+    pointDotStrokeWidth: 1,
+    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+    pointHitDetectionRadius: 20,
+    //Boolean - Whether to show a stroke for datasets
+    datasetStroke: true,
+    //Number - Pixel width of dataset stroke
+    datasetStrokeWidth: 2,
+    //Boolean - Whether to fill the dataset with a color
+    datasetFill: true,
+    //String - A legend template
+    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%=datasets[i].label%></li><%}%></ul>",
+    //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+    maintainAspectRatio: false,
+    //Boolean - whether to make the chart responsive to window resizing
+    responsive: true,
+  };
+
+  //Create the line chart
+  salesChart.Line(salesChartData, salesChartOptions);
+});
 	</script>
 @endsection

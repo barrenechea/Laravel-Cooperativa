@@ -7,11 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Bill extends Model
 {
 	protected $table = 'bills';
-    protected $casts = [ 'is_uf' => 'boolean', 'active' => 'boolean' ];
+    protected $casts = [ 'is_uf' => 'boolean', 'active' => 'boolean', 'overdue_is_uf' => 'boolean' ];
     protected $dates = ['end_bill'];
 
     protected $fillable = [
-    	'payment_day', 'amount', 'is_uf', 'description', 'vfptable', 'vfpcode', 'active', 'end_bill'
+    	'payment_day',
+        'amount',
+        'is_uf',
+        'description',
+        'vfpcode',
+        'active',
+        'end_bill',
+        'overdue_day',
+        'overdue_amount',
+        'overdue_is_uf'
     ];
 
     public function billdetails()

@@ -19,6 +19,8 @@ class CreateBillDetailsTable extends Migration
             $table->integer('bill_id')->unsigned();
             $table->integer('location_id')->unsigned();
             $table->integer('amount');
+            $table->date('overdue_date')->nullable();
+            $table->integer('overdue_amount')->nullable();
             $table->timestamps();
 
             $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade');
