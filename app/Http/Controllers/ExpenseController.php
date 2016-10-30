@@ -12,18 +12,30 @@ class ExpenseController extends Controller
 {
     public function index()
 	{
-		$cuentas = MaeCue::distinct('codigo')->orderBy('codigo')->get();
-		$activas = Expense::pluck('vfpcode')->toArray();
-		return view('expenses.index', ['cuentas' => $cuentas, 'activas' => $activas]);
+		$maecue = MaeCue::distinct('codigo')->orderBy('codigo')->get();
+		$actives = Expense::pluck('vfpcode')->toArray();
+		return view('expenses.index', ['cuentas' => $maecue, 'activas' => $actives]);
 	}
 
 	public function save(Request $request)
 	{
-		Expense::getQuery()->delete();
+		$actives = Expense::pluck('vfpcode')->toArray();
+
+		// Add new codes
 		foreach ($request->input('vfpcode') as $code) {
+			if(in_array($code, $actives))
+				continue;
 			$expense = new Expense;
 			$expense->vfpcode = $code;
 			$expense->save();
+		}
+
+		// Delete removed codes
+		foreach ($actives as $active) {
+			if(in_array($active, $request->input('vfpcode')))
+				continue;
+			$delete = Expense::where('vfpcode', $active)->first();
+			$delete->delete();
 		}
 
 		Session::flash('success', '¡El consolidado ha sido actualizado exitosamente!');
