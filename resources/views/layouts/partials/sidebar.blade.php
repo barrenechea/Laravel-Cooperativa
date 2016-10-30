@@ -25,6 +25,7 @@
                 @if(Auth::user()->roles->where('name', 'can_manage_groups')->count() > 0)
                 <li><a href="{{ url('system/group') }}"><i class="fa fa-circle-o"></i> Agregar grupos</a></li>
                 @endif
+                <li><a href="{{ url('bill/create') }}"><i class="fa fa-circle-o"></i> Agregar cobros</a></li>
               </ul>
             </li>
             @endif
@@ -72,6 +73,7 @@
                 @if(Auth::user()->roles->where('name', 'can_view_overdue')->count() > 0)
                 <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de morosos</a></li>
                 @endif
+                <li><a href="{{ url('list/bills') }}"><i class="fa fa-circle-o"></i> Cobros</a></li>
                 <li><a href="{{ url('view/messages') }}"><i class="fa fa-circle-o"></i> Mensajes</a></li>
                 <li><a href="{{ url('view/files') }}"><i class="fa fa-circle-o"></i> Archivos</a></li>
               </ul>

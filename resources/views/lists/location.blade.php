@@ -16,7 +16,7 @@
                   <th>Sector</th>
                   <th>Tipo</th>
                   <th>Código</th>
-                  <th>Socio asociado</th>
+                  <th>Socio vinculado</th>
                   <th>Acción</th>
                 </tr>
                 </thead>

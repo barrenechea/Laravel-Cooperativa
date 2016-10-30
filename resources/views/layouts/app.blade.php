@@ -7,6 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 @section('htmlheader')
     @include('layouts.partials.htmlheader')
+    @include('layouts.partials.scripts')
 @show
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
@@ -53,10 +54,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- @ include('layouts.partials.footer') -->
 </div><!-- ./wrapper -->
-
-@section('scripts')
-    @include('layouts.partials.scripts')
-@show
 
 </body>
 </html>

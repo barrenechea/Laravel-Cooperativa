@@ -69,11 +69,19 @@ Route::group(['middleware' => ['auth']], function () {
 	    	Route::get('group', 'ListController@listgroup');
 	    	Route::get('admin', 'ListController@listadmin');
 	    	Route::get('partner', 'ListController@listpartner');
+	    	Route::get('bills', 'ListController@listbill');
 		});
 
 		Route::group(['prefix' => 'view'], function () {
 			Route::get('messages', 'ViewController@messages');
 	    	Route::get('files', 'ViewController@files');
+		});
+
+		Route::group(['prefix' => 'bill'], function () {
+			Route::get('create', 'BillController@create');
+			Route::post('create', 'BillController@createbill');
+			Route::get('create/{assign}', 'BillController@createassign');
+			Route::post('create/{assign}', 'BillController@createall');
 		});
 	    
 	});

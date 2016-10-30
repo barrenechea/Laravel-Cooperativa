@@ -65,49 +65,73 @@ class DatabaseSeeder extends Seeder
             'description' => 'Contabilidad externa',
         ]);
 
-        DB::table('role_user')->insert([
-            'role_id' => 1,
+        for ($i=1; $i < 10; $i++) { 
+            DB::table('role_user')->insert([
+            'role_id' => $i,
             'user_id' => 1,
+            ]);
+        }
+
+        // Sectores
+        //ID = 1
+        DB::table('sectors')->insert([
+            'name' => 'Alameda Maipú',
+            'code' => 'AM',
+        ]);
+        //ID = 2
+        DB::table('sectors')->insert([
+            'name' => 'Alameda Santiago',
+            'code' => 'AS',
+        ]);
+        //ID = 3
+        DB::table('sectors')->insert([
+            'name' => 'Sector B',
+            'code' => 'SB',
+        ]);
+        //ID = 1
+        DB::table('types')->insert([
+            'name' => 'Local',
+        ]);
+        //ID = 2
+        DB::table('types')->insert([
+            'name' => 'Módulo',
         ]);
 
-        DB::table('role_user')->insert([
-            'role_id' => 2,
-            'user_id' => 1,
-        ]);
+        //Locales
+        //Alameda Maipu
+        for ($i=1; $i < 85; $i++) { 
+            DB::table('locations')->insert([
+            'type_id' => 1,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'LOC.'.$i
+            ]);
+        }
 
-        DB::table('role_user')->insert([
-            'role_id' => 3,
-            'user_id' => 1,
-        ]);
+        //Alameda Santiago
+        for ($i=1; $i < 204; $i++) { 
+            DB::table('locations')->insert([
+            'type_id' => 1,
+            'sector_id' => 2,
+            'partner_id' => null,
+            'code' => 'LOC.'.$i
+            ]);
+        }
 
-        DB::table('role_user')->insert([
-            'role_id' => 4,
-            'user_id' => 1,
-        ]);
-
-        DB::table('role_user')->insert([
-            'role_id' => 5,
-            'user_id' => 1,
-        ]);
-
-        DB::table('role_user')->insert([
-            'role_id' => 6,
-            'user_id' => 1,
-        ]);
-
-        DB::table('role_user')->insert([
-            'role_id' => 7,
-            'user_id' => 1,
-        ]);
-
-        DB::table('role_user')->insert([
-            'role_id' => 8,
-            'user_id' => 1,
-        ]);
-
-        DB::table('role_user')->insert([
-            'role_id' => 9,
-            'user_id' => 1,
+        //Sector B
+        for ($i=1; $i < 33; $i++) { 
+            DB::table('locations')->insert([
+            'type_id' => 1,
+            'sector_id' => 3,
+            'partner_id' => null,
+            'code' => 'LOC.'.$i
+            ]);
+        }
+        DB::table('locations')->insert([
+            'type_id' => 1,
+            'sector_id' => 3,
+            'partner_id' => null,
+            'code' => 'LOC.32A'
         ]);
     }
 }

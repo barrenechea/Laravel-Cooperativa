@@ -12,6 +12,7 @@ use App\Group;
 use App\Percentage;
 use App\User;
 use App\Partner;
+use App\Bill;
 
 class ListController extends Controller
 {
@@ -47,7 +48,13 @@ class ListController extends Controller
 
     public function listpartner()
     {
-        $partner = Partner::all();
-        return view('lists.partner', ['partners' => $partner]);
+        $partners = Partner::all();
+        return view('lists.partners', ['partners' => $partners]);
+    }
+
+    public function listbill()
+    {
+        $bills = Bill::all();
+        return view('lists.bills', ['bills' => $bills]);
     }
 }
