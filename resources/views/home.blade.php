@@ -125,7 +125,7 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Consolidado de Egresos Cooperativa</h3>
+              <h3 class="box-title">Egresos Cooperativa - Últimos 6 meses</h3>
             </div>
             <div class="box-body">
               <div class="row">
@@ -145,8 +145,12 @@ $(function () {
   'use strict';
   var salesChart = new Chart($("#salesChart").get(0).getContext("2d"));
 
-  var salesChartData = {
-    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+  var data = {
+    labels: [
+    @foreach ($months as $month)
+      "{{ $month['name'] }}",
+    @endforeach
+    ],
     datasets: [
       {
         label: "Gastos",
@@ -156,12 +160,16 @@ $(function () {
         pointStrokeColor: "rgba(60,141,188,1)",
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(60,141,188,1)",
-        data: [28, 48, 40, 19, 86, 27]
+        data: [
+        @foreach ($months as $month)
+          {{ $month['amount'] }},
+        @endforeach
+        ],
       }
     ]
   };
 
-  var salesChartOptions = {
+  var options = {
     //Boolean - If we should show the scale at all
     showScale: true,
     //Boolean - Whether grid lines are shown across the chart
@@ -192,8 +200,7 @@ $(function () {
     datasetStrokeWidth: 2,
     //Boolean - Whether to fill the dataset with a color
     datasetFill: true,
-    //String - A legend template
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%=datasets[i].label%></li><%}%></ul>",
+    scaleLabel: function(label){return '$' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");},
     //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
     maintainAspectRatio: false,
     //Boolean - whether to make the chart responsive to window resizing
@@ -201,7 +208,7 @@ $(function () {
   };
 
   //Create the line chart
-  salesChart.Line(salesChartData, salesChartOptions);
+  salesChart.Line(data, options);
 });
 	</script>
 @endsection

@@ -11,7 +11,9 @@ use App\Partner;
 use App\Group;
 use App\Sector;
 use App\Type;
-Use App\Location;
+use App\Location;
+use Carbon\Carbon;
+use App\Sesion;
 
 use Validator;
 
@@ -28,19 +30,37 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $sectors = Sector::all()->count();
-        $types = Type::all()->count();
-        $locations = Location::all()->count();
-        $groups = Group::all()->count();
+        //Last message
         $lastMsg = Message::latest()->where('has_file', false)->first();
-        $admins = User::where('is_admin', true)->count();
-        $partners = Partner::all()->count();
+
+        //Egresos logic
+        setlocale(LC_TIME, 'Spanish');
+        $months = array();
+        for ($i=6; $i > 0; $i--) {
+            $name = ucfirst(Carbon::now()->subMonths($i)->formatLocalized('%B %Y'));
+            $start = Carbon::now()->subMonths($i)->startOfMonth();
+            $end = Carbon::now()->subMonths($i)->endOfMonth();
+
+            $sum = Sesion::where('tipo', 'E')->whereDate('fecha', '>=', $start)->whereDate('fecha', '<=', $end)->sum('debe');
+            $months[] = ['name' => $name, 'amount' => $sum];
+        }
+
+        //dd($months[0]['name']);
 
         if(Auth::user()->is_admin)
         {
-            //todo
+            // Boxes data
+            $sectors = Sector::all()->count();
+            $types = Type::all()->count();
+            $locations = Location::all()->count();
+            $groups = Group::all()->count();
+            $admins = User::where('is_admin', true)->count();
+            $partners = Partner::all()->count();
+
+            return view('home', ['msg' => $lastMsg, 'months' => $months, 'groups' => $groups, 'sectors' => $sectors, 'types' => $types, 'locations' => $locations, 'admins' => $admins, 'partners' => $partners]);
         }
-        return view('home', ['msg' => $lastMsg, 'groups' => $groups, 'sectors' => $sectors, 'types' => $types, 'locations' => $locations, 'admins' => $admins, 'partners' => $partners]);
+
+        return 'Partner';
     }
 
     public function init()
