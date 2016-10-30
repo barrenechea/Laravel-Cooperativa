@@ -17,12 +17,12 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('payment_day');
-            $table->integer('amount');
+            $table->decimal('amount', 9, 2);
             $table->boolean('is_uf')->default(false);
             $table->string('description');
             $table->string('vfpcode');
             $table->integer('overdue_day')->nullable();
-            $table->integer('overdue_amount')->nullable();
+            $table->decimal('overdue_amount', 9, 2)->nullable();
             $table->boolean('overdue_is_uf')->default(false);
 
             $table->boolean('active')->default(true);

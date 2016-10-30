@@ -15,6 +15,7 @@
                 <tr>
                   <th>Descripción</th>
                   <th>Monto</th>
+                  <th>Cobro por atraso</th>
                   <th>Accion</th>
                 </tr>
                 </thead>
@@ -23,7 +24,7 @@
                 <tr>
                   <td>{{ $bill->description }}</td>
                   <td>{{ $bill->amount }}{{ $bill->is_uf ? ' UF' : '' }}</td>
-                  <td>{{ $partner->locations()->count() }}</td>
+                  <td>{{ $bill->overdue_amount ? $bill->overdue_amount . ($bill->overdue_is_uf ? ' UF' : '') : 'No posee' }}</td>
                   <td><a href="#" class="btn btn-block btn-primary btn-xs">Modificar</a></td>
                 </tr>
                 @endforeach
