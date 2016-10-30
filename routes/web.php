@@ -83,6 +83,9 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::get('create/{assign}', 'BillController@createassign');
 			Route::post('create/{assign}', 'BillController@createall');
 		});
+
+		Route::get('expenses', 'ExpenseController@index');
+		Route::post('expenses', 'ExpenseController@save');
 	    
 	});
     

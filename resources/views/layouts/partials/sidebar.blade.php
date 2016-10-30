@@ -26,6 +26,7 @@
                 <li><a href="{{ url('system/group') }}"><i class="fa fa-circle-o"></i> Agregar grupos</a></li>
                 @endif
                 <li><a href="{{ url('bill/create') }}"><i class="fa fa-circle-o"></i> Agregar cobros</a></li>
+                <li><a href="{{ url('expenses') }}"><i class="fa fa-circle-o"></i> Gastos</a></li>
               </ul>
             </li>
             @endif

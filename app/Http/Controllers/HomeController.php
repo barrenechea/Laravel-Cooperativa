@@ -14,6 +14,7 @@ use App\Type;
 use App\Location;
 use Carbon\Carbon;
 use App\Sesion;
+use App\Expense;
 
 use Validator;
 
@@ -35,13 +36,14 @@ class HomeController extends Controller
 
         //Egresos logic
         setlocale(LC_TIME, 'es_ES.utf8');
+        $expenses = Expense::pluck('vfpcode');
         $months = array();
         for ($i=6; $i > 0; $i--) {
             $name = ucfirst(Carbon::now()->subMonths($i)->formatLocalized('%B %Y'));
             $start = Carbon::now()->subMonths($i)->startOfMonth();
             $end = Carbon::now()->subMonths($i)->endOfMonth();
 
-            $sum = Sesion::where('tipo', 'E')->whereDate('fecha', '>=', $start)->whereDate('fecha', '<=', $end)->sum('debe');
+            $sum = Sesion::whereIn('codigo', $expenses)->whereDate('fecha', '>=', $start)->whereDate('fecha', '<=', $end)->sum('debe');
             $months[] = ['name' => $name, 'amount' => $sum];
         }
 
