@@ -34,7 +34,7 @@ class HomeController extends Controller
         $lastMsg = Message::latest()->where('has_file', false)->first();
 
         //Egresos logic
-        setlocale(LC_TIME, 'es_CL');
+        setlocale(LC_TIME, 'Spanish');
         $months = array();
         for ($i=6; $i > 0; $i--) {
             $name = ucfirst(Carbon::now()->subMonths($i)->formatLocalized('%B %Y'));
