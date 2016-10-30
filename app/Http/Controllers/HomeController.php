@@ -15,6 +15,7 @@ use App\Location;
 use Carbon\Carbon;
 use App\Sesion;
 use App\Expense;
+use App\Bill;
 
 use Validator;
 
@@ -56,10 +57,10 @@ class HomeController extends Controller
             $types = Type::all()->count();
             $locations = Location::all()->count();
             $groups = Group::all()->count();
-            $admins = User::where('is_admin', true)->count();
             $partners = Partner::all()->count();
+            $bills = Bill::all()->count();
 
-            return view('home', ['msg' => $lastMsg, 'months' => $months, 'groups' => $groups, 'sectors' => $sectors, 'types' => $types, 'locations' => $locations, 'admins' => $admins, 'partners' => $partners]);
+            return view('home', ['msg' => $lastMsg, 'months' => $months, 'groups' => $groups, 'sectors' => $sectors, 'types' => $types, 'locations' => $locations, 'bills' => $bills, 'partners' => $partners]);
         }
 
         return 'Partner';

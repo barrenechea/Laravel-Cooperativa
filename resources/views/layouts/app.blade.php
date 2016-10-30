@@ -16,12 +16,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     @include('layouts.partials.sidebar')
 
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
         @include('layouts.partials.contentheader')
 
-        <!-- Main content -->
         <section class="content">
             @if(Session::has('success') || Session::has('warning') || Session::has('danger') || Session::has('info'))
             <div class="row">
@@ -49,11 +47,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             @endif
             @yield('main-content')
-        </section><!-- /.content -->
-    </div><!-- /.content-wrapper -->
+        </section>
+    </div>
 
-    <!-- @ include('layouts.partials.footer') -->
-</div><!-- ./wrapper -->
+</div>
 
 </body>
 </html>

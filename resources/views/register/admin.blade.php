@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
-  Registrar administrador
-@endsection
+@section('htmlheader_title', 'Agregar Administrador')
 
-@section('contentheader_title')
-  Registrar administrador
-@endsection
+@section('contentheader_title', 'Agregar Administrador')
 
-@section('contentheader_description')
-  Agregar un nuevo administrador al sistema
-@endsection
+@section('contentheader_description', 'Incorporar un nuevo administrador al sistema')
 
 @section('main-content')
 		<div class="row">
@@ -58,7 +52,7 @@
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary pull-right">Registrar administrador</button>
+                <button type="submit" class="btn btn-primary pull-right">Agregar Administrador</button>
               </div>
             </form>
           </div>

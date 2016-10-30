@@ -12,22 +12,6 @@
 	<div class="row">
       <div class="col-md-2 col-sm-6 col-xs-12">
           <!-- small box -->
-          <div class="small-box bg-purple">
-            <div class="inner">
-              <h3>{{ $admins }}</h3>
-
-              <p>Administrador{{$admins == 1 ? '' : 'es'}}</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-user-secret"></i>
-            </div>
-            <a href="{{ url('/list/admin') }}" class="small-box-footer">
-              Ver listado <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-      </div>
-      <div class="col-md-2 col-sm-6 col-xs-12">
-          <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
               <h3>{{ $sectors }}</h3>
@@ -99,6 +83,22 @@
               <i class="fa fa-user"></i>
             </div>
             <a href="{{ url('/list/partner') }}" class="small-box-footer">
+              Ver listado <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+      </div>
+      <div class="col-md-2 col-sm-6 col-xs-12">
+          <!-- small box -->
+          <div class="small-box bg-purple">
+            <div class="inner">
+              <h3>{{ $bills }}</h3>
+
+              <p>Cobro{{$bills == 1 ? '' : 's'}}</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-money"></i>
+            </div>
+            <a href="{{ url('/list/bills') }}" class="small-box-footer">
               Ver listado <i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>

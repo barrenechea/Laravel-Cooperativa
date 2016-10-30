@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
-	Registrar socio
-@endsection
+@section('htmlheader_title', 'Agregar Socio')
 
-@section('contentheader_title')
-  Registrar socio
-@endsection
+@section('contentheader_title', 'Agregar Socio')
 
-@section('contentheader_description')
-  Agregar un nuevo socio al sistema online
-@endsection
+@section('contentheader_description', 'Incorpora un socio a partir de la información de Drysoft')
 
 @section('main-content')
 		<div class="row">
@@ -43,7 +37,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary pull-right">Registrar socio</button>
+                <button type="submit" class="btn btn-primary pull-right">Agregar socio</button>
               </div>
             </form>
           </div>

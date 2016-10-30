@@ -11,7 +11,7 @@
 @section('main-content')
     <div class="row">
 		<div class="col-md-12">
-			<div class="box box-success">
+			<div class="box box-primary">
             <!-- form start -->
             <form role="form" class="form-horizontal" action="{{ url('/system/addgroup') }}" method="post">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -44,7 +44,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-success pull-right">Continuar</button>
+                <button type="submit" class="btn btn-primary pull-right">Continuar</button>
               </div>
               <!-- /.box-footer -->
             </form>

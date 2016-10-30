@@ -19,6 +19,32 @@
                 </span>
               </a>
               <ul class="treeview-menu" style="display: none;">
+                @if(Auth::user()->roles->where('name', 'can_handle_admins')->count() > 0)
+                <li>
+                  <a href="#"><i class="fa fa-circle-o"></i> Administradores
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ url('register/admin') }}"><i class="fa fa-circle-o"></i> Agregar</a></li>
+                    <li><a href="{{ url('list/admin') }}"><i class="fa fa-circle-o"></i> Listar</a></li>
+                  </ul>
+                </li>
+                @endif
+                @if(Auth::user()->roles->where('name', 'can_sync_users')->count() > 0)
+                <li>
+                  <a href="#"><i class="fa fa-circle-o"></i> Socios
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ url('register/partner') }}"><i class="fa fa-circle-o"></i> Agregar</a></li>
+                    <li><a href="{{ url('list/partner') }}"><i class="fa fa-circle-o"></i> Listar</a></li>
+                  </ul>
+                </li>
+                @endif
                 @if(Auth::user()->roles->where('name', 'can_manage_sector_type_location')->count() > 0)
                 <li><a href="{{ url('system/base') }}"><i class="fa fa-circle-o"></i> Sector, tipo, ubicación</a></li>
                 @endif
@@ -27,25 +53,6 @@
                 @endif
                 <li><a href="{{ url('bill/create') }}"><i class="fa fa-circle-o"></i> Agregar cobros</a></li>
                 <li><a href="{{ url('expenses') }}"><i class="fa fa-circle-o"></i> Gastos</a></li>
-              </ul>
-            </li>
-            @endif
-            @if(Auth::user()->roles->where('name', 'can_handle_admins')->count() > 0 || Auth::user()->roles->where('name', 'can_sync_users')->count() > 0)
-            <!-- New Users -->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-plus"></i>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i><span>Registro</span>
-                </span>
-              </a>
-              <ul class="treeview-menu" style="display: none;">
-                @if(Auth::user()->roles->where('name', 'can_handle_admins')->count() > 0)
-                <li><a href="{{ url('register/admin') }}"><i class="fa fa-circle-o"></i> Administrador</a></li>
-                @endif
-                @if(Auth::user()->roles->where('name', 'can_sync_users')->count() > 0)
-                <li><a href="{{ url('register/partner') }}"><i class="fa fa-circle-o"></i> Socio</a></li>
-                @endif
               </ul>
             </li>
             @endif
@@ -74,7 +81,6 @@
                 @if(Auth::user()->roles->where('name', 'can_view_overdue')->count() > 0)
                 <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de morosos</a></li>
                 @endif
-                <li><a href="{{ url('list/bills') }}"><i class="fa fa-circle-o"></i> Cobros</a></li>
                 <li><a href="{{ url('view/messages') }}"><i class="fa fa-circle-o"></i> Mensajes</a></li>
                 <li><a href="{{ url('view/files') }}"><i class="fa fa-circle-o"></i> Archivos</a></li>
               </ul>
