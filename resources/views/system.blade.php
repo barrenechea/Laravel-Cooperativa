@@ -20,7 +20,7 @@
 	<div class="row">
       <div class="col-sm-offset-3 col-md-offset-3 col-md-6 col-sm-6 col-xs-12">
           <!-- small box -->
-          <div class="info-box bg-{{ $pct < 75 ? 'green' : $pct < 90 ? 'yellow' : 'red' }}">
+          <div class="info-box bg-{{ $pct < 75 ? 'green' : ($pct < 90 ? 'yellow' : 'red') }}">
             <span class="info-box-icon"><i class="fa fa-hdd-o"></i></span>
 
             <div class="info-box-content">
