@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('htmlheader_title')
-    Error 404
+Error 404
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <div class="error-page">
             <h2 class="headline text-yellow"> 404</h2>
             <div class="error-content">
-            <br/>
+                <br/>
                 <h3><i class="fa fa-warning text-yellow"></i> Oops! {{ trans('adminlte_lang::message.pagenotfound') }}.</h3>
                 <p>
                     {{ trans('adminlte_lang::message.notfindpage') }}

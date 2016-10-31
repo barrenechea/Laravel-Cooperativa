@@ -20,7 +20,7 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-            <li><a href="{{ url('/update/profile') }}"><i class="fa fa-user"></i> Actualizar mi perfil</a></li>
+                <li><a href="{{ url('/update/profile') }}"><i class="fa fa-user"></i> Actualizar mi perfil</a></li>
                 <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Salir</a></li>
             </ul>
         </div>

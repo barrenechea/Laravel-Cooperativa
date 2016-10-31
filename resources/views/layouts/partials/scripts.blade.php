@@ -13,10 +13,10 @@
 <script src="{{ asset('/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-	    $(".select2").select2();
-	    $('.table').DataTable();
-    });
+	$(document).ready(function() {
+		$(".select2").select2();
+		$('.table').DataTable();
+	});
 </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
       Both of these plugins are recommended to enhance the

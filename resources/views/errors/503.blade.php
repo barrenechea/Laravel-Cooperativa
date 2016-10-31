@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('htmlheader_title')
-    {{ trans('adminlte_lang::message.serviceunavailable') }}
+{{ trans('adminlte_lang::message.serviceunavailable') }}
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <div class="error-page">
             <h2 class="headline text-red"> 500</h2>
             <div class="error-content">
-            <br/>
+                <br/>
                 <h3><i class="fa fa-warning text-red"></i> Oops! {{ trans('adminlte_lang::message.serviceunavailable') }}</h3>
                 <p>
                     {{ trans('adminlte_lang::message.wewillwork') }}

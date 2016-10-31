@@ -3,153 +3,153 @@
 @section('htmlheader_title', 'Inicio')
 
 @section('contentheader_title')
-  Bienvenido(a), {{ Auth::user()->name }}!
+Bienvenido(a), {{ Auth::user()->name }}!
 @endsection
 
 @section('main-content')
-	<div class="row">
-      <div class="col-md-2 col-sm-6 col-xs-12">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>{{ $sectors }}</h3>
+<div class="row">
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <!-- small box -->
+    <div class="small-box bg-green">
+      <div class="inner">
+        <h3>{{ $sectors }}</h3>
 
-              <p>Sectores</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-building"></i>
-            </div>
-            <a href="{{ url('/list/sector') }}" class="small-box-footer">
-              Ver listado <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-      <div class="col-md-2 col-sm-6 col-xs-12">
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>{{ $types }}</h3>
-
-              <p>Tipos</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-filter"></i>
-            </div>
-            <a href="{{ url('/list/type') }}" class="small-box-footer">
-              Ver listado <i class="fa fa-arrow-circle-right"></i>
-            </a>
-            </div>
-          </div>
-        <div class="col-md-2 col-sm-6 col-xs-12">
-          <div class="small-box bg-aqua">
-              <div class="inner">
-                <h3>{{ $locations }}</h3>
-                <p>Ubicaciones</p>
-              </div>
-              <div class="icon">
-                <i class="fa fa-shopping-bag"></i>
-              </div>
-            <a href="{{ url('/list/location') }}" class="small-box-footer">
-              Ver listado <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-2 col-sm-6 col-xs-12">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>{{ $groups }}</h3>
-
-              <p>Grupos</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-            <a href="{{ url('/list/group') }}" class="small-box-footer">
-              Ver listado <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
+        <p>Sectores</p>
       </div>
-      <div class="col-md-2 col-sm-6 col-xs-12">
-          <!-- small box -->
-          <div class="small-box bg-light-blue">
-            <div class="inner">
-              <h3>{{ $partners }}</h3>
-
-              <p>Socio{{$partners == 1 ? '' : 's'}}</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-user"></i>
-            </div>
-            <a href="{{ url('/list/partner') }}" class="small-box-footer">
-              Ver listado <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
+      <div class="icon">
+        <i class="fa fa-building"></i>
       </div>
-      <div class="col-md-2 col-sm-6 col-xs-12">
-          <!-- small box -->
-          <div class="small-box bg-purple">
-            <div class="inner">
-              <h3>{{ $bills }}</h3>
-
-              <p>Cobro{{$bills == 1 ? '' : 's'}}</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-money"></i>
-            </div>
-            <a href="{{ url('/list/bills') }}" class="small-box-footer">
-              Ver listado <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-      </div>
-	</div>
-    @if($msg)
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box box-primary">
-            <div class="box-header with-border">
-              <div class="user-block">
-                <span class="username">Mensaje de {{ $msg->user->name }}</span>
-                <span class="description">{{ $msg->created_at->diffForHumans() }}</span>
-              </div>
-            </div>
-            <div class="box-body">
-              <p>{{ $msg->message }}</p>
-            </div>
-          </div>
+      <a href="{{ url('/list/sector') }}" class="small-box-footer">
+        Ver listado <i class="fa fa-arrow-circle-right"></i>
+      </a>
     </div>
   </div>
-  @endif
-	<div class="row">
-        <div class="col-md-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Egresos Cooperativa - Últimos 6 meses</h3>
-            </div>
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="chart">
-                    <canvas id="salesChart" width="900" height="150"></canvas>
-                  </div>
-                </div>
-              </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <div class="small-box bg-red">
+      <div class="inner">
+        <h3>{{ $types }}</h3>
+
+        <p>Tipos</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-filter"></i>
+      </div>
+      <a href="{{ url('/list/type') }}" class="small-box-footer">
+        Ver listado <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <div class="small-box bg-aqua">
+      <div class="inner">
+        <h3>{{ $locations }}</h3>
+        <p>Ubicaciones</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-shopping-bag"></i>
+      </div>
+      <a href="{{ url('/list/location') }}" class="small-box-footer">
+        Ver listado <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <!-- small box -->
+    <div class="small-box bg-yellow">
+      <div class="inner">
+        <h3>{{ $groups }}</h3>
+
+        <p>Grupos</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-users"></i>
+      </div>
+      <a href="{{ url('/list/group') }}" class="small-box-footer">
+        Ver listado <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <!-- small box -->
+    <div class="small-box bg-light-blue">
+      <div class="inner">
+        <h3>{{ $partners }}</h3>
+
+        <p>Socio{{$partners == 1 ? '' : 's'}}</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-user"></i>
+      </div>
+      <a href="{{ url('/list/partner') }}" class="small-box-footer">
+        Ver listado <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <!-- small box -->
+    <div class="small-box bg-purple">
+      <div class="inner">
+        <h3>{{ $bills }}</h3>
+
+        <p>Cobro{{$bills == 1 ? '' : 's'}}</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-money"></i>
+      </div>
+      <a href="{{ url('/list/bills') }}" class="small-box-footer">
+        Ver listado <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+@if($msg)
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <div class="user-block">
+          <span class="username">Mensaje de {{ $msg->user->name }}</span>
+          <span class="description">{{ $msg->created_at->diffForHumans() }}</span>
+        </div>
+      </div>
+      <div class="box-body">
+        <p>{{ $msg->message }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Egresos Cooperativa - Últimos 6 meses</h3>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="chart">
+              <canvas id="salesChart" width="900" height="150"></canvas>
             </div>
           </div>
         </div>
       </div>
-  <script src="{{ asset('/plugins/chartjs/Chart.min.js') }}"></script>
-	<script>
-$(function () {
-  'use strict';
-  var salesChart = new Chart($("#salesChart").get(0).getContext("2d"));
+    </div>
+  </div>
+</div>
+<script src="{{ asset('/plugins/chartjs/Chart.min.js') }}"></script>
+<script>
+  $(function () {
+    'use strict';
+    var salesChart = new Chart($("#salesChart").get(0).getContext("2d"));
 
-  var data = {
-    labels: [
-    @foreach ($months as $month)
+    var data = {
+      labels: [
+      @foreach ($months as $month)
       "{{ $month['name'] }}",
-    @endforeach
-    ],
-    datasets: [
+      @endforeach
+      ],
+      datasets: [
       {
         label: "Gastos",
         fillColor: "rgba(60,141,188,0.9)",
@@ -160,14 +160,14 @@ $(function () {
         pointHighlightStroke: "rgba(60,141,188,1)",
         data: [
         @foreach ($months as $month)
-          {{ $month['amount'] }},
+        {{ $month['amount'] }},
         @endforeach
         ],
       }
-    ]
-  };
+      ]
+    };
 
-  var options = {
+    var options = {
     //Boolean - If we should show the scale at all
     showScale: true,
     //Boolean - Whether grid lines are shown across the chart
@@ -208,5 +208,5 @@ $(function () {
   //Create the line chart
   salesChart.Line(data, options);
 });
-	</script>
+</script>
 @endsection
