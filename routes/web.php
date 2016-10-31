@@ -88,6 +88,9 @@ Route::group(['middleware' => ['auth']], function () {
 		});
 
 		Route::group(['prefix' => 'update'], function () {
+			Route::get('profile', 'UpdateController@profile');
+			Route::post('profile', 'UpdateController@saveprofile');
+
 			Route::group(['prefix' => 'admin'], function () {
 				Route::get('password/{id}', 'UpdateController@newpassword');
 				Route::get('data/{id}', 'UpdateController@data');

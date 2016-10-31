@@ -76,7 +76,6 @@ class HomeController extends Controller
 
     public function initsave(Request $request)
     {
-
         if(Auth::user()->is_admin)
         {
             $validator = Validator::make($request->all(), [

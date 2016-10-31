@@ -20,15 +20,8 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                @if (Auth::guest())
-                    <li>
-                        <a href="{{ url('/login') }}">{{ trans('adminlte_lang::message.login') }}</a>
-                    </li>
-                @else
-                    <li>
-                        <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Salir [{{Auth::user()->name}}]</a>
-                    </li>
-                @endif
+            <li><a href="{{ url('/update/profile') }}"><i class="fa fa-user"></i> Actualizar mi perfil</a></li>
+                <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Salir</a></li>
             </ul>
         </div>
     </nav>

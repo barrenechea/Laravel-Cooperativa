@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
-	Inicio
-@endsection
+@section('htmlheader_title', 'Inicio')
 
 @section('contentheader_title')
-  Inicio
+  Bienvenido(a), {{ Auth::user()->name }}!
 @endsection
 
 @section('main-content')
