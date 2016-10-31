@@ -66,5 +66,23 @@ $(':input[type=button]').click(function(){
   $("#newPassword").attr("href", "/update/admin/password/" + $(this).attr('id'));
   $("#updateData").attr("href", "/update/admin/data/" + $(this).attr('id'));
 });
+
+(function ($) {
+    "use strict";
+    function centerModal() {
+        $(this).css('display', 'block');
+        var $dialog  = $(this).find(".modal-dialog"),
+        offset       = ($(window).height() - $dialog.height()) / 2,
+        bottomMargin = parseInt($dialog.css('marginBottom'), 10);
+
+        if(offset < bottomMargin) offset = bottomMargin;
+        $dialog.css("margin-top", offset);
+    }
+
+    $(document).on('show.bs.modal', '.modal', centerModal);
+    $(window).on("resize", function () {
+        $('.modal:visible').each(centerModal);
+    });
+}(jQuery));
 </script>
 @endsection
