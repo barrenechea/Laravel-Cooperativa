@@ -1,12 +1,8 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
-	Agregar grupos
-@endsection
+@section('htmlheader_title', 'Agregar grupos')
 
-@section('contentheader_title')
-  Agregar grupos
-@endsection
+@section('contentheader_title', 'Agregar grupos')
 
 @section('main-content')
     <div class="row">

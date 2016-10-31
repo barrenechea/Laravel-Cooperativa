@@ -54,6 +54,7 @@
                 <li><a href="{{ url('bill/create') }}"><i class="fa fa-circle-o"></i> Agregar cobros</a></li>
                 <li><a href="{{ url('expenses') }}"><i class="fa fa-circle-o"></i> Gastos</a></li>
               </ul>
+              <li><a href="{{ url('system/overduedates') }}"><i class="fa fa-calendar"></i> <span>Días de morosidad</span></a></li>
             </li>
             @endif
             @if(Auth::user()->roles->where('name', 'can_send_messages')->count() > 0)

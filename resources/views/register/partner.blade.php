@@ -8,11 +8,8 @@
 
 @section('main-content')
 		<div class="row">
-        <!-- left column -->
         <div class="col-md-12">
-          <!-- general form elements -->
           <div class="box box-primary">
-            <!-- form start -->
             <form role="form" class="form-horizontal" action="{{ url('/register/partner') }}" method="post">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="box-body">
@@ -35,13 +32,11 @@
                 <p class="col-sm-12 help-block">El nombre de usuario del socio será su RUN (ej: 12345678-9).</p>
                 <p class="col-sm-12 help-block">La contraseña será generada y enviada automáticamente por correo electrónico.</p>
               </div>
-              <!-- /.box-body -->
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary pull-right">Agregar socio</button>
               </div>
             </form>
           </div>
-          <!-- /.box -->
         </div>
       </div>
 </script>

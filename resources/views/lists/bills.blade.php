@@ -23,8 +23,8 @@
                 @foreach($bills as $bill)
                 <tr>
                   <td>{{ $bill->description }}</td>
-                  <td>{{ $bill->amount }}{{ $bill->is_uf ? ' UF' : '' }}</td>
-                  <td>{{ $bill->overdue_amount ? $bill->overdue_amount . ($bill->overdue_is_uf ? ' UF' : '') : 'No posee' }}</td>
+                  <td>{{ $bill->is_uf ? ($bill->amount . ' UF') : '$'.(number_format($bill->amount, 0, ',', '.')) }}</td>
+                  <td>{{ $bill->overdue_amount ? ($bill->overdue_is_uf ? ($bill->overdue_amount . 'UF') : '$'.(number_format($bill->overdue_amount, 0, ',', '.'))) : 'No posee' }}</td>
                   <td><a href="#" class="btn btn-block btn-primary btn-xs">Modificar</a></td>
                 </tr>
                 @endforeach

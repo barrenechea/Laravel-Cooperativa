@@ -43,7 +43,7 @@
                   <label for="location_id" class="col-sm-2 control-label">Ubicación</label>
                   <div class="col-sm-10">
                     <select class="form-control select2" id="location_id" name="location_id" required>
-                      <option value="" disabled selected hidden>{{ $locations->count() > 0 ? 'Seleccione un sector' : 'No hay sectores ingresados en el sistema' }}</option>
+                      <option value="" disabled selected hidden>{{ $locations->count() > 0 ? 'Seleccione una ubicación' : 'No hay ubicaciones ingresadas en el sistema' }}</option>
                       @foreach($locations as $location)
                       <option value="{{ $location->id }}">{{ $location->sector->name }} - {{ $location->code }} [{{ $location->type->name }}]</option>
                       @endforeach

@@ -56,4 +56,11 @@
           </div>
 		</div>
   </div>
+  <script type="text/javascript">
+    $('#submit').click(function(){
+      $('<input type="submit">').hide().appendTo($('#form')).click().remove();
+      
+      $('#modal').modal('toggle');
+    });
+  </script>
 @endsection

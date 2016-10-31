@@ -1,12 +1,8 @@
 @extends('layouts.app')
 
-@section('htmlheader_title')
-	Administrar Sectores, Tipos y Ubicaciones
-@endsection
+@section('htmlheader_title', 'Administrar Sectores, Tipos y Ubicaciones')
 
-@section('contentheader_title')
-  Administrar Sectores, Tipos y Ubicaciones
-@endsection
+@section('contentheader_title', 'Administrar Sectores, Tipos y Ubicaciones')
 
 @section('main-content')
 	<div class="row">

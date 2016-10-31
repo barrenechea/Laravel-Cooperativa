@@ -113,10 +113,8 @@
 														<p><strong>Nombre de usuario: </strong>{{ $user->username }}</p>
 														<p><strong>Contraseña: </strong> {{ $password }}</p>
 														<p></p>
-														@if($isNew)
-														<p>Por motivos de seguridad, se le solicitará cambiar su contraseña cuando ingrese por primera vez.</p>
-														@endif
-														<p>Para ingresar, haga clic en el siguiente botón, o ingrese a http://panel.alamedamaipu.cl</p>
+														<p>Por motivos de seguridad, se le solicitará actualizar sus datos tras ingresar con esta contraseña.</p>
+														<p>Para ingresar, haga clic en el siguiente botón:</p>
 													</td>
 												</tr>
 												<tr>
@@ -128,6 +126,11 @@
 																</td>
 															</tr>
 														</table>
+													</td>
+												</tr>
+												<tr>
+													<td data-color="text" data-size="size text" data-min="10" data-max="26" data-link-color="link text color" data-link-style="font-weight:bold; text-decoration:underline; color:#40aceb;" align="center" style="font:16px/29px Arial, Helvetica, sans-serif; color:#888; padding:0 0 21px;">
+														<p>Si el botón no funciona, ingrese con la siguiente dirección: http://panel.alamedamaipu.cl</p>
 													</td>
 												</tr>
 											</table>

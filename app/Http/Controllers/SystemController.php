@@ -11,6 +11,7 @@ use App\Type;
 use App\Location;
 use App\Group;
 use App\Percentage;
+use App\Logic;
 
 use Validator;
 
@@ -136,5 +137,22 @@ class SystemController extends Controller
 
         Session::flash('success', 'El grupo ha sido creado exitosamente!');
         return redirect('system\group');
+    }
+
+    public function overduedates()
+    {
+        $logic = Logic::first();
+        return view('system.overduedates', ['logic' => $logic]);
+    }
+
+    public function updateoverduedates(Request $request)
+    {
+        $logic = Logic::first();
+        $logic->firstoverdue = $request->input('firstoverdue');
+        $logic->secondoverdue = $request->input('secondoverdue');
+        $logic->save();
+
+        Session::flash('success', 'Los días han sido actualizados exitosamente!');
+        return redirect()->back();
     }
 }

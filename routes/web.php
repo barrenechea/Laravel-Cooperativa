@@ -49,6 +49,9 @@ Route::group(['middleware' => ['auth']], function () {
 	    	Route::post('addgroup', 'SystemController@addgroup');
 	    	Route::get('grouppct', 'SystemController@grouppct');
 	    	Route::post('addgrouppct', 'SystemController@addgrouppct');
+
+	    	Route::get('overduedates', 'SystemController@overduedates');
+	    	Route::post('overduedates', 'SystemController@updateoverduedates');
 		});
 
 		Route::group(['prefix' => 'messages'], function () {
@@ -82,6 +85,14 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::post('create', 'BillController@createbill');
 			Route::get('create/{assign}', 'BillController@createassign');
 			Route::post('create/{assign}', 'BillController@createall');
+		});
+
+		Route::group(['prefix' => 'update'], function () {
+			Route::group(['prefix' => 'admin'], function () {
+				Route::get('password/{id}', 'UpdateController@newpassword');
+				Route::get('data/{id}', 'UpdateController@data');
+				Route::post('data/{id}', 'UpdateController@savedata');
+			});
 		});
 
 		Route::get('expenses', 'ExpenseController@index');

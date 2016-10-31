@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('logics')->insert([
+            'firstoverdue' => 30,
+            'secondoverdue' => 60,
+        ]);
+
     	DB::table('users')->insert([
             'name' => 'Sebastián Barrenechea',
             'username' => 'admin',
@@ -37,7 +42,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('roles')->insert([
             'name' => 'can_sync_users',
-            'description' => 'Sincronizar socios y asociarlos a locales',
+            'description' => 'Agregar, modificar y deshabilitar cuentas de Socio',
         ]);
 
         DB::table('roles')->insert([
