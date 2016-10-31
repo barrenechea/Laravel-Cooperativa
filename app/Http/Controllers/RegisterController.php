@@ -10,6 +10,7 @@ use App\User;
 use App\Partner;
 use App\Role;
 use App\Tabaux10;
+use App\Location;
 
 use App\Mail\Password;
 use Validator;
@@ -20,9 +21,11 @@ class RegisterController extends Controller
     {
     	$users = User::pluck('username');
 
-    	$data = Tabaux10::select('kod', 'desc')->distinct('kod')->where('tipo', '<>', 'P')->where('tipo', '<>', 'F')->whereNotIn('kod', $users)->orderBy('desc')->get()->toArray();
+    	$data = Tabaux10::select('kod', 'desc')->distinct('kod')->where('tipo', '<>', 'P')->where('tipo', '<>', 'F')->whereNotIn('kod', $users)->orderBy('desc')->get();
 
-        return view('register.partner', ['data' => $data]);
+        $locations = Location::where('partner_id', null)->get();
+
+        return view('register.partner', ['data' => $data, 'locations' => $locations]);
     }
 
     public function registerpartner(Request $request)
@@ -52,6 +55,12 @@ class RegisterController extends Controller
         $partner->address = ' ';
         $partner->phone = ' ';
         $partner->save();
+
+        foreach ($request->input('locations') as $location) {
+            $loc = Location::find($location);
+            $loc->partner_id = $partner->id;
+            $loc->save();
+        }
 
         Mail::to($user)->queue(new Password($user, $password, true));
 

@@ -18,7 +18,7 @@
                     <div class="col-sm-10">
                       <select class="form-control select2" id="run" name="run" required>
                       @foreach($data as $user)
-                        <option value="{{$user['kod']}}">{{ $user['desc'] }}, RUN {{$user['kod']}}</option>
+                        <option {{ old('run') == $user->kod ? 'selected' : '' }} value="{{ $user->kod }}">{{ $user->desc }}, RUN {{ $user->kod }}</option>
                       @endforeach
                       </select>
                     </div>
@@ -26,7 +26,17 @@
                 <div class="form-group">
                   <label for="email" class="col-sm-2 control-label">Correo electrónico</label>
                   <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese correo electrónico" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese correo electrónico" required value="{{ old('email') }}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="locations[]" class="col-sm-2 control-label">Asociar locales</label>
+                  <div class="col-sm-10">
+                    <select class="form-control select2" id="locations[]" name="locations[]" multiple="multiple" required>
+                    @foreach($locations as $location)
+                      <option {{ old('locations') && in_array($location->id, old('locations')) ? 'selected' : '' }} value="{{$location->id}}">{{ $location->sector->name .' - '. $location->code }}</option>
+                    @endforeach
+                    </select>
                   </div>
                 </div>
                 <p class="col-sm-12 help-block">El nombre de usuario del socio será su RUN (ej: 12345678-9).</p>

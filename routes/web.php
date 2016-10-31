@@ -92,9 +92,15 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::post('profile', 'UpdateController@saveprofile');
 
 			Route::group(['prefix' => 'admin'], function () {
-				Route::get('password/{id}', 'UpdateController@newpassword');
-				Route::get('data/{id}', 'UpdateController@data');
-				Route::post('data/{id}', 'UpdateController@savedata');
+				Route::get('password/{id}', 'UpdateController@newadminpassword');
+				Route::get('data/{id}', 'UpdateController@admindata');
+				Route::post('data/{id}', 'UpdateController@saveadmindata');
+			});
+
+			Route::group(['prefix' => 'partner'], function () {
+				Route::get('password/{id}', 'UpdateController@newpartnerpassword');
+				Route::get('data/{id}', 'UpdateController@partnerdata');
+				Route::post('data/{id}', 'UpdateController@savepartnerdata');
 			});
 		});
 

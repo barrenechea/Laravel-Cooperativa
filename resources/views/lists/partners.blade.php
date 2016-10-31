@@ -7,14 +7,16 @@
 @section('main-content')
 <div class="row">
         <div class="col-xs-12">
-          <div class="box">
-            <!-- /.box-header -->
+          <div class="box box-primary">
             <div class="box-body">
               <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th hidden>ID</th>
                   <th>Nombre y apellido</th>
                   <th>Email</th>
+                  <th>Dirección</th>
+                  <th>Teléfono</th>
                   <th>Locales asociados</th>
                   <th>Accion</th>
                 </tr>
@@ -22,18 +24,44 @@
                 <tbody>
                 @foreach($partners as $partner)
                 <tr>
+                  <td hidden>{{ $partner->id }}</td>
                   <td>{{ $partner->user->name }}</td>
                   <td>{{ $partner->user->email }}</td>
+                  <td>{{ $partner->user->address ?? 'No llenado' }}</td>
+                  <td>{{ $partner->user->phone ?? 'No llenado' }}</td>
                   <td>{{ $partner->locations()->count() }}</td>
-                  <td><a href="#" class="btn btn-block btn-primary btn-xs">Modificar</a></td>
+                  <td>
+                    <input type="button" id="{{ $partner->id }}" value="Modificar" data-toggle="modal" data-target="#modal" class="btn btn-block btn-primary btn-xs">
+                  </td>
                 </tr>
                 @endforeach
               </table>
             </div>
-            <!-- /.box-body -->
+            <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">¿Qué desea hacer?</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Seleccione una de las siguientes opciones</p>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="#" id="newPassword" class="btn btn-outline">Generar nueva contraseña</a>
+                    <a href="#" id="updateData" class="btn btn-outline">Modificar perfil</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <!-- /.box -->
         </div>
-        <!-- /.col -->
-      </div>
+</div>
+<script type="text/javascript">
+$(':input[type=button]').click(function(){
+  $("#newPassword").attr("href", "/update/partner/password/" + $(this).attr('id'));
+  $("#updateData").attr("href", "/update/partner/data/" + $(this).attr('id'));
+});
+</script>
 @endsection
