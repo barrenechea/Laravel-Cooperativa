@@ -86,6 +86,7 @@
                 <li><a href="{{ url('view/files') }}"><i class="fa fa-circle-o"></i> Archivos</a></li>
               </ul>
             </li>
+            <li><a href="{{ url('systemstatus') }}"><i class="fa fa-info"></i> <span>Información</span></a></li>
         </ul><!-- /.sidebar-menu -->
 
     </section>

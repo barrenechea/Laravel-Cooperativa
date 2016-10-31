@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::group(['middleware' => ['init']], function () {
 		Route::get('home', 'HomeController@index');
+		Route::get('systemstatus', 'HomeController@systemstatus');
 
 		Route::group(['prefix' => 'register'], function () {
 	    	Route::get('partner', 'RegisterController@partner');
