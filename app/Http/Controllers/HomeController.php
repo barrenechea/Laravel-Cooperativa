@@ -117,10 +117,10 @@ class HomeController extends Controller
     public function systemstatus()
     {
         $path = '/';
-        $total = bcdiv(disk_total_space($path) / pow(1024, 3), 1, 2);
-        $free = bcdiv(disk_free_space($path) / pow(1024, 3), 1, 2);
+        $total = number_format(disk_total_space($path) / pow(1024, 3), 2);
+        $free = number_format(disk_free_space($path) / pow(1024, 3), 2);
         $used = $total - $free;
-        $pct = bcdiv((($used * 100) / $total), 1, 2);
+        $pct = number_format((($used * 100) / $total), 2);
         
         return view('system', ['total' => $total, 'free' => $free, 'used' => $used, 'pct' => $pct]);
     }
