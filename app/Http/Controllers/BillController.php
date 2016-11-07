@@ -47,6 +47,7 @@ class BillController extends Controller
 			$bill->overdue_day = null;
 			$bill->overdue_amount = null;
 			$bill->overdue_is_uf = null;
+			$bill->overdue_vfpcode = null;
 		}
 		Session::put('bill', $bill);
 

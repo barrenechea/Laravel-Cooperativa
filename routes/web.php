@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
 	    	Route::get('admin', 'ListController@listadmin');
 	    	Route::get('partner', 'ListController@listpartner');
 	    	Route::get('bills', 'ListController@listbill');
+	    	Route::get('payments/{location_id}', 'PaymentController@list');
 		});
 
 		Route::group(['prefix' => 'view'], function () {
@@ -103,6 +104,16 @@ Route::group(['middleware' => ['auth']], function () {
 				Route::get('data/{id}', 'UpdateController@partnerdata');
 				Route::post('data/{id}', 'UpdateController@savepartnerdata');
 			});
+		});
+
+		Route::group(['prefix' => 'payment'], function () {
+			Route::get('new/{id}', 'PaymentController@new');
+			Route::post('new', 'PaymentController@newpost');
+			Route::get('modify/{id}', 'PaymentController@modify');
+			Route::post('modify', 'PaymentController@modifypost');
+			Route::get('view/{id}', 'PaymentController@view');
+			Route::get('deletedetail/{id}', 'PaymentController@deletedetail');
+			Route::get('deletepayment/{id}', 'PaymentController@deletepayment');
 		});
 
 		Route::get('expenses', 'ExpenseController@index');

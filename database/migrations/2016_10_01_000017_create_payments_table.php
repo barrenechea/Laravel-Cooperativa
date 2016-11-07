@@ -19,10 +19,13 @@ class CreatePaymentsTable extends Migration
             $table->integer('billdetail_id')->unsigned();
             $table->integer('vfpsesion_id')->unsigned()->nullable();
             $table->integer('amount');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('billdetail_id')->references('id')->on('billdetails')->onDelete('cascade');
             $table->foreign('vfpsesion_id')->references('id')->on('vfpsesion')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -18,13 +18,17 @@ class CreateBillDetailsTable extends Migration
             $table->increments('id');
             $table->integer('bill_id')->unsigned();
             $table->integer('location_id')->unsigned();
+            $table->integer('partner_id')->unsigned();
+            $table->string('vfpcode');
             $table->integer('amount');
             $table->date('overdue_date')->nullable();
-            $table->integer('overdue_amount')->nullable();
+            $table->boolean('overdue_billed')->nullable()->default(false);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade');
             $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');
         });
     }
 

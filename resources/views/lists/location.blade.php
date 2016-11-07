@@ -27,7 +27,7 @@
               <td>{{ $location->type->name }}</td>
               <td>{{ $location->code }}</td>
               <td>{{ $location->partner ? $location->partner->user->name : 'No posee' }}</td>
-              <td><a href="#" class="btn btn-block btn-primary btn-xs">Ver detalle</a></td>
+              <td><a href="{{ url('/list/payments/'.$location->id) }}" class="btn btn-block btn-primary btn-xs">Ver cobros</a></td>
             </tr>
             @endforeach
           </table>

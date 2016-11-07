@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bill extends Model
 {
+    use SoftDeletes;
+    
 	protected $table = 'bills';
     protected $casts = [ 'is_uf' => 'boolean', 'active' => 'boolean', 'overdue_is_uf' => 'boolean' ];
-    protected $dates = ['end_bill'];
+    protected $dates = ['end_bill', 'deleted_at'];
 
     protected $fillable = [
     	'payment_day',
@@ -20,7 +23,8 @@ class Bill extends Model
         'end_bill',
         'overdue_day',
         'overdue_amount',
-        'overdue_is_uf'
+        'overdue_is_uf',
+        'overdue_vfpcode',
     ];
 
     public function billdetails()
