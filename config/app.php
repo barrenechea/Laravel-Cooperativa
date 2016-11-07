@@ -182,6 +182,11 @@ return [
          * Acacha AdminLTE template provider
          */
         Acacha\AdminLTETemplateLaravel\Providers\AdminLTETemplateServiceProvider::class,
+
+        /*
+         * Laravel Excel provider
+         */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -234,6 +239,11 @@ return [
          * Acacha AdminLTE template alias
         */
         'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
+
+        /*
+         * Laravel Excel alias
+        */
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 
