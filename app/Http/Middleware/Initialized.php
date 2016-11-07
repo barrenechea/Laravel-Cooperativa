@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 
 use Illuminate\Support\Facades\Auth;
+use Validation;
 
 class Initialized
 {
@@ -17,9 +18,20 @@ class Initialized
      */
     public function handle($request, Closure $next)
     {
-        //dd($request);
+        if(Auth::user()->is_admin && Auth::user()->roles->count() === 0)
+        {
+            Auth::logout();
+            return redirect('/');
+        }
+        elseif(Auth::user()->locations->count() == 0)
+        {
+            return redirect('/');
+        }
+
         if(!Auth::user()->initialized)
             return redirect('/init');
+
+        dd($request);
         
         return $next($request);
     }
