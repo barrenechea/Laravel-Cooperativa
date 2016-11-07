@@ -44,7 +44,8 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
-        })->dailyAt('01:45');
+        })->dailyAt('05:45');
+        //})->dailyAt(Carbon::now()->hour . ':' . Carbon::now()->minute);
 
         // This will generate BillDetail objects on database based on Bills
         $schedule->call(function ()
@@ -153,7 +154,7 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
-        })->dailyAt('02:00');
+        })->dailyAt('06:00');
         //})->dailyAt(Carbon::now()->hour . ':' . Carbon::now()->minute);
 
         // This will generate Overdue stuff
@@ -175,6 +176,7 @@ class Kernel extends ConsoleKernel
                             $newBillDetail->bill_id = $billdetail->bill->id;
                             $newBillDetail->location_id = $billdetail->location_id;
                             $newBillDetail->partner_id = $billdetail->partner_id;
+                            $newBillDetail->vfpcode = $billdetail->bill->overdue_vfpcode;
                             if($billdetail->bill->overdue_is_uf)
                             {
                                 $uf = $this->fetchUFValue();
@@ -185,17 +187,15 @@ class Kernel extends ConsoleKernel
                             $newBillDetail->amount = $amount;
                             $newBillDetail->overdue_date = null;
                             $newBillDetail->overdue_billed = null;
-                            // SEGUIR AQUI, VER SI TODO ESTA OK CULIAO
-                            echo $amount;
+                            $newBillDetail->save();
                         }
                     }
                     $billdetail->overdue_billed = true;
                     $billdetail->save();
-                    
                 }
             }
-        })->dailyAt(Carbon::now()->hour . ':' . Carbon::now()->minute);
-        //})->dailyAt('02:15');
+        })->dailyAt('06:15');
+        //})->dailyAt(Carbon::now()->hour . ':' . Carbon::now()->minute);
     }
 
     /**

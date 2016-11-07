@@ -37,7 +37,7 @@ Listado de Cobros - {{ $location->code }}, {{ $location->sector->name }}
               <td>${{ (number_format($billdetail->payments()->sum('amount'), 0, ',', '.')) }}</td>
               @if($billdetail->amount <= $billdetail->payments()->sum('amount'))
               <td><span class="label label-success">Pagado</span></td>
-              @elseif($billdetail->overdue_date->gte(Carbon\Carbon::today()))
+              @elseif(!isset($billdetail->overdue_date) || $billdetail->overdue_date->gte(Carbon\Carbon::today()))
               <td><span class="label label-warning">Pendiente</span></td>
               @else
               <td><span class="label label-danger">Atrasado</span></td>

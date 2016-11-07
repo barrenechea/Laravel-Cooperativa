@@ -161,11 +161,9 @@ class SesionController extends Controller
                             $payment->vfpsesion_id = $sesion->id;
                             $payment->amount = $sesion->haber;
                             $payment->save();
-                            // Everything done! :D
+                            // Everything done! :D now stop running the foreach
+                            break;
                         }
-                            // Stop running the foreach
-                        break;
-                        
                     }
                 }
             }
