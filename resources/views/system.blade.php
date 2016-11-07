@@ -7,7 +7,7 @@ Ubuntu Server 16.04.1 LTS - Kernel  {{ str_replace('-generic', '', php_uname('r'
 @endsection
 
 @section('main-content')
-@if($pct >= 90)
+@if($data['pct'] >= 90)
 <div class="row">
   <div class="col-md-12">
     <div class="alert alert-danger">
@@ -20,18 +20,18 @@ Ubuntu Server 16.04.1 LTS - Kernel  {{ str_replace('-generic', '', php_uname('r'
 <div class="row">
   <div class="col-sm-offset-3 col-md-offset-3 col-md-6 col-sm-6 col-xs-12">
     <!-- small box -->
-    <div class="info-box bg-{{ $pct < 75 ? 'green' : ($pct < 90 ? 'yellow' : 'red') }}">
+    <div class="info-box bg-{{ $data['pct'] < 75 ? 'green' : ($data['pct'] < 90 ? 'yellow' : 'red') }}">
       <span class="info-box-icon"><i class="fa fa-hdd-o"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Disco SSD</span>
-        <span class="info-box-number">{{ $used }} GB / {{ $total }} GB</span>
+        <span class="info-box-number">{{ $data['used'] }} GB / {{ $data['total'] }} GB</span>
 
         <div class="progress">
-          <div class="progress-bar" style="width: {{ $pct }}%"></div>
+          <div class="progress-bar" style="width: {{ $data['pct'] }}%"></div>
         </div>
         <span class="progress-description">
-          {{$pct}}% ocupado
+          {{ $data['pct'] }}% ocupado
         </span>
       </div>
       <!-- /.info-box-content -->
@@ -44,7 +44,7 @@ Ubuntu Server 16.04.1 LTS - Kernel  {{ str_replace('-generic', '', php_uname('r'
 
       <div class="info-box-content">
         <span class="info-box-text">Motor de base de datos</span>
-        <span class="info-box-number">{{ DB::connection()->getPdo()->query('select version()')->fetchColumn() }}</span>
+        <span class="info-box-number">{{ $dbengine }}</span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 0"></div>
@@ -63,7 +63,7 @@ Ubuntu Server 16.04.1 LTS - Kernel  {{ str_replace('-generic', '', php_uname('r'
 
       <div class="info-box-content">
         <span class="info-box-text">Servidor web</span>
-        <span class="info-box-number">{{ str_replace('/', ' ', ucfirst($_SERVER["SERVER_SOFTWARE"])) }}</span>
+        <span class="info-box-number">{{ $webengine }}</span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 0"></div>

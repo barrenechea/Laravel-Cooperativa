@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Message;
@@ -121,7 +122,14 @@ class HomeController extends Controller
     	$free = number_format(disk_free_space($path) / pow(1024, 3), 2);
     	$used = $total - $free;
     	$pct = number_format((($used * 100) / $total), 2);
+
+        $data = ['total' => $total, 'free' => $free, 'used' => $used, 'pct' => $pct];
+
+        $dbengine = DB::connection()->getPdo()->query('select version()')->fetchColumn();
+        $dbengine = explode('-', str_replace('-1~xenial', '', $dbengine));
+        $dbengine = $dbengine[1] . ' ' .$dbengine[0];
+        $webengine = str_replace('/', ' ', ucfirst($_SERVER["SERVER_SOFTWARE"]));
     	
-    	return view('system', ['total' => $total, 'free' => $free, 'used' => $used, 'pct' => $pct]);
+    	return view('system', ['data' => $data, 'dbengine' => $dbengine, 'webengine' => $webengine]);
     }
 }
