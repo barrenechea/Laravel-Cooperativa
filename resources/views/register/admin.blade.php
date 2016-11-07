@@ -34,7 +34,7 @@
          </div>
        </div>
        <div class="form-group">
-        <label for="permissions" class="col-sm-2 control-label">Roles</label>
+        <label for="permissions" class="col-sm-2 control-label">Permisos</label>
         <div class="col-sm-10">
           @foreach($roles as $role)
           <div class="checkbox">
