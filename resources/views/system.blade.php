@@ -63,7 +63,7 @@ Ubuntu Server 16.04.1 LTS - Kernel  {{ str_replace('-generic', '', php_uname('r'
 
       <div class="info-box-content">
         <span class="info-box-text">Servidor web</span>
-        <span class="info-box-number">{{ $_SERVER["SERVER_SOFTWARE"] }}</span>
+        <span class="info-box-number">{{ str_replace('/', ' ', ucfirst($_SERVER["SERVER_SOFTWARE"])) }}</span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 0"></div>
