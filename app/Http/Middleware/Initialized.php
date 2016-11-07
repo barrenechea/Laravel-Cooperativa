@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Validation;
 
@@ -18,20 +19,18 @@ class Initialized
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->is_admin && Auth::user()->roles->count() === 0)
+        // Account is enabled validation
+        if((Auth::user()->is_admin && Auth::user()->roles->count() === 0) || (isset(Auth::user()->partner) && Auth::user()->partner->locations->count() === 0))
         {
             Auth::logout();
-            return redirect('/');
-        }
-        elseif(Auth::user()->locations->count() == 0)
-        {
-            return redirect('/');
+            return redirect()->back()->withErrors(['Su cuenta se encuentra deshabilitada']);
         }
 
         if(!Auth::user()->initialized)
             return redirect('/init');
 
-        dd($request);
+        // Realizar validación para rutas
+        //dd($request);
         
         return $next($request);
     }
