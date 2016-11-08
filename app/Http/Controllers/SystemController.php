@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
 use App\Sector;
@@ -75,8 +76,8 @@ class SystemController extends Controller
 
         if($request->input('has_percentage'))
         {
-            Session::put('group', $group);
-            Session::put('locations', $locations);
+            Cache::put('group', $group, 5);
+            Cache::put('locations', $locations, 5);
 
             return redirect('system/grouppct');
         }
@@ -92,19 +93,19 @@ class SystemController extends Controller
 
     public function grouppct()
     {
-        if(!Session::has('group') || !Session::has('locations'))
+        if(!Cache::has('group') || !Cache::has('locations'))
         {
             return redirect('system/group');
         }
 
-        $locations = Location::whereIn('id', Session::get('locations'))->get();
+        $locations = Location::whereIn('id', Cache::get('locations'))->get();
 
         return view('system.grouppct', ['locations' => $locations]);
     }
 
     public function addgrouppct(Request $request)
     {
-        $locations = Location::whereIn('id', Session::get('locations'))->get();
+        $locations = Location::whereIn('id', Cache::get('locations'))->get();
         $rules = [];
 
         foreach ($locations as $location) {
@@ -119,7 +120,7 @@ class SystemController extends Controller
                         ->withInput();
         }
 
-        $group = Session::get('group');
+        $group = Cache::get('group');
         $group->save();
 
         $group->locations()->sync($locations);
@@ -132,8 +133,8 @@ class SystemController extends Controller
             $percentage->save();
         }
 
-        Session::forget('locations');
-        Session::forget('group');
+        Cache::forget('locations');
+        Cache::forget('group');
 
         Session::flash('success', 'El grupo ha sido creado exitosamente!');
         return redirect('system\group');
