@@ -3,7 +3,7 @@
 @section('htmlheader_title', 'Agregar cobro')
 
 @section('contentheader_title')
-Agregar cobro - {{ Session::get('bill')->description }}
+Agregar cobro - {{ Cache::get('bill')->description }}
 @endsection
 
 @section('main-content')
