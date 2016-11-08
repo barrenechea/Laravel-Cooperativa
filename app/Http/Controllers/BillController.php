@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -49,14 +50,14 @@ class BillController extends Controller
 			$bill->overdue_is_uf = null;
 			$bill->overdue_vfpcode = null;
 		}
-		Session::put('bill', $bill);
+		Cache::put('bill', $bill, 5);
 
 		return redirect('bill/create/' . $request->input('assign'));
 	}
 
 	public function createassign($assign)
 	{
-		if(!Session::has('bill'))
+		if(!Cache::has('bill'))
             return redirect('bill/create');
 
 		if($assign === 'sector')
@@ -80,10 +81,10 @@ class BillController extends Controller
 
 	public function createall(Request $request, $assign)
 	{
-		if(!Session::has('bill'))
+		if(!Cache::has('bill'))
             return redirect('bill/create');
 
-		$bill = Session::get('bill');
+		$bill = Cache::get('bill');
 		$bill->save();
 
 		if($assign === 'sector')
@@ -104,7 +105,7 @@ class BillController extends Controller
 		else
 			return redirect('bill/create');
 
-		Session::forget('bill');
+		Cache::forget('bill');
 		Session::flash('success', '¡El cobro se ha ingresado exitosamente!');
 
 		return redirect('bill/create');
