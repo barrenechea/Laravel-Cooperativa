@@ -1,7 +1,11 @@
 <head>
     <meta charset="UTF-8">
-    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Apple Manifest -->
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Android Manifest -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+
     <title>@yield('htmlheader_title', 'Your title here') - Panel Cooperativa</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
