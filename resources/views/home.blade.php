@@ -128,99 +128,74 @@ Bienvenido(a), {{ Auth::user()->name }}!
       <div class="box-body">
         <div class="row">
           <div class="col-md-12">
-            <div class="chart">
-              <canvas id="salesChart" width="900" height="150"></canvas>
-            </div>
+            <div id="highchartscontainer" style="height:300px;"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<script src="{{ asset('/plugins/chartjs/Chart.min.js') }}"></script>
+<script src="{{ asset('/plugins/highcharts/highcharts.js') }}"></script>
 <script>
   $(function () {
-    'use strict';
-    var salesChart = new Chart($("#salesChart").get(0).getContext("2d"));
+    Highcharts.setOptions({
+      lang: {
+        thousandsSep: '.'
+      }
+    });
 
-    var data = {
-      labels: [
-      @foreach ($months as $month)
-      "{{ $month['name'] }}",
-      @endforeach
-      ],
-      datasets: [
-      {
-        label: "Ingresos",
-        fillColor: "rgb(210, 214, 222)",
-        strokeColor: "rgb(210, 214, 222)",
-        pointColor: "rgb(210, 214, 222)",
-        pointStrokeColor: "#c1c7d1",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgb(220,220,220)",
+    $('#highchartscontainer').highcharts({
+      chart: {
+        type: 'column',
+      },
+      title: {
+        text: ''
+      },
+      xAxis: {
+        categories: [
+        @foreach ($months as $month)
+        '{{ $month['name'] }}',
+        @endforeach
+        ],
+      },
+      yAxis: {
+        title: {
+          text: 'Dinero'
+        },
+        labels: {
+          formatter: function () {
+            return '$' + this.axis.defaultLabelFormatter.call(this);
+          }            
+        }
+      },
+      tooltip: {
+        shared: true,
+        valuePrefix: ' $'
+      },
+      credits: {
+        enabled: false
+      },
+      plotOptions: {
+        areaspline: {
+          fillOpacity: 0.5
+        }
+      },
+      series: [{
+        name: 'Ingresos',
         data: [
         @foreach ($months as $month)
         {{ $month['income'] }},
         @endforeach
-        ],
-      },
-      {
-        label: "Egresos",
-        fillColor: "rgba(60,141,188,0.5)",
-        strokeColor: "rgba(60,141,188,0.8)",
-        pointColor: "#3b8bba",
-        pointStrokeColor: "rgba(60,141,188,1)",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(60,141,188,1)",
+        ]
+      }, {
+        name: 'Egresos',
         data: [
         @foreach ($months as $month)
         {{ $month['outcome'] }},
         @endforeach
-        ],
-      }
-      ]
-    };
-
-    var options = {
-    //Boolean - If we should show the scale at all
-    showScale: true,
-    //Boolean - Whether grid lines are shown across the chart
-    scaleShowGridLines: true,
-    //String - Colour of the grid lines
-    scaleGridLineColor: "rgba(0,0,0,.05)",
-    //Number - Width of the grid lines
-    scaleGridLineWidth: 1,
-    //Boolean - Whether to show horizontal lines (except X axis)
-    scaleShowHorizontalLines: true,
-    //Boolean - Whether to show vertical lines (except Y axis)
-    scaleShowVerticalLines: true,
-    //Boolean - Whether the line is curved between points
-    bezierCurve: true,
-    //Number - Tension of the bezier curve between points
-    bezierCurveTension: 0.3,
-    //Boolean - Whether to show a dot for each point
-    pointDot: true,
-    //Number - Radius of each point dot in pixels
-    pointDotRadius: 2,
-    //Number - Pixel width of point dot stroke
-    pointDotStrokeWidth: 1,
-    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-    pointHitDetectionRadius: 20,
-    //Boolean - Whether to show a stroke for datasets
-    datasetStroke: true,
-    //Number - Pixel width of dataset stroke
-    datasetStrokeWidth: 2,
-    //Boolean - Whether to fill the dataset with a color
-    datasetFill: true,
-    scaleLabel: function(label){return '$' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");},
-    //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-    maintainAspectRatio: false,
-    //Boolean - whether to make the chart responsive to window resizing
-    responsive: true,
-  };
-
-  //Create the line chart
-  salesChart.Line(data, options);
-});
+        ]
+      }]
+    });
+  });
 </script>
 @endsection

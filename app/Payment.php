@@ -13,7 +13,7 @@ class Payment extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-    	'billdetail_id', 'vfp_sesion_id', 'amount', 'user_id'
+    	'billdetail_id', 'vfpsesion_id', 'amount', 'user_id'
     ];
 
     public function billdetail()
