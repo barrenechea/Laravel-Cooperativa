@@ -128,7 +128,7 @@ Bienvenido(a), {{ Auth::user()->name }}!
       <div class="box-body">
         <div class="row">
           <div class="col-md-12">
-            <div id="highchartscontainer" style="height:300px;"></div>
+            <div id="highchartscontainer" style="height:250px;"></div>
           </div>
         </div>
       </div>
