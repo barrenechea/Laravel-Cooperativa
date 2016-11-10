@@ -123,7 +123,7 @@ Bienvenido(a), {{ Auth::user()->name }}!
   <div class="col-md-12">
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Egresos Cooperativa - Últimos 6 meses</h3>
+        <h3 class="box-title">Flujo monetario Cooperativa - Últimos 6 meses</h3>
       </div>
       <div class="box-body">
         <div class="row">
