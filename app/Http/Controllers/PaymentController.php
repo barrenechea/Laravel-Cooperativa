@@ -48,6 +48,7 @@ class PaymentController extends Controller
 		{
 			Session::flash('warning', 'No hay detalle disponible para el cobro seleccionado');
 			return redirect()->back();
+			// Ver como arreglarlo!
 		}
 	}
 
@@ -65,5 +66,22 @@ class PaymentController extends Controller
 		$payment->delete();
 		Session::flash('success', 'Pago eliminado exitosamente!');
 		return redirect()->back();
+	}
+
+	public function modify($id)
+	{
+		$payment = Payment::findOrFail($id);
+		return view('payments.modify', ['payment' => $payment]);
+	}
+
+	public function modifypost(Request $request)
+	{
+		$payment = Payment::findOrFail($request->input('payment_id'));
+		$payment->user_id = $request->input('user_id');
+		$payment->amount = $request->input('amount');
+		$payment->save();
+
+		Session::flash('success', 'El pago se ha modificado exitosamente!');
+		return redirect('/list/payments/' . $payment->billdetail->location_id);
 	}
 }

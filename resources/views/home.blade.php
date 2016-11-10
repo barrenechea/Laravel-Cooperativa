@@ -151,8 +151,22 @@ Bienvenido(a), {{ Auth::user()->name }}!
       ],
       datasets: [
       {
-        label: "Gastos",
-        fillColor: "rgba(60,141,188,0.9)",
+        label: "Ingresos",
+        fillColor: "rgb(210, 214, 222)",
+        strokeColor: "rgb(210, 214, 222)",
+        pointColor: "rgb(210, 214, 222)",
+        pointStrokeColor: "#c1c7d1",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgb(220,220,220)",
+        data: [
+        @foreach ($months as $month)
+        {{ $month['income'] }},
+        @endforeach
+        ],
+      },
+      {
+        label: "Egresos",
+        fillColor: "rgba(60,141,188,0.5)",
         strokeColor: "rgba(60,141,188,0.8)",
         pointColor: "#3b8bba",
         pointStrokeColor: "rgba(60,141,188,1)",
@@ -160,7 +174,7 @@ Bienvenido(a), {{ Auth::user()->name }}!
         pointHighlightStroke: "rgba(60,141,188,1)",
         data: [
         @foreach ($months as $month)
-        {{ $month['amount'] }},
+        {{ $month['outcome'] }},
         @endforeach
         ],
       }

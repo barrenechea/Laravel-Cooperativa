@@ -23,7 +23,7 @@
           <div class="form-group">
             <label for="payment_day" class="col-sm-2 control-label">Día de cobro</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control" id="payment_day" name="payment_day" placeholder="Ingrese el día en que se debe generar el cobro" min="1" max="31" value="{{ old('payment_day') }}" required>
+              <input type="number" class="form-control" id="payment_day" name="payment_day" placeholder="Ingrese el día de cada mes en que se debe generar el cobro" min="1" max="31" value="{{ old('payment_day') }}" required>
             </div>
           </div>
           <div class="form-group">
@@ -80,9 +80,9 @@
             </div>
           </div>
           <div class="form-group overdue">
-            <label for="overdue_day" class="col-sm-2 control-label">Día de atraso</label>
+            <label for="overdue_day" class="col-sm-2 control-label">Día de expiración</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control" id="overdue_day" name="overdue_day" placeholder="Ingrese el día a partir que se considera como atraso" min="1" max="31" value="{{ old('overdue_day') }}">
+              <input type="number" class="form-control" id="overdue_day" name="overdue_day" placeholder="Ingrese el día del siguiente mes a considerar como vencimiento" min="1" max="31" value="{{ old('overdue_day') }}">
             </div>
           </div>
           <div class="form-group overdue">

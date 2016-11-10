@@ -93,6 +93,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Sector B',
             'code' => 'SB',
         ]);
+        //ID = 4
+        DB::table('sectors')->insert([
+            'name' => 'Estacionamientos',
+            'code' => 'EST',
+        ]);
+        // Tipos
         //ID = 1
         DB::table('types')->insert([
             'name' => 'Local',
@@ -100,6 +106,10 @@ class DatabaseSeeder extends Seeder
         //ID = 2
         DB::table('types')->insert([
             'name' => 'Módulo',
+        ]);
+        //ID = 3
+        DB::table('types')->insert([
+            'name' => 'Estacionamiento',
         ]);
 
         //Locales

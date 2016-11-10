@@ -6,7 +6,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <img src="{{ asset('/img/logobig.png') }}" alt="Logo" />
+            <img src="{{ asset('/img/logobig.png') }}" alt="Logo" style="max-width: 200px; max-height: 100%;" />
         </div>
         @if (count($errors) > 0)
         <div class="alert alert-danger">
