@@ -116,8 +116,8 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::get('deletepayment/{id}', 'PaymentController@deletepayment');
 		});
 
-		Route::get('expenses', 'ExpenseController@index');
-		Route::post('expenses', 'ExpenseController@save');
+		//Route::get('expenses', 'ExpenseController@index');
+		//Route::post('expenses', 'ExpenseController@save');
 	    
 	});
     
