@@ -16,7 +16,7 @@
               <th>Autor</th>
               <th>Fecha</th>
               <th>Mensaje</th>
-              @if($messages->where('user_id', Auth::user()->id)->count())
+              @if($messages->where('user_id', Auth::user()->id)->count() || Auth::user()->can('delete_message_file'))
               <th>Acción</th>
               @endif
             </tr>
@@ -27,9 +27,9 @@
               <td>{{ $message->user->name }}</td>
               <td>{{ $message->created_at->format('d-m-Y') }}</td>
               <td>{{ $message->message }}</td>
-              @if($messages->where('user_id', Auth::user()->id)->count())
+              @if($messages->where('user_id', Auth::user()->id)->count() || Auth::user()->can('delete_message_file'))
               <td>
-                @if($message->user_id === Auth::user()->id && $message->created_at->diffInMinutes(\Carbon\Carbon::now()) < 10)
+                @if(($message->user_id === Auth::user()->id && $message->created_at->diffInMinutes(\Carbon\Carbon::now()) < 10) || Auth::user()->can('delete_message_file'))
                 <a href="{{ url('/messages/delete/'.$message->id) }}" class="btn btn-block btn-primary btn-xs">Eliminar</a>
                 @else
                 <input type="button" value="No disponible" class="btn btn-block btn-danger btn-xs" disabled>
@@ -41,12 +41,15 @@
           </tbody>
         </table>
       </div>
+      @can('new_message')
       <div class="box-footer">
         <input type="button" value="Nuevo mensaje" data-toggle="modal" data-target="#modal" class="btn btn-primary pull-right">
       </div>
+      @endcan
     </div>
   </div>
 </div>
+@can('new_message')
 <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form role="form" class="form-horizontal" action="{{ url('/messages/add') }}" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -95,4 +98,5 @@
       });
     }(jQuery));
   </script>
+  @endcan
   @endsection

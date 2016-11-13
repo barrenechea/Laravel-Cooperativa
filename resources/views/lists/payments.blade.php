@@ -22,7 +22,9 @@ Listado de Cobros - {{ $location->code }}, {{ $location->sector->name }}
               <th>Monto a pagar</th>
               <th>Monto pagado</th>
               <th>Estado</th>
+              @if(Auth::user()->can('view_list_billdetail_payment') || Auth::user()->can('add_payment') || Auth::user()->can('delete_billdetail'))
               <th>Accion</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -42,41 +44,56 @@ Listado de Cobros - {{ $location->code }}, {{ $location->sector->name }}
               @else
               <td><span class="label label-danger">Atrasado</span></td>
               @endif
+              @if(Auth::user()->can('view_list_billdetail_payment') || Auth::user()->can('add_payment') || Auth::user()->can('delete_billdetail'))
               <td>
                 <input type="button" id="{{ $billdetail->id }}" value="Ver acciones" data-toggle="modal" data-target="#modal" class="btn btn-block btn-primary btn-xs">
               </td>
+              @endif
             </tr>
             @endforeach
           </tbody>
         </table>
       </div>
-      <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">¿Qué desea hacer?</h4>
-              </div>
-              <div class="modal-body">
-                <p>Seleccione una de las siguientes opciones</p>
-              </div>
-              <div class="modal-footer">
-                <a href="#" id="deleteDetail" class="btn btn-danger pull-left">Eliminar cobro</a>
-                <a href="#" id="addPayment" class="btn btn-outline">Agregar pago</a>
-                <a href="#" id="viewDetail" class="btn btn-outline">Ver detalle</a>
-              </div>
-            </div>
-          </div>
+    </div>
+  </div>
+</div>
+@if(Auth::user()->can('view_list_billdetail_payment') || Auth::user()->can('add_payment') || Auth::user()->can('delete_billdetail'))
+<div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">¿Qué desea hacer?</h4>
+        </div>
+        <div class="modal-body">
+          <p>Seleccione una de las siguientes opciones</p>
+        </div>
+        <div class="modal-footer">
+          @can('delete_billdetail')
+          <a href="#" id="deleteDetail" class="btn btn-danger pull-left">Eliminar cobro</a>
+          @endcan
+          @can('add_payment')
+          <a href="#" id="addPayment" class="btn btn-outline">Agregar pago</a>
+          @endcan
+          @can('view_list_billdetail_payment')
+          <a href="#" id="viewDetail" class="btn btn-outline">Ver detalle</a>
+          @endcan
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript">
     $(':input[type=button]').click(function(){
+      @can('delete_billdetail')
       $("#deleteDetail").attr("href", "/payment/deletedetail/" + $(this).attr('id'));
+      @endcan
+      @can('add_payment')
       $("#addPayment").attr("href", "/payment/new/" + $(this).attr('id'));
+      @endcan
+      @can('view_list_billdetail_payment')
       $("#viewDetail").attr("href", "/payment/view/" + $(this).attr('id'));
+      @endcan
     });
 
     (function ($) {
@@ -97,4 +114,5 @@ Listado de Cobros - {{ $location->code }}, {{ $location->sector->name }}
       });
     }(jQuery));
   </script>
+  @endif
   @endsection

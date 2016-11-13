@@ -17,13 +17,15 @@
               <th>Usuario</th>
               <th>Email</th>
               <th>Estado</th>
+              @if(Auth::user()->can('modify_admin_account') || Auth::user()->can('restore_password_admin_account'))
               <th>Accion</th>
+              @endif
             </tr>
           </thead>
           <tbody>
             @foreach($admins as $admin)
             @if($admin->can('super_admin'))
-              @continue;
+            @continue;
             @endif
             <tr>
               <td hidden>{{ $admin->id }}</td>
@@ -35,42 +37,55 @@
               @else
               <td><span class="label label-danger">Desactivado</span></td>
               @endif
+              @if(Auth::user()->can('modify_admin_account') || Auth::user()->can('restore_password_admin_account'))
               <td>
                 <input type="button" id="{{ $admin->id }}" value="Modificar" data-toggle="modal" data-target="#modal" class="btn btn-block btn-primary btn-xs">
               </td>
+              @endif
             </tr>
             @endforeach
           </tbody>
         </table>
       </div>
+      @can('create_admin_account')
       <div class="box-footer">
         <a href="{{ url('register/admin') }}" class="btn btn-primary pull-right">Agregar nuevo administrador</a>
       </div>
-      <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">¿Qué desea hacer?</h4>
-              </div>
-              <div class="modal-body">
-                <p>Seleccione una de las siguientes opciones</p>
-              </div>
-              <div class="modal-footer">
-                <a href="#" id="newPassword" class="btn btn-outline">Generar nueva contraseña</a>
-                <a href="#" id="updateData" class="btn btn-outline">Modificar perfil</a>
-              </div>
-            </div>s
-          </div>
+      @endcan
+    </div>
+  </div>
+</div>
+@if(Auth::user()->can('modify_admin_account') || Auth::user()->can('restore_password_admin_account'))
+<div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">¿Qué desea hacer?</h4>
         </div>
-      </div>
+        <div class="modal-body">
+          <p>Seleccione una de las siguientes opciones</p>
+        </div>
+        <div class="modal-footer">
+          @can('restore_password_admin_account')
+          <a href="#" id="newPassword" class="btn btn-outline">Generar nueva contraseña</a>
+          @endcan
+          @can('modify_admin_account')
+          <a href="#" id="updateData" class="btn btn-outline">Modificar perfil</a>
+          @endcan
+        </div>
+      </div>s
     </div>
   </div>
   <script type="text/javascript">
     $(':input[type=button]').click(function(){
+      @can('restore_password_admin_account')
       $("#newPassword").attr("href", "/update/admin/password/" + $(this).attr('id'));
+      @endcan
+      @can('modify_admin_account')
       $("#updateData").attr("href", "/update/admin/data/" + $(this).attr('id'));
+      @endcan
     });
 
     (function ($) {
@@ -91,4 +106,5 @@
       });
     }(jQuery));
   </script>
+  @endif
   @endsection

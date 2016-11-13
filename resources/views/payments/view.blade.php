@@ -18,7 +18,9 @@ Listado de Pagos - {{ $payments->first()->billdetail->location->code }}, {{ $pay
               <th>Fecha pago</th>
               <th>Monto pago</th>
               <th>Generado por</th>
+              @if(Auth::user()->can('delete_payment') || Auth::user()->can('modify_payment'))
               <th>Acción</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -29,43 +31,51 @@ Listado de Pagos - {{ $payments->first()->billdetail->location->code }}, {{ $pay
               <td>${{ (number_format($payment->amount, 0, ',', '.')) }}</td>
               <td>{{ $payment->user->name ?? 'Sistema Contable Drysoft' }}</td>
               <td>
-                @if($payment->user)
+                @if($payment->user && (Auth::user()->can('delete_payment') || Auth::user()->can('modify_payment')))
                 <input type="button" id="{{ $payment->id }}" value="Ver acciones" data-toggle="modal" data-target="#modal" class="btn btn-block btn-primary btn-xs">
                 @else
                 <input type="button" value="No disponible" class="btn btn-block btn-danger btn-xs" disabled>
                 @endif
-                
               </td>
             </tr>
             @endforeach
           </tbody>
         </table>
       </div>
-      <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">¿Qué desea hacer?</h4>
-              </div>
-              <div class="modal-body">
-                <p>Seleccione una de las siguientes opciones</p>
-              </div>
-              <div class="modal-footer">
-                <a href="#" id="deletePayment" class="btn btn-danger pull-left">Eliminar pago</a>
-                <a href="#" id="modifyPayment" class="btn btn-outline">Modificar pago</a>
-              </div>
-            </div>
-          </div>
+    </div>
+  </div>
+</div>
+@if(Auth::user()->can('delete_payment') || Auth::user()->can('modify_payment'))
+<div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">¿Qué desea hacer?</h4>
+        </div>
+        <div class="modal-body">
+          <p>Seleccione una de las siguientes opciones</p>
+        </div>
+        <div class="modal-footer">
+          @can('delete_payment')
+          <a href="#" id="deletePayment" class="btn btn-danger pull-left">Eliminar pago</a>
+          @endcan
+          @can('modify_payment')
+          <a href="#" id="modifyPayment" class="btn btn-outline">Modificar pago</a>
+          @endcan
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript">
     $(':input[type=button]').click(function(){
+      @can('delete_payment')
       $("#deletePayment").attr("href", "/payment/deletepayment/" + $(this).attr('id'));
+      @endcan
+      @can('modify_payment')
       $("#modifyPayment").attr("href", "/payment/modify/" + $(this).attr('id'));
+      @endcan
     });
 
     (function ($) {
@@ -86,4 +96,5 @@ Listado de Pagos - {{ $payments->first()->billdetail->location->code }}, {{ $pay
       });
     }(jQuery));
   </script>
+  @endif
   @endsection

@@ -18,7 +18,9 @@
               <th>Dirección</th>
               <th>Teléfono</th>
               <th>Locales asociados</th>
+              @if(Auth::user()->can('modify_partner_account') || Auth::user()->can('restore_password_partner_account'))
               <th>Accion</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -30,19 +32,24 @@
               <td>{{ $partner->user->address ?? 'No llenado' }}</td>
               <td>{{ $partner->user->phone ?? 'No llenado' }}</td>
               <td>{{ $partner->locations()->count() }}</td>
+              @if(Auth::user()->can('modify_partner_account') || Auth::user()->can('restore_password_partner_account'))
               <td>
                 <input type="button" id="{{ $partner->id }}" value="Modificar" data-toggle="modal" data-target="#modal" class="btn btn-block btn-primary btn-xs">
               </td>
+              @endif
             </tr>
             @endforeach
           </table>
         </div>
+        @can('create_partner_account')
         <div class="box-footer">
           <a href="{{ url('register/partner') }}" class="btn btn-primary pull-right">Agregar nuevo socio</a>
         </div>
+        @endcan
       </div>
     </div>
   </div>
+  @if(Auth::user()->can('modify_partner_account') || Auth::user()->can('restore_password_partner_account'))
   <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -55,16 +62,24 @@
             <p>Seleccione una de las siguientes opciones</p>
           </div>
           <div class="modal-footer">
+            @can('restore_password_partner_account')
             <a href="#" id="newPassword" class="btn btn-outline">Generar nueva contraseña</a>
+            @endcan
+            @can('modify_partner_account')
             <a href="#" id="updateData" class="btn btn-outline">Modificar perfil</a>
+            @endcan
           </div>
         </div>
       </div>
     </div>
     <script type="text/javascript">
       $(':input[type=button]').click(function(){
+        @can('restore_password_partner_account')
         $("#newPassword").attr("href", "/update/partner/password/" + $(this).attr('id'));
+        @endcan
+        @can('modify_partner_account')
         $("#updateData").attr("href", "/update/partner/data/" + $(this).attr('id'));
+        @endcan
       });
 
       (function ($) {
@@ -85,4 +100,5 @@
         });
       }(jQuery));
     </script>
+    @endif
     @endsection

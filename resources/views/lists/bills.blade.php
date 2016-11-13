@@ -8,7 +8,6 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="box">
-      <!-- /.box-header -->
       <div class="box-body">
         <table class="table table-bordered table-striped">
           <thead>
@@ -16,7 +15,9 @@
               <th>Descripción</th>
               <th>Monto</th>
               <th>Cobro por atraso</th>
+              @can('modify_bill')
               <th>Accion</th>
+              @endcan
             </tr>
           </thead>
           <tbody>
@@ -25,18 +26,19 @@
               <td>{{ $bill->description }}</td>
               <td>{{ $bill->is_uf ? ($bill->amount . ' UF') : '$'.(number_format($bill->amount, 0, ',', '.')) }}</td>
               <td>{{ $bill->overdue_amount ? ($bill->overdue_is_uf ? ($bill->overdue_amount . 'UF') : '$'.(number_format($bill->overdue_amount, 0, ',', '.'))) : 'No posee' }}</td>
+              @can('modify_bill')
               <td><a href="#" class="btn btn-block btn-primary btn-xs">Modificar</a></td>
+              @endcan
             </tr>
             @endforeach
           </table>
         </div>
+        @can('add_bill')
         <div class="box-footer">
           <a href="{{ url('bill/create') }}" class="btn btn-primary pull-right">Agregar nuevo cobro</a>
         </div>
-        <!-- /.box-body -->
+        @endcan
       </div>
-      <!-- /.box -->
     </div>
-    <!-- /.col -->
   </div>
   @endsection

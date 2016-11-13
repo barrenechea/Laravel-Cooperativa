@@ -14,7 +14,9 @@
             <tr>
               <th>Nombre</th>
               <th>Ubicaciones asociadas</th>
+              @can('view_list_sector_type_location')
               <th>Accion</th>
+              @endcan
             </tr>
           </thead>
           <tbody>
@@ -22,17 +24,22 @@
             <tr>
               <td>{{ $type->name }}</td>
               <td>{{ $type->locations()->count() }}</td>
+              @can('view_list_sector_type_location')
               <td><a href="{{ url('/list/location?type='.$type->id) }}" class="btn btn-block btn-primary btn-xs">Ver ubicaciones</a></td>
+              @endcan
             </tr>
             @endforeach
           </table>
         </div>
+        @can('add_type')
         <div class="box-footer">
           <input type="button" value="Agregar tipo" data-toggle="modal" data-target="#modal" class="btn btn-primary pull-right">
         </div>
+        @endcan
       </div>
     </div>
   </div>
+  @can('add_sector')
   <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <form role="form" class="form-horizontal" action="{{ url('/system/addtype') }}" method="post">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -42,24 +49,24 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span></button>
               <h4 class="modal-title" id="myModalLabel">Agregar tipo</h4>
-          </div>
-          <div class="modal-body">
-            <div class="box-body">
-              <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">Nombre</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese nombre (Ejemplo: Estacionamiento)" required>
+            </div>
+            <div class="modal-body">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="name" class="col-sm-2 control-label">Nombre</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese nombre (Ejemplo: Estacionamiento)" required>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-outline">Agregar tipo</button>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-outline">Agregar tipo</button>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
     <script type="text/javascript">
       (function ($) {
         "use strict";
@@ -77,4 +84,5 @@
         });
       }(jQuery));
     </script>
+    @endcan
     @endsection

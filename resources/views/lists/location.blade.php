@@ -17,7 +17,9 @@
               <th>Tipo</th>
               <th>Código</th>
               <th>Socio vinculado</th>
+              @can('view_list_billdetail_payment')
               <th>Acción</th>
+              @endcan
             </tr>
           </thead>
           <tbody>
@@ -27,18 +29,22 @@
               <td>{{ $location->type->name }}</td>
               <td>{{ $location->code }}</td>
               <td>{{ $location->partner ? $location->partner->user->name : 'No posee' }}</td>
+              @can('view_list_billdetail_payment')
               <td><a href="{{ url('/list/payments/'.$location->id) }}" class="btn btn-block btn-primary btn-xs">Ver cobros</a></td>
+              @endcan
             </tr>
             @endforeach
           </table>
         </div>
+        @can('add_location')
         <div class="box-footer">
           <input type="button" value="Agregar ubicación" data-toggle="modal" data-target="#modal" class="btn btn-primary pull-right">
         </div>
+        @endcan
       </div>
     </div>
   </div>
-
+  @can('add_location')
   <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <form role="form" class="form-horizontal" action="{{ url('/system/addlocation') }}" method="post">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -105,4 +111,5 @@
     });
   }(jQuery));
 </script>
+@endcan
 @endsection

@@ -31,54 +31,54 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::group(['middleware' => ['init']], function () {
 		Route::get('home', 'HomeController@index');
-		Route::get('systemstatus', 'HomeController@systemstatus');
+		Route::get('systemstatus', 'HomeController@systemstatus')->middleware('can:view_systeminfo');
 
 		Route::group(['prefix' => 'register'], function () {
-	    	Route::get('partner', 'RegisterController@partner');
-	    	Route::post('partner', 'RegisterController@registerpartner');
-	    	Route::get('admin', 'RegisterController@admin');
-	    	Route::post('admin', 'RegisterController@registeradmin');
+	    	Route::get('partner', 'RegisterController@partner')->middleware('can:create_partner_account');
+	    	Route::post('partner', 'RegisterController@registerpartner')->middleware('can:create_partner_account');
+	    	Route::get('admin', 'RegisterController@admin')->middleware('can:create_admin_account');
+	    	Route::post('admin', 'RegisterController@registeradmin')->middleware('can:create_admin_account');
 		});
 
 		Route::group(['prefix' => 'system'], function () {
-	    	Route::post('addsector', 'SystemController@addsector');
-	    	Route::post('addtype', 'SystemController@addtype');
-	    	Route::post('addlocation', 'SystemController@addlocation');
+	    	Route::post('addsector', 'SystemController@addsector')->middleware('can:add_sector');
+	    	Route::post('addtype', 'SystemController@addtype')->middleware('can:add_type');
+	    	Route::post('addlocation', 'SystemController@addlocation')->middleware('can:add_location');
 
-	    	Route::get('group', 'SystemController@group');
-	    	Route::post('addgroup', 'SystemController@addgroup');
-	    	Route::get('grouppct', 'SystemController@grouppct');
-	    	Route::post('addgrouppct', 'SystemController@addgrouppct');
+	    	Route::get('group', 'SystemController@group')->middleware('can:add_group');
+	    	Route::post('addgroup', 'SystemController@addgroup')->middleware('can:add_group');
+	    	Route::get('grouppct', 'SystemController@grouppct')->middleware('can:add_group');
+	    	Route::post('addgrouppct', 'SystemController@addgrouppct')->middleware('can:add_group');
 
-	    	Route::get('overduedates', 'SystemController@overduedates');
-	    	Route::post('overduedates', 'SystemController@updateoverduedates');
+	    	Route::get('overduedates', 'SystemController@overduedates')->middleware('can:modify_overdue');
+	    	Route::post('overduedates', 'SystemController@updateoverduedates')->middleware('can:modify_overdue');
 		});
 
 		Route::group(['prefix' => 'messages'], function () {
-			Route::post('add', 'MessageController@add');
-			Route::get('delete/{id}', 'MessageController@delete');
+			Route::post('add', 'MessageController@add')->middleware('can:new_message');
+			Route::get('delete/{id}', 'MessageController@delete')->middleware('can:delete_message_file');
 		});
 
 		Route::group(['prefix' => 'fileentry'], function () {
 			Route::get('get/{id}', ['as' => 'getentry', 'uses' => 'FileEntryController@get']);
-			Route::post('add', ['as' => 'addentry', 'uses' => 'FileEntryController@add']);
-			Route::get('delete/{id}', 'FileEntryController@delete');
+			Route::post('add', ['as' => 'addentry', 'uses' => 'FileEntryController@add'])->middleware('can:new_file');
+			Route::get('delete/{id}', 'FileEntryController@delete')->middleware('can:delete_message_file');
 		});
 
 		Route::group(['prefix' => 'list'], function () {
-			Route::get('sector', 'ListController@listsector');
-	    	Route::get('type', 'ListController@listtype');
-	    	Route::get('location', 'ListController@listlocation');
-	    	Route::get('group', 'ListController@listgroup');
-	    	Route::get('admin', 'ListController@listadmin');
-	    	Route::get('partner', 'ListController@listpartner');
-	    	Route::get('bills', 'ListController@listbill');
-	    	Route::get('payments/{location_id}', 'PaymentController@list');
+			Route::get('sector', 'ListController@listsector')->middleware('can:view_list_sector_type_location');
+	    	Route::get('type', 'ListController@listtype')->middleware('can:view_list_sector_type_location');
+	    	Route::get('location', 'ListController@listlocation')->middleware('can:view_list_sector_type_location');
+	    	Route::get('group', 'ListController@listgroup')->middleware('can:view_list_group');
+	    	Route::get('admin', 'ListController@listadmin')->middleware('can:view_list_admin');
+	    	Route::get('partner', 'ListController@listpartner')->middleware('can:view_list_partner');
+	    	Route::get('bills', 'ListController@listbill')->middleware('can:view_list_bill');
+	    	Route::get('payments/{location_id}', 'PaymentController@list')->middleware('can:view_list_billdetail_payment');
 	    	Route::get('messages', 'ListController@listmessage');
 	    	Route::get('files', 'ListController@listfile');
 		});
 
-		Route::group(['prefix' => 'bill'], function () {
+		Route::group(['prefix' => 'bill', 'middleware' => ['can:add_bill']], function () {
 			Route::get('create', 'BillController@create');
 			Route::post('create', 'BillController@createbill');
 			Route::get('create/{assign}', 'BillController@createassign');
@@ -90,26 +90,26 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::post('profile', 'UpdateController@saveprofile');
 
 			Route::group(['prefix' => 'admin'], function () {
-				Route::get('password/{id}', 'UpdateController@newadminpassword');
-				Route::get('data/{id}', 'UpdateController@admindata');
-				Route::post('data/{id}', 'UpdateController@saveadmindata');
+				Route::get('password/{id}', 'UpdateController@newadminpassword')->middleware('can:restore_password_admin_account');
+				Route::get('data/{id}', 'UpdateController@admindata')->middleware('can:modify_admin_account');
+				Route::post('data/{id}', 'UpdateController@saveadmindata')->middleware('can:modify_admin_account');
 			});
 
 			Route::group(['prefix' => 'partner'], function () {
-				Route::get('password/{id}', 'UpdateController@newpartnerpassword');
-				Route::get('data/{id}', 'UpdateController@partnerdata');
-				Route::post('data/{id}', 'UpdateController@savepartnerdata');
+				Route::get('password/{id}', 'UpdateController@newpartnerpassword')->middleware('can:restore_password_partner_account');
+				Route::get('data/{id}', 'UpdateController@partnerdata')->middleware('can:modify_partner_account');
+				Route::post('data/{id}', 'UpdateController@savepartnerdata')->middleware('can:modify_partner_account');
 			});
 		});
 
 		Route::group(['prefix' => 'payment'], function () {
-			Route::get('new/{id}', 'PaymentController@new');
-			Route::post('new', 'PaymentController@newpost');
-			Route::get('modify/{id}', 'PaymentController@modify');
-			Route::post('modify', 'PaymentController@modifypost');
-			Route::get('view/{id}', 'PaymentController@view');
-			Route::get('deletedetail/{id}', 'PaymentController@deletedetail');
-			Route::get('deletepayment/{id}', 'PaymentController@deletepayment');
+			Route::get('new/{id}', 'PaymentController@new')->middleware('can:add_payment');
+			Route::post('new', 'PaymentController@newpost')->middleware('can:add_payment');
+			Route::get('modify/{id}', 'PaymentController@modify')->middleware('can:modify_payment');
+			Route::post('modify', 'PaymentController@modifypost')->middleware('can:modify_payment');
+			Route::get('view/{id}', 'PaymentController@view')->middleware('can:view_list_billdetail_payment');
+			Route::get('deletedetail/{id}', 'PaymentController@deletedetail')->middleware('can:delete_billdetail');
+			Route::get('deletepayment/{id}', 'PaymentController@deletepayment')->middleware('can:delete_payment');
 		});
 	});
 });

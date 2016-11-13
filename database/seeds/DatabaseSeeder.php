@@ -177,6 +177,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
+            'name' => 'view_log',
+            'description' => 'Ver registro de actividad (para auditorías)',
+        ]);
+
+        DB::table('roles')->insert([
             'name' => 'view_systeminfo',
             'description' => 'Ver información del sistema',
         ]);

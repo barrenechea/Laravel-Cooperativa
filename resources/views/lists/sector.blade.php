@@ -15,7 +15,9 @@
               <th>Nombre</th>
               <th>Código</th>
               <th>Ubicaciones asociadas</th>
+              @can('view_list_sector_type_location')
               <th>Accion</th>
+              @endcan
             </tr>
           </thead>
           <tbody>
@@ -24,18 +26,23 @@
               <td>{{ $sector->name }}</td>
               <td>{{ $sector->code }}</td>
               <td>{{ $sector->locations()->count() }}</td>
+              @can('view_list_sector_type_location')
               <td><a href="{{ url('/list/location?sector='.$sector->id) }}" class="btn btn-block btn-primary btn-xs">Ver ubicaciones</a></td>
+              @endcan
             </tr>
             @endforeach
           </tbody>
         </table>
       </div>
+      @can('add_sector')
       <div class="box-footer">
         <input type="button" value="Agregar sector" data-toggle="modal" data-target="#modal" class="btn btn-primary pull-right">
       </div>
+      @endcan
     </div>
   </div>
 </div>
+@can('add_sector')
 <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form role="form" class="form-horizontal" action="{{ url('/system/addsector') }}" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -88,4 +95,5 @@
       });
     }(jQuery));
   </script>
-@endsection
+  @endcan
+  @endsection

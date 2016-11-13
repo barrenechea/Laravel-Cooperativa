@@ -19,9 +19,11 @@ Bienvenido(a), {{ Auth::user()->name }}!
       <div class="icon">
         <i class="fa fa-building"></i>
       </div>
+      @can('view_list_sector_type_location')
       <a href="{{ url('/list/sector') }}" class="small-box-footer">
         Ver listado <i class="fa fa-arrow-circle-right"></i>
       </a>
+      @endcan
     </div>
   </div>
   <div class="col-md-2 col-sm-6 col-xs-12">
@@ -34,9 +36,11 @@ Bienvenido(a), {{ Auth::user()->name }}!
       <div class="icon">
         <i class="fa fa-filter"></i>
       </div>
+      @can('view_list_sector_type_location')
       <a href="{{ url('/list/type') }}" class="small-box-footer">
         Ver listado <i class="fa fa-arrow-circle-right"></i>
       </a>
+      @endcan
     </div>
   </div>
   <div class="col-md-2 col-sm-6 col-xs-12">
@@ -48,9 +52,11 @@ Bienvenido(a), {{ Auth::user()->name }}!
       <div class="icon">
         <i class="fa fa-shopping-bag"></i>
       </div>
+      @can('view_list_sector_type_location')
       <a href="{{ url('/list/location') }}" class="small-box-footer">
         Ver listado <i class="fa fa-arrow-circle-right"></i>
       </a>
+      @endcan
     </div>
   </div>
   <div class="col-md-2 col-sm-6 col-xs-12">
@@ -58,15 +64,16 @@ Bienvenido(a), {{ Auth::user()->name }}!
     <div class="small-box bg-yellow">
       <div class="inner">
         <h3>{{ $groups }}</h3>
-
         <p>Grupos</p>
       </div>
       <div class="icon">
         <i class="fa fa-users"></i>
       </div>
+      @can('view_list_group')
       <a href="{{ url('/list/group') }}" class="small-box-footer">
         Ver listado <i class="fa fa-arrow-circle-right"></i>
       </a>
+      @endcan
     </div>
   </div>
   <div class="col-md-2 col-sm-6 col-xs-12">
@@ -80,9 +87,11 @@ Bienvenido(a), {{ Auth::user()->name }}!
       <div class="icon">
         <i class="fa fa-user"></i>
       </div>
+      @can('view_list_partner')
       <a href="{{ url('/list/partner') }}" class="small-box-footer">
         Ver listado <i class="fa fa-arrow-circle-right"></i>
       </a>
+      @endcan
     </div>
   </div>
   <div class="col-md-2 col-sm-6 col-xs-12">
@@ -96,9 +105,11 @@ Bienvenido(a), {{ Auth::user()->name }}!
       <div class="icon">
         <i class="fa fa-money"></i>
       </div>
+      @can('view_list_bill')
       <a href="{{ url('/list/bills') }}" class="small-box-footer">
         Ver listado <i class="fa fa-arrow-circle-right"></i>
       </a>
+      @endcan
     </div>
   </div>
 </div>
