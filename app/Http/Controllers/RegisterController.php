@@ -71,7 +71,7 @@ class RegisterController extends Controller
 
     public function admin()
     {
-        $roles = Role::all();
+        $roles = Role::where('id', '<>', 1)->get();
 
         return view('register.admin', ['roles' => $roles]);
     }

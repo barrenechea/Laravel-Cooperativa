@@ -22,6 +22,9 @@
           </thead>
           <tbody>
             @foreach($admins as $admin)
+            @if($admin->can('super_admin'))
+              @continue;
+            @endif
             <tr>
               <td hidden>{{ $admin->id }}</td>
               <td>{{ $admin->name }}</td>
