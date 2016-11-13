@@ -13,6 +13,8 @@ use App\Percentage;
 use App\User;
 use App\Partner;
 use App\Bill;
+use App\Message;
+use App\Fileentry;
 
 class ListController extends Controller
 {
@@ -64,5 +66,17 @@ class ListController extends Controller
     {
         $bills = Bill::all();
         return view('lists.bills', ['bills' => $bills]);
+    }
+
+    public function listmessage()
+    {
+        $messages = Message::latest()->where('has_file', false)->get();
+        return view('lists.messages', ['messages' => $messages]);
+    }
+
+    public function listfile()
+    {
+        $messages = Message::latest()->where('has_file', true)->get();
+        return view('lists.fileentries', ['messages' => $messages]);
     }
 }

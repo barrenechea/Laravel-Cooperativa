@@ -74,11 +74,8 @@ Route::group(['middleware' => ['auth']], function () {
 	    	Route::get('partner', 'ListController@listpartner');
 	    	Route::get('bills', 'ListController@listbill');
 	    	Route::get('payments/{location_id}', 'PaymentController@list');
-		});
-
-		Route::group(['prefix' => 'view'], function () {
-			Route::get('messages', 'ViewController@messages');
-	    	Route::get('files', 'ViewController@files');
+	    	Route::get('messages', 'ListController@listmessage');
+	    	Route::get('files', 'ListController@listfile');
 		});
 
 		Route::group(['prefix' => 'bill'], function () {
@@ -114,11 +111,6 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::get('deletedetail/{id}', 'PaymentController@deletedetail');
 			Route::get('deletepayment/{id}', 'PaymentController@deletepayment');
 		});
-
-		//Route::get('expenses', 'ExpenseController@index');
-		//Route::post('expenses', 'ExpenseController@save');
-	    
 	});
-    
 });
 

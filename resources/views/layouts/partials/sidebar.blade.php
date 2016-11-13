@@ -15,6 +15,7 @@
           <li><a href="{{ url('list/partner') }}"><i class="fa fa-circle-o"></i> Socios</a></li>
           <li><a href="{{ url('system/overduedates') }}"><i class="fa fa-circle-o"></i> Días de morosidad</a></li>
           <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de morosos</a></li>
+          <li><a href="#"><i class="fa fa-circle-o"></i> Registro de actividad</a></li>
           <li><a href="{{ url('systemstatus') }}"><i class="fa fa-circle-o"></i> Información</a></li>
         </ul>
       </li>
@@ -32,8 +33,8 @@
       </li>
       <li><a href="#"><i class="fa fa-money"></i> <span>Contabilidad externa</span></a></li>
 
-      <li><a href="{{ url('view/messages') }}"><i class="fa fa-comment-o"></i><span>Ver mensajes</span></a></li>
-      <li><a href="{{ url('view/files') }}"><i class="fa fa-file-o"></i><span>Ver archivos</span></a></li>
+      <li><a href="{{ url('list/messages') }}"><i class="fa fa-comment-o"></i><span>Ver mensajes</span></a></li>
+      <li><a href="{{ url('list/files') }}"><i class="fa fa-file-o"></i><span>Ver archivos</span></a></li>
     </ul>
   </section>
 </aside>
