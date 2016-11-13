@@ -15,7 +15,6 @@ use App\Type;
 use App\Location;
 use Carbon\Carbon;
 use App\Sesion;
-use App\Expense;
 use App\Bill;
 use App\Payment;
 
@@ -39,7 +38,6 @@ class HomeController extends Controller
 
         //Egresos logic
       setlocale(LC_TIME, 'es_ES.utf8');
-      $expenses = Expense::pluck('vfpcode');
       $months = array();
       for ($i=6; $i > 0; $i--) {
         $name = ucfirst(Carbon::now()->subMonths($i)->formatLocalized('%B %Y'));
