@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration
             $table->string('message');
             $table->boolean('has_file')->default(false);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

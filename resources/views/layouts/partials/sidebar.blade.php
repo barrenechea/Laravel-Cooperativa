@@ -19,18 +19,6 @@
           <li><a href="{{ url('systemstatus') }}"><i class="fa fa-circle-o"></i> Información</a></li>
         </ul>
       </li>
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-bullhorn"></i>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i><span>Comunicación</span>
-          </span>
-        </a>
-        <ul class="treeview-menu" style="display: none;">
-          <li><a href="{{ url('messages/add') }}"><i class="fa fa-circle-o"></i> Enviar mensaje</a></li>
-          <li><a href="{{ url('fileentry') }}"><i class="fa fa-circle-o"></i> Subir archivo</a></li>
-        </ul>
-      </li>
       <li><a href="#"><i class="fa fa-money"></i> <span>Contabilidad externa</span></a></li>
 
       <li><a href="{{ url('list/messages') }}"><i class="fa fa-comment-o"></i><span>Ver mensajes</span></a></li>

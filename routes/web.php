@@ -55,14 +55,14 @@ Route::group(['middleware' => ['auth']], function () {
 		});
 
 		Route::group(['prefix' => 'messages'], function () {
-			Route::get('add', 'MessageController@addindex');
 			Route::post('add', 'MessageController@add');
+			Route::get('delete/{id}', 'MessageController@delete');
 		});
 
-		Route::get('fileentry', 'FileEntryController@index');
 		Route::group(['prefix' => 'fileentry'], function () {
 			Route::get('get/{id}', ['as' => 'getentry', 'uses' => 'FileEntryController@get']);
 			Route::post('add', ['as' => 'addentry', 'uses' => 'FileEntryController@add']);
+			Route::get('delete/{id}', 'FileEntryController@delete');
 		});
 
 		Route::group(['prefix' => 'list'], function () {

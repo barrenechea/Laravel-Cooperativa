@@ -16,6 +16,9 @@
               <th>Autor</th>
               <th>Fecha</th>
               <th>Mensaje</th>
+              @if($messages->where('user_id', Auth::user()->id)->count())
+              <th>Acción</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -24,15 +27,72 @@
               <td>{{ $message->user->name }}</td>
               <td>{{ $message->created_at->format('d-m-Y') }}</td>
               <td>{{ $message->message }}</td>
+              @if($messages->where('user_id', Auth::user()->id)->count())
+              <td>
+                @if($message->user_id === Auth::user()->id && $message->created_at->diffInMinutes(\Carbon\Carbon::now()) < 10)
+                <a href="{{ url('/messages/delete/'.$message->id) }}" class="btn btn-block btn-primary btn-xs">Eliminar</a>
+                @else
+                <input type="button" value="No disponible" class="btn btn-block btn-danger btn-xs" disabled>
+                @endif
+              </td>
+              @endif
             </tr>
             @endforeach
           </tbody>
         </table>
       </div>
-      <!-- /.box-body -->
+      <div class="box-footer">
+        <input type="button" value="Nuevo mensaje" data-toggle="modal" data-target="#modal" class="btn btn-primary pull-right">
+      </div>
     </div>
-    <!-- /.box -->
   </div>
-  <!-- /.col -->
 </div>
-@endsection
+<div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form role="form" class="form-horizontal" action="{{ url('/messages/add') }}" method="post">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">Nuevo mensaje</h4>
+          </div>
+          <div class="modal-body">
+            <div class="box-body">
+              <div class="form-group">
+                <label for="message" class="col-sm-2 control-label">Mensaje</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="message" name="message" placeholder="Ingrese mensaje a enviar (máx. 255 caracteres)" required>
+                </div>
+              </div>
+              <ul>
+                <li>Al enviar un mensaje, este quedará a su nombre y estará disponible para ser visualizado por todos los socios y administradores del sistema.</li>
+                <li>Tendrá un plazo máximo de 10 minutos para eliminar el mensaje, para casos de ingresos por equivocación o información errónea.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline">Enviar mensaje</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script type="text/javascript">
+    (function ($) {
+      "use strict";
+      function centerModal() {
+        $(this).css('display', 'block');
+        var $dialog  = $(this).find(".modal-dialog"),
+        offset       = ($(window).height() - $dialog.height()) / 2,
+        bottomMargin = parseInt($dialog.css('marginBottom'), 10);
+        if(offset < bottomMargin) offset = bottomMargin;
+        $dialog.css("margin-top", offset);
+      }
+      $(document).on('show.bs.modal', '.modal', centerModal);
+      $(window).on("resize", function () {
+        $('.modal:visible').each(centerModal);
+      });
+    }(jQuery));
+  </script>
+  @endsection

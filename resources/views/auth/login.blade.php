@@ -9,7 +9,7 @@ Acceder
     <div class="login-box">
         <div class="login-logo">
             <img src="{{ asset('/img/logobig.png') }}" alt="Logo" style="max-width: 200px; max-height: 100%;" />
-        </div><!-- /.login-logo -->
+        </div>
         @if (count($errors) > 0)
         <div class="alert alert-danger">
             <strong>Ups!</strong> {{ trans('adminlte_lang::message.someproblems') }}<br><br>
@@ -20,17 +20,16 @@ Acceder
             </ul>
         </div>
         @endif
-
         <div class="login-box-body">
             <p class="login-box-msg"> {{ trans('adminlte_lang::message.siginsession') }} </p>
             <form action="{{ url('/login') }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="{{ trans('adminlte_lang::message.username') }}" name="username" required />
+                    <input type="text" class="form-control" placeholder="{{ trans('adminlte_lang::message.username') }}" name="username" required tabindex="1" />
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="{{ trans('adminlte_lang::message.password') }}" name="password" required />
+                    <input type="password" class="form-control" placeholder="{{ trans('adminlte_lang::message.password') }}" name="password" required tabindex="2" />
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
@@ -40,27 +39,23 @@ Acceder
                                 <input type="checkbox" name="remember"> {{ trans('adminlte_lang::message.remember') }}
                             </label>
                         </div>
-                    </div><!-- /.col -->
+                    </div>
                     <div class="col-xs-4">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('adminlte_lang::message.buttonsign') }}</button>
-                    </div><!-- /.col -->
+                    </div>
                 </div>
             </form>
-        </div><!-- /.login-box-body -->
-
-    </div><!-- /.login-box -->
-
+        </div>
+    </div>
     @include('layouts.partials.scripts_auth')
-
     <script>
         $(function () {
             $('input').iCheck({
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
+                increaseArea: '20%'
             });
         });
     </script>
 </body>
-
 @endsection

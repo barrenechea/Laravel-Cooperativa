@@ -15,11 +15,6 @@ use Validator;
 
 class FileEntryController extends Controller
 {
-    public function index()
-	{
-		return view('fileentries.index');
-	}
-
 	public function add(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
@@ -52,8 +47,7 @@ class FileEntryController extends Controller
 
 		Session::flash('success', 'El archivo ha sido subido exitosamente!');
 
-		return redirect('fileentry');
-		
+		return redirect()->back();
 	}
 
 	public function get($id)
@@ -62,5 +56,21 @@ class FileEntryController extends Controller
 		$pathToFile = storage_path().'/app/'.$entry->filename;
 		
 		return response()->download($pathToFile, $entry->original_filename, ['Content-Type' => $entry->mime]);
+	}
+
+	public function delete($id)
+	{
+		$message = Message::findOrFail($id);
+		if($message->created_at->diffInMinutes(\Carbon\Carbon::now()) > 10)
+			return redirect()->back()->withErrors(['Han transcurrido más de 10 minutos desde que envió el mensaje. No se puede eliminar.']);
+		
+		if(!$message->has_file)
+			return redirect()->back()->withErrors(['No se puede eliminar este tipo de mensaje desde acá.']);
+
+		Storage::disk('local')->delete($message->fileentry->filename);
+		$message->fileentry->delete();
+		$message->delete();
+		Session::flash('success', 'El archivo ha sido eliminado exitosamente!');
+		return redirect()->back();
 	}
 }

@@ -12,11 +12,6 @@ use Validator;
 
 class MessageController extends Controller
 {
-    public function addindex()
-	{
-		return view('messages.addindex');
-	}
-
 	public function add(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
@@ -38,6 +33,19 @@ class MessageController extends Controller
 		Session::flash('success', 'El mensaje ha sido publicado exitosamente!');
 
 		return redirect()->back();
+	}
+
+	public function delete($id)
+	{
+		$message = Message::findOrFail($id);
+		if($message->created_at->diffInMinutes(\Carbon\Carbon::now()) > 10)
+			return redirect()->back()->withErrors(['Han transcurrido más de 10 minutos desde que envió el mensaje. No se puede eliminar.']);
 		
+		if($message->has_file)
+			return redirect()->back()->withErrors(['No se puede eliminar este tipo de mensaje desde acá.']);
+
+		$message->delete();
+		Session::flash('success', 'El mensaje ha sido eliminado exitosamente!');
+		return redirect()->back();
 	}
 }
