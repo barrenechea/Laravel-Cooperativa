@@ -43,6 +43,7 @@
           <p class="col-sm-12 help-block">La contraseña será generada y enviada automáticamente por correo electrónico.</p>
         </div>
         <div class="box-footer">
+          <a href="{{ url('/list/partner') }}" class="btn btn-primary">Volver al listado</a>
           <button type="submit" class="btn btn-primary pull-right">Agregar socio</button>
         </div>
       </form>

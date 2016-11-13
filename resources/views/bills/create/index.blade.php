@@ -139,6 +139,7 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
+          <a href="{{ url('/list/bills') }}" class="btn btn-primary">Volver al listado</a>
           <button type="submit" class="btn btn-primary pull-right">Continuar</button>
         </div>
       </form>

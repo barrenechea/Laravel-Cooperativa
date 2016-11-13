@@ -40,6 +40,9 @@
           </tbody>
         </table>
       </div>
+      <div class="box-footer">
+        <a href="{{ url('register/admin') }}" class="btn btn-primary pull-right">Agregar nuevo administrador</a>
+      </div>
       <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -55,7 +58,7 @@
                 <a href="#" id="newPassword" class="btn btn-outline">Generar nueva contraseña</a>
                 <a href="#" id="updateData" class="btn btn-outline">Modificar perfil</a>
               </div>
-            </div>
+            </div>s
           </div>
         </div>
       </div>

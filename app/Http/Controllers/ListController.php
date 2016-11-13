@@ -28,10 +28,18 @@ class ListController extends Controller
         return view('lists.type', ['types' => $types]);
     }
 
-    public function listlocation()
+    public function listlocation(Request $request)
     {
-    	$locations = Location::all();
-        return view('lists.location', ['locations' => $locations]);
+        $sectors = Sector::all();
+        $types = Type::all();
+
+        if($request->input('sector') !== null)
+            $locations = Location::where('sector_id', $request->input('sector'))->get();
+        elseif($request->input('type') !== null)
+            $locations = Location::where('type_id', $request->input('type'))->get();
+        else
+            $locations = Location::all();
+        return view('lists.location', ['locations' => $locations, 'sectors' => $sectors, 'types' => $types]);
     }
 
     public function listgroup()

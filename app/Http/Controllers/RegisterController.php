@@ -105,6 +105,6 @@ class RegisterController extends Controller
 
         Session::flash('success', 'La cuenta ha sido ingresada exitosamente y se ha enviado un mail al nuevo administrador!');
 
-        return redirect('/register/admin');
+        return redirect()->back();
     }
 }

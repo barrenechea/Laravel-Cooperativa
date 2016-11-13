@@ -8,7 +8,6 @@
 <div class="row">
   <div class="col-md-12">
    <div class="box box-primary">
-    <!-- form start -->
     <form role="form" class="form-horizontal" action="{{ url('/system/addgroup') }}" method="post">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="box-body">
@@ -38,14 +37,12 @@
           </div>
         </div>
       </div>
-      <!-- /.box-body -->
       <div class="box-footer">
+        <a href="{{ url('/list/group') }}" class="btn btn-primary">Volver al listado</a>
         <button type="submit" class="btn btn-primary pull-right">Continuar</button>
       </div>
-      <!-- /.box-footer -->
     </form>
   </div>
 </div>
 </div>
-
 @endsection

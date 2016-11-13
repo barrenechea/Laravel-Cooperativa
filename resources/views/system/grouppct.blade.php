@@ -11,8 +11,6 @@
     <div class="box-header with-border">
       <h3 class="box-title">Asignar porcentajes - {{ Cache::get('group')->description }}</h3>
     </div>
-    <!-- /.box-header -->
-    <!-- form start -->
     <form role="form" class="form-horizontal" action="{{ url('/system/addgrouppct') }}" method="post">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="box-body">
@@ -28,14 +26,12 @@
         </div>
         @endforeach
       </div>
-      <!-- /.box-body -->
       <div class="box-footer">
+        <a href="{{ url('/list/group') }}" class="btn btn-primary">Volver al listado</a>
         <button type="submit" class="btn btn-primary pull-right">Agregar</button>
       </div>
-      <!-- /.box-footer -->
     </form>
   </div>
 </div>
 </div>
-
 @endsection

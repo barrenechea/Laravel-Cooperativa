@@ -52,6 +52,7 @@
     <!-- /.box-body -->
 
     <div class="box-footer">
+      <a href="{{ url('/list/admin') }}" class="btn btn-primary">Volver al listado</a>
       <button type="submit" class="btn btn-primary pull-right">Agregar Administrador</button>
     </div>
   </form>

@@ -26,14 +26,11 @@
           </div>
         </div>
       </div>
-      <!-- /.box-body -->
       <div class="box-footer">
         <button type="submit" class="btn btn-primary pull-right">Actualizar</button>
       </div>
-      <!-- /.box-footer -->
     </form>
   </div>
 </div>
 </div>
-
 @endsection

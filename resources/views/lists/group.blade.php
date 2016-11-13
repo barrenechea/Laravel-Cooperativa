@@ -8,7 +8,6 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="box">
-      <!-- /.box-header -->
       <div class="box-body">
         <table class="table table-bordered table-striped">
           <thead>
@@ -28,12 +27,13 @@
               <td><a href="#" class="btn btn-block btn-primary btn-xs">Ver detalle</a></td>
             </tr>
             @endforeach
-          </table>
-        </div>
-        <!-- /.box-body -->
+          </tbody>
+        </table>
       </div>
-      <!-- /.box -->
+      <div class="box-footer">
+          <a href="{{ url('system/group') }}" class="btn btn-primary pull-right">Agregar nuevo grupo</a>
+        </div>
     </div>
-    <!-- /.col -->
   </div>
-  @endsection
+</div>
+@endsection

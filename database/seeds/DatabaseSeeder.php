@@ -111,6 +111,22 @@ class DatabaseSeeder extends Seeder
         DB::table('types')->insert([
             'name' => 'Estacionamiento',
         ]);
+        //ID = 4
+        DB::table('types')->insert([
+            'name' => 'Bodega',
+        ]);
+        //ID = 5
+        DB::table('types')->insert([
+            'name' => 'Vitrina',
+        ]);
+        //ID = 6
+        DB::table('types')->insert([
+            'name' => 'Espacio Común',
+        ]);
+        //ID = 7
+        DB::table('types')->insert([
+            'name' => 'Baño Público',
+        ]);
 
         //Locales
         //Alameda Maipu
@@ -123,6 +139,118 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        DB::table('locations')->insert([
+            'type_id' => 1,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'LOC.EXT1'
+            ]);
+        
+        for ($i=1; $i < 4; $i++) { 
+            DB::table('locations')->insert([
+            'type_id' => 1,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'LOC.B'.$i
+            ]);
+        }
+
+        for ($i=1; $i < 5; $i++) { 
+            DB::table('locations')->insert([
+            'type_id' => 1,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'LOC.BA'.$i
+            ]);
+        }
+
+        for ($i=1; $i < 4; $i++) { 
+            DB::table('locations')->insert([
+            'type_id' => 2,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'MOD.'.($i === 1 ? 'C' : ($i === 2 ? 'D' : 'E'))
+            ]);
+        }
+
+        DB::table('locations')->insert([
+            'type_id' => 1,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'CASINO.1'
+            ]);
+
+        for ($i=1; $i < 9; $i++) { 
+            if($i === 7) continue;
+            DB::table('locations')->insert([
+            'type_id' => 4,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'BOD.'.$i
+            ]);
+        }
+
+        DB::table('locations')->insert([
+            'type_id' => 4,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'BOD.LOC.BA5'
+            ]);
+        DB::table('locations')->insert([
+            'type_id' => 4,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'BOD.LOC.BA6'
+            ]);
+        DB::table('locations')->insert([
+            'type_id' => 5,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'VIT.LOC.50'
+            ]);
+        DB::table('locations')->insert([
+            'type_id' => 5,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'VIT.LOC.51'
+            ]);
+        DB::table('locations')->insert([
+            'type_id' => 5,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'VIT.LOC.69'
+            ]);
+        DB::table('locations')->insert([
+            'type_id' => 5,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'VIT.1'
+            ]);
+        DB::table('locations')->insert([
+            'type_id' => 6,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'EC.KIO1'
+            ]);
+        DB::table('locations')->insert([
+            'type_id' => 6,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'EC.BN1'
+            ]);
+        DB::table('locations')->insert([
+            'type_id' => 6,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'EC.BN2'
+            ]);
+        DB::table('locations')->insert([
+            'type_id' => 6,
+            'sector_id' => 1,
+            'partner_id' => null,
+            'code' => 'EC.EST1'
+            ]);
+
         //Alameda Santiago
         for ($i=1; $i < 204; $i++) { 
             DB::table('locations')->insert([
@@ -132,6 +260,52 @@ class DatabaseSeeder extends Seeder
             'code' => 'LOC.'.$i
             ]);
         }
+        for ($i=1; $i < 3; $i++) { 
+            DB::table('locations')->insert([
+            'type_id' => 2,
+            'sector_id' => 2,
+            'partner_id' => null,
+            'code' => 'MOD.EC'.$i
+            ]);
+        }
+        for ($i=2; $i < 4; $i++) { 
+            DB::table('locations')->insert([
+            'type_id' => 2,
+            'sector_id' => 2,
+            'partner_id' => null,
+            'code' => 'MOD.A'.$i
+            ]);
+        }
+        DB::table('locations')->insert([
+            'type_id' => 2,
+            'sector_id' => 2,
+            'partner_id' => null,
+            'code' => 'MOD.C2'
+            ]);
+        for ($i=4; $i < 8; $i++) {
+            if($i === 6) continue;
+            DB::table('locations')->insert([
+            'type_id' => 2,
+            'sector_id' => 2,
+            'partner_id' => null,
+            'code' => 'MOD.Z'.$i
+            ]);
+        }
+        DB::table('locations')->insert([
+            'type_id' => 6,
+            'sector_id' => 2,
+            'partner_id' => null,
+            'code' => 'EC.1'
+            ]);
+        for ($i=1; $i < 3; $i++) {
+            DB::table('locations')->insert([
+            'type_id' => 7,
+            'sector_id' => 2,
+            'partner_id' => null,
+            'code' => 'BANO.'.$i
+            ]);
+        }
+        
 
         //Sector B
         for ($i=1; $i < 33; $i++) { 
@@ -147,6 +321,21 @@ class DatabaseSeeder extends Seeder
             'sector_id' => 3,
             'partner_id' => null,
             'code' => 'LOC.32A'
+        ]);
+        for ($i=1; $i < 7; $i++) {
+            if($i === 4 || $i === 5) continue;
+            DB::table('locations')->insert([
+            'type_id' => 2,
+            'sector_id' => 3,
+            'partner_id' => null,
+            'code' => 'MOD.Z'.$i
+            ]);
+        }
+        DB::table('locations')->insert([
+            'type_id' => 7,
+            'sector_id' => 3,
+            'partner_id' => null,
+            'code' => 'BANO.1'
         ]);
     }
 }

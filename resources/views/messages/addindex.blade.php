@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('htmlheader_title', 'Nuevo mensaje')
+@section('htmlheader_title', 'Enviar mensaje')
 
-@section('contentheader_title', 'Nuevo mensaje')
+@section('contentheader_title', 'Enviar mensaje')
 
 @section('main-content')
 <div class="row">

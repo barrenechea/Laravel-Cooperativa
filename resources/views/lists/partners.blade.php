@@ -37,23 +37,26 @@
             @endforeach
           </table>
         </div>
-        <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                  <h4 class="modal-title" id="myModalLabel">¿Qué desea hacer?</h4>
-                </div>
-                <div class="modal-body">
-                  <p>Seleccione una de las siguientes opciones</p>
-                </div>
-                <div class="modal-footer">
-                  <a href="#" id="newPassword" class="btn btn-outline">Generar nueva contraseña</a>
-                  <a href="#" id="updateData" class="btn btn-outline">Modificar perfil</a>
-                </div>
-              </div>
-            </div>
+        <div class="box-footer">
+          <a href="{{ url('register/partner') }}" class="btn btn-primary pull-right">Agregar nuevo socio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">¿Qué desea hacer?</h4>
+          </div>
+          <div class="modal-body">
+            <p>Seleccione una de las siguientes opciones</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#" id="newPassword" class="btn btn-outline">Generar nueva contraseña</a>
+            <a href="#" id="updateData" class="btn btn-outline">Modificar perfil</a>
           </div>
         </div>
       </div>

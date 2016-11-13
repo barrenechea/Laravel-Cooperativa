@@ -30,6 +30,9 @@
             @endforeach
           </table>
         </div>
+        <div class="box-footer">
+          <a href="{{ url('bill/create') }}" class="btn btn-primary pull-right">Agregar nuevo cobro</a>
+        </div>
         <!-- /.box-body -->
       </div>
       <!-- /.box -->

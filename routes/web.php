@@ -41,7 +41,6 @@ Route::group(['middleware' => ['auth']], function () {
 		});
 
 		Route::group(['prefix' => 'system'], function () {
-			Route::get('base', 'SystemController@base');
 	    	Route::post('addsector', 'SystemController@addsector');
 	    	Route::post('addtype', 'SystemController@addtype');
 	    	Route::post('addlocation', 'SystemController@addlocation');
