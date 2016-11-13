@@ -17,60 +17,195 @@ class DatabaseSeeder extends Seeder
         ]);
 
     	DB::table('users')->insert([
-            'name' => 'Sebastián Barrenechea',
+            'name' => 'Laravel Administrator',
             'username' => 'admin',
             'password' => bcrypt('admin'),
-            'email' => 'sebastian@barrenechea.cl',
+            'email' => 'admin@alamedamaipu.cl',
             'is_admin' => 1,
             'initialized' => 1,
         ]);
 
+        // id = 1
         DB::table('roles')->insert([
-            'name' => 'can_handle_admins',
-            'description' => 'Agregar, modificar y deshabilitar cuentas de Administrador',
+            'name' => 'view_list_admin',
+            'description' => 'Ver listado de Administradores',
         ]);
 
+        // id = 2
         DB::table('roles')->insert([
-            'name' => 'can_manage_sector_type_location',
-            'description' => 'Administrar sectores, tipos y lugares',
+            'name' => 'create_admin_account',
+            'description' => 'Agregar cuentas de Administrador',
         ]);
 
+        // id = 3
         DB::table('roles')->insert([
-            'name' => 'can_manage_groups',
-            'description' => 'Administrar grupos de socios',
+            'name' => 'modify_admin_account',
+            'description' => 'Modificar y deshabilitar cuentas de Administrador',
         ]);
 
+        // id = 4
         DB::table('roles')->insert([
-            'name' => 'can_sync_users',
-            'description' => 'Agregar, modificar y deshabilitar cuentas de Socio',
+            'name' => 'restore_password_admin_account',
+            'description' => 'Reestablecer contraseñas a cuentas de Administrador',
         ]);
 
+        // id = 5
         DB::table('roles')->insert([
-            'name' => 'can_view_data',
-            'description' => 'Ver datos de locales y socios',
+            'name' => 'view_list_partner',
+            'description' => 'Ver listado de Socios',
         ]);
 
+        // id = 6
         DB::table('roles')->insert([
-            'name' => 'can_view_overdue',
-            'description' => 'Ver reportes de socios morosos',
+            'name' => 'create_partner_account',
+            'description' => 'Agregar cuentas de Socio',
         ]);
 
+        // id = 7
         DB::table('roles')->insert([
-            'name' => 'can_send_messages',
-            'description' => 'Enviar mensajes globales',
+            'name' => 'modify_partner_account',
+            'description' => 'Modificar y deshabilitar cuentas de Socio',
         ]);
 
+        // id = 8
         DB::table('roles')->insert([
-            'name' => 'can_upload',
-            'description' => 'Subir documentos',
+            'name' => 'restore_password_partner_account',
+            'description' => 'Reestablecer contraseñas a cuentas de Socio',
         ]);
 
+        // id = 9
         DB::table('roles')->insert([
-            'name' => 'can_external_accounting',
+            'name' => 'view_list_sector_type_location',
+            'description' => 'Ver sectores, tipos y ubicaciones',
+        ]);
+
+        // id = 10
+        DB::table('roles')->insert([
+            'name' => 'add_sector',
+            'description' => 'Agregar sectores',
+        ]);
+
+        // id = 11
+        DB::table('roles')->insert([
+            'name' => 'add_type',
+            'description' => 'Agregar tipos',
+        ]);
+
+        // id = 12
+        DB::table('roles')->insert([
+            'name' => 'add_location',
+            'description' => 'Agregar ubicaciones',
+        ]);
+
+        // id = 13
+        DB::table('roles')->insert([
+            'name' => 'view_list_billdetail_payment',
+            'description' => 'Ver cobros y pagos de ubicaciones',
+        ]);
+
+        // id = 14
+        DB::table('roles')->insert([
+            'name' => 'add_payment',
+            'description' => 'Agregar pagos a ubicaciones',
+        ]);
+
+        // id = 15
+        DB::table('roles')->insert([
+            'name' => 'modify_payment',
+            'description' => 'Modificar pagos a ubicaciones',
+        ]);
+
+        // id = 16
+        DB::table('roles')->insert([
+            'name' => 'delete_payment',
+            'description' => 'Eliminar pagos a ubicaciones',
+        ]);
+
+        // id = 17
+        DB::table('roles')->insert([
+            'name' => 'delete_billdetail',
+            'description' => 'Eliminar cobros ya realizados a ubicaciones',
+        ]);
+
+        // id = 18
+        DB::table('roles')->insert([
+            'name' => 'view_list_group',
+            'description' => 'Ver grupos en sistema',
+        ]);
+
+        // id = 19
+        DB::table('roles')->insert([
+            'name' => 'add_group',
+            'description' => 'Agregar nuevos grupos',
+        ]);
+
+        // id = 20
+        DB::table('roles')->insert([
+            'name' => 'modify_group',
+            'description' => 'Modificar grupos',
+        ]);
+
+        // id = 21
+        DB::table('roles')->insert([
+            'name' => 'view_list_bill',
+            'description' => 'Ver cobros en sistema',
+        ]);
+
+        // id = 22
+        DB::table('roles')->insert([
+            'name' => 'add_bill',
+            'description' => 'Agregar nuevos cobros',
+        ]);
+
+        // id = 23
+        DB::table('roles')->insert([
+            'name' => 'modify_bill',
+            'description' => 'Modificar cobros',
+        ]);
+
+        // id = 24
+        DB::table('roles')->insert([
+            'name' => 'new_message',
+            'description' => 'Enviar mensajes',
+        ]);
+
+        // id = 25
+        DB::table('roles')->insert([
+            'name' => 'new_file',
+            'description' => 'Subir archivos',
+        ]);
+
+        // id = 26
+        DB::table('roles')->insert([
+            'name' => 'delete_message_file',
+            'description' => 'Eliminar mensajes y archivos',
+        ]);
+
+        // id = 27
+        DB::table('roles')->insert([
+            'name' => 'modify_overdue',
+            'description' => 'Modificar fechas de reportes de morosidad',
+        ]);
+
+        // id = 28
+        DB::table('roles')->insert([
+            'name' => 'view_report_overdue',
+            'description' => 'Ver reportes de morosidad',
+        ]);
+
+        // id = 29
+        DB::table('roles')->insert([
+            'name' => 'view_report_external_accounting',
             'description' => 'Contabilidad externa',
         ]);
 
-        for ($i=1; $i < 10; $i++) { 
+        // id = 30
+        DB::table('roles')->insert([
+            'name' => 'view_systeminfo',
+            'description' => 'Ver información del sistema',
+        ]);
+
+        for ($i=1; $i <= 30; $i++) { 
             DB::table('role_user')->insert([
             'role_id' => $i,
             'user_id' => 1,

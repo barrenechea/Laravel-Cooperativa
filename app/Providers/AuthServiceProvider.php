@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('view_report_external_accounting', function ($user) {
+            return $user->roles->where('name', 'view_report_external_accounting')->count();
+        });
     }
 }
