@@ -26,16 +26,17 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function($user) {
-            return $user->roles->where('name', 'super_admin')->count();
+            if($user->roles->where('name', 'super_admin')->count())
+                return true;
         });
 
         Gate::define('adminsystem', function ($user) {
-            if($user->roles->where('name', 'view_list_admin')->count() || $user->roles->where('name', 'view_list_partner')->count() || $user->roles->where('name', 'modify_overdue')->count() || $user->roles->where('name', 'view_report_overdue')->count() || $user->roles->where('name', 'view_log')->count() || $user->roles->where('name', 'view_systeminfo')->count())
-                return true;
-            return false;
+            return (Gate::allows('view_list_admin') || Gate::allows('view_list_partner') || Gate::allows('modify_overdue') || Gate::allows('view_report_overdue') || Gate::allows('view_log') || Gate::allows('view_systeminfo'));
         });
 
         Gate::define('view_list_admin', function ($user) {
+            if(Gate::allows('create_admin_account') || Gate::allows('modify_admin_account') || Gate::allows('restore_password_admin_account'))
+                return true;
             return $user->roles->where('name', 'view_list_admin')->count();
         });
 
@@ -52,6 +53,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view_list_partner', function ($user) {
+            if(Gate::allows('create_partner_account') || Gate::allows('modify_partner_account') || Gate::allows('restore_password_partner_account'))
+                return true;
             return $user->roles->where('name', 'view_list_partner')->count();
         });
 
@@ -68,6 +71,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view_list_sector_type_location', function ($user) {
+            if(Gate::allows('add_sector') || Gate::allows('add_type') || Gate::allows('add_location'))
+                return true;
             return $user->roles->where('name', 'view_list_sector_type_location')->count();
         });
 
@@ -84,6 +89,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view_list_billdetail_payment', function ($user) {
+            if(Gate::allows('add_payment') || Gate::allows('modify_payment') || Gate::allows('delete_payment') || Gate::allows('delete_billdetail'))
+                return true;
             return $user->roles->where('name', 'view_list_billdetail_payment')->count();
         });
 
@@ -104,6 +111,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view_list_group', function ($user) {
+            if(Gate::allows('add_group') || Gate::allows('modify_group'))
+                return true;
             return $user->roles->where('name', 'view_list_group')->count();
         });
 
@@ -116,6 +125,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view_list_bill', function ($user) {
+            if(Gate::allows('add_bill') || Gate::allows('modify_bill'))
+                return true;
             return $user->roles->where('name', 'view_list_bill')->count();
         });
 
