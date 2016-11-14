@@ -29,8 +29,8 @@
               <td hidden>{{ $partner->id }}</td>
               <td>{{ $partner->user->name }}</td>
               <td>{{ $partner->user->email }}</td>
-              <td>{{ $partner->user->address ?? 'No llenado' }}</td>
-              <td>{{ $partner->user->phone ?? 'No llenado' }}</td>
+              <td>{{ $partner->address === ' ' ? 'No llenado' : $partner->address }}</td>
+              <td>{{ $partner->phone === ' ' ? 'No llenado' : $partner->phone }}</td>
               <td>{{ $partner->locations()->count() }}</td>
               @if(Auth::user()->can('modify_partner_account') || Auth::user()->can('restore_password_partner_account'))
               <td>

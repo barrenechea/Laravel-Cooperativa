@@ -15,14 +15,14 @@ class MessageController extends Controller
 	public function add(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
-            'message' => 'required|max:255',
-        ]);
+			'message' => 'required|max:255',
+			]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
-        }
+		if ($validator->fails()) {
+			return redirect()->back()
+			->withErrors($validator)
+			->withInput();
+		}
 
 		$message = new Message();
 		$message->user_id = Auth::user()->id;
@@ -38,7 +38,10 @@ class MessageController extends Controller
 	public function delete($id)
 	{
 		$message = Message::findOrFail($id);
-		if($message->created_at->diffInMinutes(\Carbon\Carbon::now()) > 10)
+		if(($message->user_id !== Auth::user()->id) && !(Auth::user()->can('delete_message_file')))
+			return redirect()->back()->withErrors(['No puede eliminar mensajes de otros administradores.']);
+
+		if(($message->created_at->diffInMinutes(\Carbon\Carbon::now()) > 10) && !(Auth::user()->can('delete_message_file')))
 			return redirect()->back()->withErrors(['Han transcurrido más de 10 minutos desde que envió el mensaje. No se puede eliminar.']);
 		
 		if($message->has_file)

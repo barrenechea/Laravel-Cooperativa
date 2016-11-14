@@ -140,12 +140,6 @@ class SystemController extends Controller
         return redirect('system\group');
     }
 
-    public function overduedates()
-    {
-        $logic = Logic::first();
-        return view('system.overduedates', ['logic' => $logic]);
-    }
-
     public function updateoverduedates(Request $request)
     {
         $logic = Logic::first();
@@ -153,7 +147,7 @@ class SystemController extends Controller
         $logic->secondoverdue = $request->input('secondoverdue');
         $logic->save();
 
-        Session::flash('success', 'Los días han sido actualizados exitosamente!');
+        Session::flash('success', 'Los días de clasificación han sido actualizados exitosamente!');
         return redirect()->back();
     }
 }

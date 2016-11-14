@@ -18,11 +18,16 @@ class UpdateController extends Controller
 {
     public function profile()
     {
+        if(Auth::user()->id === 1)
+            return redirect('/home')->withErrors(['No puede modificar esta cuenta!']);
         return view('update.profile');
     }
 
     public function saveprofile(Request $request)
     {
+        if(Auth::user()->id === 1)
+            return redirect('/home')->withErrors(['No puede modificar esta cuenta!']);
+        
         if(Auth::user()->is_admin)
         {
             $validator = Validator::make($request->all(), [
@@ -68,6 +73,9 @@ class UpdateController extends Controller
 
     public function newadminpassword($id)
     {
+        if($id == 1)
+            return redirect('/home')->withErrors(['No puede modificar esta cuenta!']);
+
         if(Auth::user()->id == $id)
         {
             Session::flash('warning', '¡No puede alterar su propio perfil desde aquí!');
@@ -87,6 +95,9 @@ class UpdateController extends Controller
 
     public function admindata($id)
     {
+        if($id == 1)
+            return redirect('/home')->withErrors(['No puede modificar esta cuenta!']);
+
         if(Auth::user()->id == $id)
         {
             Session::flash('warning', '¡No puede alterar su propio perfil desde aquí!');
@@ -94,12 +105,15 @@ class UpdateController extends Controller
         }
 
         $user = User::findOrFail($id);
-        $roles = Role::all();
+        $roles = Role::where('id', '<>', 1)->get();
         return view('update.admin.data', ['user' => $user, 'roles' => $roles]);
     }
 
     public function saveadmindata(Request $request, $id)
     {
+        if($id == 1)
+            return redirect('/home')->withErrors(['No puede modificar esta cuenta!']);
+
         if(Auth::user()->id == $id)
         {
             Session::flash('warning', '¡No puede alterar su propio perfil desde aquí!');

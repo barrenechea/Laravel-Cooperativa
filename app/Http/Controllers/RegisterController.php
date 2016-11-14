@@ -78,8 +78,6 @@ class RegisterController extends Controller
 
     public function registeradmin(Request $request)
     {
-        // dd($request);
-
         $validator = Validator::make($request->all(), [
             'username' => 'required|unique:users|max:255',
             'name' => 'required|max:255',

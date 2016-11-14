@@ -18,15 +18,15 @@ class FileEntryController extends Controller
 	public function add(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
-            'message' => 'required|max:255',
-            'filefield' => 'required',
-        ]);
+			'message' => 'required|max:255',
+			'filefield' => 'required',
+			]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
-        }
+		if ($validator->fails()) {
+			return redirect()->back()
+			->withErrors($validator)
+			->withInput();
+		}
 
 		$file = $request->file('filefield');
 		$extension = $file->getClientOriginalExtension();
@@ -61,7 +61,11 @@ class FileEntryController extends Controller
 	public function delete($id)
 	{
 		$message = Message::findOrFail($id);
-		if($message->created_at->diffInMinutes(\Carbon\Carbon::now()) > 10)
+
+		if(($message->user_id !== Auth::user()->id) && !(Auth::user()->can('delete_message_file')))
+			return redirect()->back()->withErrors(['No puede eliminar archivos subidos por otros administradores.']);
+
+		if(($message->created_at->diffInMinutes(\Carbon\Carbon::now()) > 10) && !(Auth::user()->can('delete_message_file')))
 			return redirect()->back()->withErrors(['Han transcurrido más de 10 minutos desde que envió el mensaje. No se puede eliminar.']);
 		
 		if(!$message->has_file)
