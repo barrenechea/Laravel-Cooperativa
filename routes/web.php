@@ -77,11 +77,16 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::get('files', 'ListController@listfile');
 		});
 
-		Route::group(['prefix' => 'bill', 'middleware' => ['can:add_bill']], function () {
-			Route::get('create', 'BillController@create');
-			Route::post('create', 'BillController@createbill');
-			Route::get('create/{assign}', 'BillController@createassign');
-			Route::post('create/{assign}', 'BillController@createall');
+		Route::group(['prefix' => 'bill'], function () {
+			Route::get('create', 'BillController@create')->middleware('can:can:add_bill');
+			Route::post('create', 'BillController@createbill')->middleware('can:can:add_bill');
+			Route::get('create/{assign}', 'BillController@createassign')->middleware('can:can:add_bill');
+			Route::post('create/{assign}', 'BillController@createall')->middleware('can:can:add_bill');
+
+			Route::get('update', 'BillController@update')->middleware('can:can:modify_bill');
+			Route::post('update', 'BillController@updatebill')->middleware('can:can:modify_bill');
+			Route::get('update/{assign}', 'BillController@updateassign')->middleware('can:can:modify_bill');
+			Route::post('update/{assign}', 'BillController@updateall')->middleware('can:can:modify_bill');
 		});
 
 		Route::group(['prefix' => 'update'], function () {
@@ -99,6 +104,11 @@ Route::group(['middleware' => ['auth']], function () {
 				Route::get('data/{id}', 'UpdateController@partnerdata')->middleware('can:modify_partner_account');
 				Route::post('data/{id}', 'UpdateController@savepartnerdata')->middleware('can:modify_partner_account');
 			});
+
+			Route::get('group/{id}', 'SystemController@updgroup')->middleware('can:modify_group');
+			Route::post('group', 'SystemController@updategroup')->middleware('can:modify_group');
+			Route::get('grouppct', 'SystemController@updgrouppct')->middleware('can:modify_group');
+			Route::post('grouppct', 'SystemController@updategrouppct')->middleware('can:modify_group');
 		});
 
 		Route::group(['prefix' => 'payment'], function () {

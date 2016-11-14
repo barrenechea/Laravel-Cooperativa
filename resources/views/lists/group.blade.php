@@ -27,7 +27,7 @@
               <td>{{ $group->locations()->count() }}</td>
               <td>{{ $group->percentages()->count() > 0 ? 'Si' : 'No' }}</td>
               @can('modify_group')
-              <td><a href="#" class="btn btn-block btn-primary btn-xs">Modificar</a></td>
+              <td><a href="{{ url('update/group/'.$group->id ) }}" class="btn btn-block btn-primary btn-xs">Modificar</a></td>
               @endcan
             </tr>
             @endforeach

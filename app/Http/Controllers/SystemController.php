@@ -63,12 +63,12 @@ class SystemController extends Controller
         $validator = Validator::make($request->all(), [
             'description' => 'required|max:255',
             'location_id' => 'required',
-        ]);
+            ]);
 
         if ($validator->fails()) {
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
 
         $group = new Group($request->all());
@@ -87,7 +87,7 @@ class SystemController extends Controller
             $group->locations()->sync($locations);
 
             Session::flash('success', 'El grupo ha sido creado exitosamente!');
-            return redirect()->back();
+            return redirect('/list/group');
         }
     }
 
@@ -116,8 +116,8 @@ class SystemController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
 
         $group = Cache::get('group');
@@ -137,7 +137,83 @@ class SystemController extends Controller
         Cache::forget('group');
 
         Session::flash('success', 'El grupo ha sido creado exitosamente!');
-        return redirect('system\group');
+        return redirect('list/group');
+    }
+
+    public function updgroup($id)
+    {
+        $group = Group::findOrFail($id);
+        $locations = Location::all();
+        return view('system.update.group', ['group' => $group, 'locations' => $locations]);
+    }
+
+    public function updategroup(Request $request)
+    {
+        $group = Group::findOrFail($request->input('id'));
+        $group->description = $request->input('description');
+
+        $locations = $request->input('location_id');
+
+        if($request->input('has_percentage'))
+        {
+            Cache::put('group', $group, 5);
+            Cache::put('locations', $locations, 5);
+
+            return redirect('update/grouppct');
+        }
+        else
+        {
+            $group->save();
+            if($group->percentages()->count())
+            {
+                foreach ($group->percentages as $percentage) {
+                    $percentage->delete();
+                }
+            }
+            $group->locations()->sync($locations);
+
+            Session::flash('success', 'El grupo ha sido actualizado exitosamente!');
+            return redirect('list/group');
+        }
+    }
+
+    public function updgrouppct()
+    {
+        if(!Cache::has('group') || !Cache::has('locations'))
+        {
+            return redirect('list/group');
+        }
+
+        $locations = Location::whereIn('id', Cache::get('locations'))->get();
+
+        return view('system.update.grouppct', ['locations' => $locations, 'group' => Cache::get('group')]);
+    }
+
+    public function updategrouppct(Request $request)
+    {
+        $locations = Location::whereIn('id', Cache::get('locations'))->get();
+        $group = Cache::get('group');
+        $group->save();
+
+        $group->locations()->sync($locations);
+
+        foreach ($group->percentages as $percentage) {
+            $percentage->delete();
+        }
+
+        foreach ($locations as $location) {
+            $percentage = new Percentage();
+            $percentage->group_id = $group->id;
+            $percentage->location_id = $location->id;
+            $percentage->pct = $request->input('pct'.$location->id);
+            $percentage->save();
+        }
+
+        Cache::forget('locations');
+        Cache::forget('group');
+
+        Session::flash('success', 'El grupo ha sido actualizado exitosamente!');
+        return redirect('list/group');
     }
 
     public function updateoverduedates(Request $request)
