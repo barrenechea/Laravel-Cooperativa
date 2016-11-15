@@ -9,6 +9,7 @@ use App\Logic;
 use App\Billdetail;
 use App\Payment;
 use Carbon\Carbon;
+use App\Sesion;
 
 class ReportController extends Controller
 {
@@ -33,8 +34,8 @@ class ReportController extends Controller
 
     public function accounting()
     {
-        $first = Sesion::distinct('fecha')->orderBy('fecha')->first();
-        $last = Sesion::distinct('fecha')->orderBy('fecha')->last();
+        $first = Sesion::distinct('fecha')->orderBy('fecha', 'asc')->first();
+        $last = Sesion::distinct('fecha')->orderBy('fecha', 'desc')->first();
         return view('reports.accounting');
     }
 

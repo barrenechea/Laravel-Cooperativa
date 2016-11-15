@@ -16,9 +16,11 @@
           <div class="col-sm-10">
             <select class="form-control select2" style="width: 100%" id="range" name="range" required>
               <option value="" disabled selected hidden>Seleccione un rango</option>
+              @if(false)
               @foreach($types as $type)
               <option value="{{ $type->id }}">{{ $type->name }}</option>
               @endforeach
+              @endif
             </select>
           </div>
         </div>
