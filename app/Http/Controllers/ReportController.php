@@ -13,44 +13,34 @@ use App\Sesion;
 
 class ReportController extends Controller
 {
-    public function index()
-    {
-        $paymentsArray = [];
-        $paymentsArray[] = [1, 'nigga', 'asdsad@asd', '20000', Carbon::today()->toDateString()];
-        $paymentsArray[] = [2, 'nigga2', 'asdsad@asd', '30000', Carbon::today()->addDays(-1)->toDateString()];
-
-        Excel::create(Carbon::now(), function($excel) use ($paymentsArray) {
-            $excel->sheet('Planilla', function($sheet) use ($paymentsArray) {
-                $sheet->appendRow(['id', 'customer','email','total','created_at']);
-                foreach ($paymentsArray as $row) {
-                    $sheet->appendRow($row);
-                }
-                $sheet->setAutoFilter();
-                $sheet->setAutoSize(true);
-            });
-
-        })->download('xlsx');
-    }
-
     public function accounting()
     {
-        $first = Sesion::distinct('fecha')->orderBy('fecha', 'asc')->first();
-        $last = Sesion::distinct('fecha')->orderBy('fecha', 'desc')->first();
-        return view('reports.accounting');
+        $first = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'asc')->first()->fecha->startOfMonth();
+        $last = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'desc')->first()->fecha->startOfMonth();
+
+        $dates = $this->generateDateRange($first, $last);
+
+        return view('reports.accounting', ['dates' => $dates]);
     }
 
     public function getaccounting(Request $request)
     {
-        //
+        $date = Carbon::createFromFormat('Y-m-d', $request->input('month'))->startOfDay();
+        $payments = Payment::whereNotNull('vfpsesion_id')->pluck('vfpsesion_id');
+        $objects = Sesion::where('tipo', 'I')->whereNotIn('id', $payments)->where('linea', '<>', 1)->whereDate('fecha', '>=', $date->copy()->startOfMonth())->whereDate('fecha', '<=', $date->copy()->endOfMonth())->orderBy('fecha')->get();
+
+        dd($objects);
     }
 
     public function log()
     {
-        return view('reports.log');
+        $logs = Log::all();
+        return view('reports.log', ['logs' => $logs]);
     }
 
-    public function getlog(Request $request)
+    public function logexport()
     {
+        dd('asd');
     }
 
     public function overdue()
@@ -98,6 +88,7 @@ class ReportController extends Controller
         }
         else
         {
+            // Generar Excel
             $dataArray = [];
             foreach($billdetails as $billdetail)
             {
@@ -129,5 +120,15 @@ class ReportController extends Controller
                 });
             })->download('xlsx');
         }
+    }
+
+    private function generateDateRange(Carbon $start_date, Carbon $end_date)
+    {
+        $dates = [];
+
+        for($date = $end_date; $date->gte($start_date); $date->addMonths(-1))
+            $dates[] = $date->copy();
+        
+        return $dates;
     }
 }

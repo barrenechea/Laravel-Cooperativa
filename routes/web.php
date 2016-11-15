@@ -126,7 +126,7 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::get('accounting', 'ReportController@accounting')->middleware('can:view_report_external_accounting');
 			Route::post('accounting', 'ReportController@getaccounting')->middleware('can:view_report_external_accounting');
 			Route::get('log', 'ReportController@log')->middleware('can:view_log');
-			Route::post('log', 'ReportController@getlog')->middleware('can:view_log');
+			Route::get('logexport', 'ReportController@logexport')->middleware('can:view_log');
 			Route::get('overdue', 'ReportController@overdue')->middleware('can:view_report_overdue');
 			Route::post('overdue', 'ReportController@getoverdue')->middleware('can:view_report_overdue');
 		});

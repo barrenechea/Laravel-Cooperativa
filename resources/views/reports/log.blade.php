@@ -1,48 +1,37 @@
 @extends('layouts.app')
 
-@section('htmlheader_title', 'Agregar grupos')
+@section('htmlheader_title', 'Registro de actividad')
 
-@section('contentheader_title', 'Agregar grupos')
+@section('contentheader_title', 'Registro de actividad')
 
 @section('main-content')
 <div class="row">
-  <div class="col-md-12">
-   <div class="box box-primary">
-    <form role="form" class="form-horizontal" action="{{ url('/system/addgroup') }}" method="post">
-      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+  <div class="col-xs-12">
+    <div class="box">
       <div class="box-body">
-        <div class="form-group">
-          <label for="description" class="col-sm-2 control-label">Descripción del grupo</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="description" name="description" placeholder="Ingrese descripción del grupo" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="location_id[]" class="col-sm-2 control-label">Ubicaciones a agrupar</label>
-          <div class="col-sm-10">
-            <select class="form-control select2" id="location_id[]" name="location_id[]" multiple="multiple" required>
-              @foreach($locations as $location)
-              <option value="{{$location->id}}">{{ $location->sector->name .' - '. $location->code }}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="has_percentage" name="has_percentage" value="1"> Los pagos estarán basados en porcentajes para los integrantes del grupo
-              </label>
-            </div>
-          </div>
-        </div>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Administrador</th>
+              <th>Actividad</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($logs as $log)
+            <tr>
+              <td>{{ $log->created_at->format('d-m-Y H:i') }}hrs.</td>
+              <td>{{ $log->user->name }}</td>
+              <td>{{ $log->message }}</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
       </div>
       <div class="box-footer">
-        <a href="{{ url('/list/group') }}" class="btn btn-primary">Volver al listado</a>
-        <button type="submit" class="btn btn-primary pull-right">Continuar</button>
+        <a href="{{ url('/report/logexport') }}" class="btn btn-primary pull-right">Exportar a Excel</a>
       </div>
-    </form>
+    </div>
   </div>
-</div>
 </div>
 @endsection
