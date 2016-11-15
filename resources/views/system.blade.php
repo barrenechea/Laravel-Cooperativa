@@ -20,7 +20,7 @@
     <div class="box box-widget widget-user-2">
       <div class="widget-user-header bg-blue">
         <div class="widget-user-image">
-          <img class="img-circle" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
+          <img class="img-circle" src="{{ asset('/img/avatar.png') }}" alt="User Avatar">
         </div>
         <h3 class="widget-user-username">Cooperativa de Servicios Alameda Maipú</h3>
         <h5 class="widget-user-desc">Reporte de servidor</h5>
