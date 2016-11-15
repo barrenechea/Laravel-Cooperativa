@@ -27,7 +27,10 @@ class CreateBillsTable extends Migration
             $table->string('overdue_vfpcode')->nullable();
 
             $table->boolean('active')->default(true);
+            
             $table->date('end_bill')->nullable();
+            $table->boolean('end_bill_notified')->default(false);
+
             $table->timestamps();
             $table->softDeletes();
         });

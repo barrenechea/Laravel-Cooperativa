@@ -9,22 +9,28 @@ class Bill extends Model
 {
     use SoftDeletes;
     
-	protected $table = 'bills';
-    protected $casts = [ 'is_uf' => 'boolean', 'active' => 'boolean', 'overdue_is_uf' => 'boolean' ];
+    protected $table = 'bills';
+    protected $casts = [
+    'is_uf' => 'boolean',
+    'active' => 'boolean',
+    'overdue_is_uf' => 'boolean',
+    'end_bill_notified' => 'boolean',
+    ];
+
     protected $dates = ['end_bill', 'deleted_at'];
 
     protected $fillable = [
-    	'payment_day',
-        'amount',
-        'is_uf',
-        'description',
-        'vfpcode',
-        'active',
-        'end_bill',
-        'overdue_day',
-        'overdue_amount',
-        'overdue_is_uf',
-        'overdue_vfpcode',
+    'payment_day',
+    'amount',
+    'is_uf',
+    'description',
+    'vfpcode',
+    'active',
+    'end_bill',
+    'overdue_day',
+    'overdue_amount',
+    'overdue_is_uf',
+    'overdue_vfpcode',
     ];
 
     public function billdetails()
