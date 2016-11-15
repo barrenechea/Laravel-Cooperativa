@@ -28,9 +28,11 @@ class Bill extends Model
     'vfpcode',
     'active',
     'end_bill',
+    'end_bill_notified',
     'overdue_day',
     'overdue_amount',
     'overdue_is_uf',
+    'overdue_is_daily',
     'overdue_vfpcode',
     ];
 
