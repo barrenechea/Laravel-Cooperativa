@@ -14,6 +14,7 @@ class Bill extends Model
     'is_uf' => 'boolean',
     'active' => 'boolean',
     'overdue_is_uf' => 'boolean',
+    'overdue_is_daily' => 'boolean',
     'end_bill_notified' => 'boolean',
     ];
 
