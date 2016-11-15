@@ -94,16 +94,6 @@ class ReportController extends Controller
         }
         else
         {
-            //<th>Socio</th>
-            //<th>Ubicación</th>
-            //<th>Cobro</th>
-            //<th>Fecha emisión</th>
-            //<th>Días transcurridos</th>
-            //<th>Monto a pagar</th>
-            //<th>Monto pagado</th>
-            //<th>Teléfono</th>
-            //<th>Dirección</th>
-
             $dataArray = [];
             foreach($billdetails as $billdetail)
             {

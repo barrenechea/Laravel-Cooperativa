@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ use Carbon\Carbon;
 use App\Sesion;
 use App\Bill;
 use App\Payment;
+use App\Mailing;
 
 use Validator;
 
@@ -104,14 +106,13 @@ class HomeController extends Controller
 
   Auth::user()->name = $request->input('name');
   Auth::user()->password = bcrypt($request->input('password'));
-        // ToDo include Partner addition
   Auth::user()->initialized = true;
   Auth::user()->save();
   if(!Auth::user()->is_admin)
   {
-    $partner = Partner::where('user_id', Auth::user()->id)->firstOrFail();
-    $partner->address = $request->input('address');
-    $partner->phone = $request->input('phone');
+    Auth::user()->partner->address = $request->input('address');
+    Auth::user()->partner->phone = $request->input('phone');
+    Auth::user()->partner->save();
   }
 
   return redirect('/home');
@@ -119,19 +120,44 @@ class HomeController extends Controller
 
 public function systemstatus()
 {
- $path = '/';
- $total = number_format(disk_total_space($path) / pow(1024, 3), 2);
- $free = number_format(disk_free_space($path) / pow(1024, 3), 2);
- $used = $total - $free;
- $pct = number_format((($used * 100) / $total), 2);
+  $admins = 0;
+  $mailing = 0;
+  if(Auth::user()->can('mail_ssd_warning'))
+  {
+    $admins = User::where('is_admin', true)->where('id', '<>', 1)->get();
+    $mailing = Mailing::where('reason', 1)->get();
+  }
+  $path = '/';
+  $total = number_format(disk_total_space($path) / pow(1024, 3), 2);
+  $free = number_format(disk_free_space($path) / pow(1024, 3), 2);
+  $used = $total - $free;
+  $pct = number_format((($used * 100) / $total), 2);
 
- $data = ['total' => $total, 'free' => $free, 'used' => $used, 'pct' => $pct];
+  $data = ['total' => $total, 'free' => $free, 'used' => $used, 'pct' => $pct];
 
- $dbengine = DB::connection()->getPdo()->query('select version()')->fetchColumn();
- $dbengine = explode('-', str_replace('-1~xenial', '', $dbengine));
- $dbengine = $dbengine[1] . ' ' .$dbengine[0];
- $webengine = str_replace('/', ' ', ucfirst($_SERVER["SERVER_SOFTWARE"]));
+  $dbengine = DB::connection()->getPdo()->query('select version()')->fetchColumn();
+  $dbengine = explode('-', str_replace('-1~xenial', '', $dbengine));
+  $dbengine = $dbengine[1] . ' ' .$dbengine[0];
+  $webengine = str_replace('/', ' ', ucfirst($_SERVER["SERVER_SOFTWARE"]));
 
- return view('system', ['data' => $data, 'dbengine' => $dbengine, 'webengine' => $webengine]);
+  return view('system', ['data' => $data, 'dbengine' => $dbengine, 'webengine' => $webengine, 'admins' => $admins, 'mailing' => $mailing]);
+}
+
+public function updatesystemstatus(Request $request)
+{
+  $mailing = Mailing::where('reason', 1)->get();
+  foreach ($mailing as $mail) {
+    $mail->delete();
+  }
+
+  foreach ($request->input('admins') as $user_id) {
+    $mail = new Mailing;
+    $mail->user_id = $user_id;
+    $mail->reason = 1;
+    $mail->save();
+  }
+
+  Session::flash('success', 'Las alertas de almacenamiento se han actualizado exitosamente!');
+  return redirect()->back();
 }
 }

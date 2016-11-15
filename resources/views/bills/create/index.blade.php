@@ -135,7 +135,7 @@
               </div>
             </div>
           </div>
-          <p class="col-sm-12 help-block">Si los montos son definidos en UF, éstos serán calculados el día de cobro mes a mes, tomando el valor de la UF desde el Banco Central de Chile.</p>
+          <p class="col-sm-12 help-block">Si los montos son definidos en UF, éstos serán calculados el mismo día del cobro, tomando el valor de la UF desde SII.</p>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
@@ -154,15 +154,23 @@
   $(".checkfinish").click(function() {
     if($(this).is(":checked")) {
       $(".finish").show();
+      $("#end_bill").prop('required',true);
     } else {
       $(".finish").hide();
+      $("#end_bill").prop('required',false);
     }
   });
   $(".checkoverdue").click(function() {
     if($(this).is(":checked")) {
       $(".overdue").show();
+      $("#overdue_day").prop('required',true);
+      $("#overdue_amount").prop('required',true);
+      $("#overdue_vfpcode").prop('required',true);
     } else {
       $(".overdue").hide();
+      $("#overdue_day").prop('required',false);
+      $("#overdue_amount").prop('required',false);
+      $("#overdue_vfpcode").prop('required',false);
     }
   });
 </script>

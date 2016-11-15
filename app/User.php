@@ -33,6 +33,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Payment');
     }
 
+    public function mailings()
+    {
+        return $this->hasMany('App\Mailing');
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Role');

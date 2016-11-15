@@ -27,7 +27,7 @@
               <td>{{ $bill->is_uf ? ($bill->amount . ' UF') : '$'.(number_format($bill->amount, 0, ',', '.')) }}</td>
               <td>{{ $bill->overdue_amount ? ($bill->overdue_is_uf ? ($bill->overdue_amount . 'UF') : '$'.(number_format($bill->overdue_amount, 0, ',', '.'))) : 'No posee' }}</td>
               @can('modify_bill')
-              <td><a href="#" class="btn btn-block btn-primary btn-xs">Modificar</a></td>
+              <td><a href="{{ url('bill/update/'.$bill->id ) }}" class="btn btn-block btn-primary btn-xs">Modificar</a></td>
               @endcan
             </tr>
             @endforeach

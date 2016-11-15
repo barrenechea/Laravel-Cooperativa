@@ -6,30 +6,28 @@
 
 @section('main-content')
 <div class="row">
-  <!-- left column -->
   <div class="col-md-12">
-    <!-- general form elements -->
     <div class="box box-primary">
-      <!-- form start -->
-      <form role="form" class="form-horizontal" action="{{ url('/bill/create') }}" method="post">
+      <form role="form" class="form-horizontal" action="{{ url('/bill/update') }}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="id" value="{{ $bill->id }}">
         <div class="box-body">
           <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Descripción</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="description" name="description" placeholder="Ingrese descripción del cobro" value="{{ old('description') }}" required>
+              <input type="text" class="form-control" id="description" name="description" placeholder="Ingrese descripción del cobro" value="{{ $bill->description }}" required>
             </div>
           </div>
           <div class="form-group">
             <label for="payment_day" class="col-sm-2 control-label">Día de cobro</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control" id="payment_day" name="payment_day" placeholder="Ingrese el día de cada mes en que se debe generar el cobro" min="1" max="31" value="{{ old('payment_day') }}" required>
+              <input type="number" class="form-control" id="payment_day" name="payment_day" placeholder="Ingrese el día de cada mes en que se debe generar el cobro" min="1" max="31" value="{{ $bill->payment_day }}" required>
             </div>
           </div>
           <div class="form-group">
             <label for="amount" class="col-sm-2 control-label">Monto</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control" id="amount" name="amount" placeholder="Ingrese el monto a cobrar" min="0.01" step="0.01" value="{{ old('amount') }}" required>
+              <input type="number" class="form-control" id="amount" name="amount" placeholder="Ingrese el monto a cobrar" min="0.01" step="0.01" value="{{ $bill->is_uf ? $bill->amount : intval($bill->amount) }}" required>
             </div>
           </div>
           <div class="form-group">
@@ -37,7 +35,7 @@
             <div class="col-sm-10">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="is_uf" name="is_uf" value="1" {{ old('is_uf') ? 'checked' : '' }}>
+                  <input type="checkbox" id="is_uf" name="is_uf" value="1" {{ $bill->is_uf ? 'checked' : '' }}>
                   El monto a cobrar está dado en UF
                 </label>
               </div>
@@ -48,7 +46,7 @@
             <div class="col-sm-10">
               <select class="form-control select2" id="vfpcode" name="vfpcode" required>
                 @foreach($accounts as $account)
-                <option value="{{ $account->codigo }}">{{ $account->codigo }} - {{ $account->nombre }}</option>
+                <option value="{{ $account->codigo }}" {{ $bill->vfpcode == $account->codigo ? 'selected' : '' }}>{{ $account->codigo }} - {{ $account->nombre }}</option>
                 @endforeach
               </select>
             </div>
@@ -57,7 +55,7 @@
             <div class="col-sm-offset-2 col-sm-10">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" class="checkfinish" id="finish" name="finish">
+                  <input type="checkbox" class="checkfinish" id="finish" name="finish" {{ isset($bill->end_bill) ? 'checked' : '' }} >
                   El cobro tendrá una fecha de término
                 </label>
               </div>
@@ -66,14 +64,14 @@
           <div class="form-group finish" hidden>
             <label for="end_bill" class="col-sm-2 control-label">Fecha de Término</label>
             <div class="col-sm-10">
-              <input type="date" class="form-control" id="end_bill" name="end_bill" value="{{ old('end_bill') }}">
+              <input type="date" class="form-control" id="end_bill" name="end_bill" value="{{ isset($bill->end_bill) ? $bill->end_bill->toDateString() : '' }}">
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" class="checkoverdue" id="overdue" name="overdue">
+                  <input type="checkbox" class="checkoverdue" id="overdue" name="overdue" {{ isset($bill->overdue_day) ? 'checked' : '' }}>
                   El cobro tendrá un costo asociado a atrasos en pagos
                 </label>
               </div>
@@ -82,13 +80,13 @@
           <div class="form-group overdue">
             <label for="overdue_day" class="col-sm-2 control-label">Día de expiración</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control" id="overdue_day" name="overdue_day" placeholder="Ingrese el día del siguiente mes a considerar como vencimiento" min="1" max="31" value="{{ old('overdue_day') }}">
+              <input type="number" class="form-control" id="overdue_day" name="overdue_day" placeholder="Ingrese el día del siguiente mes a considerar como vencimiento" min="1" max="31" value="{{ $bill->overdue_day ?? '' }}">
             </div>
           </div>
           <div class="form-group overdue">
             <label for="overdue_amount" class="col-sm-2 control-label">Monto de atraso</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control" id="overdue_amount" name="overdue_amount" placeholder="Ingrese el monto a cobrar por atraso" min="0.01" step="0.01" value="{{ old('overdue_amount') }}">
+              <input type="number" class="form-control" id="overdue_amount" name="overdue_amount" placeholder="Ingrese el monto a cobrar por atraso" min="0.01" step="0.01" value="{{ isset($bill->overdue_amount) ? ($bill->overdue_is_uf ? $bill->overdue_amount : intval($bill->overdue_amount)) : '' }}">
             </div>
           </div>
           <div class="form-group overdue">
@@ -96,7 +94,7 @@
             <div class="col-sm-10">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="overdue_is_uf" name="overdue_is_uf" value="1" {{ old('overdue_is_uf') ? 'checked' : '' }}>
+                  <input type="checkbox" id="overdue_is_uf" name="overdue_is_uf" value="1" {{ (isset($bill->overdue_is_uf) && $bill->overdue_is_uf) ? 'checked' : '' }}>
                   El monto a cobrar por atraso está dado en UF
                 </label>
               </div>
@@ -107,7 +105,7 @@
             <div class="col-sm-10">
               <select class="form-control select2" id="overdue_vfpcode" name="overdue_vfpcode" required>
                 @foreach($accounts as $account)
-                <option value="{{ $account->codigo }}" {{ $account->codigo == "52-01-005" ? 'selected' : ''}}>{{ $account->codigo }} - {{ $account->nombre }}</option>
+                <option value="{{ $account->codigo }}" {{ (isset($bill->overdue_vfpcode)) ? (($bill->overdue_vfpcode == $account->codigo) ? 'selected' : '') : $account->codigo == '52-01-005' ? 'selected' : ''}}>{{ $account->codigo }} - {{ $account->nombre }}</option>
                 @endforeach
               </select>
             </div>
@@ -117,25 +115,36 @@
             <div class="col-sm-10">
               <div class="radio">
                 <label>
-                  <input type="radio" name="assign" id="assign" value="sector" checked>
+                  <input type="radio" name="assign" id="assign" value="sector" required {{ !$bill->sectors()->count() ?: 'checked' }}>
                   Asignar este cobro a un Sector
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" name="assign" id="assign" value="group">
+                  <input type="radio" name="assign" id="assign" value="group" {{ !$bill->groups()->count() ?: 'checked' }}>
                   Asignar este cobro a un Grupo
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" name="assign" id="assign" value="location">
+                  <input type="radio" name="assign" id="assign" value="location" {{ !$bill->locations()->count() ?: 'checked' }}>
                   Asignar este cobro a una Ubicación
                 </label>
               </div>
             </div>
           </div>
-          <p class="col-sm-12 help-block">Si los montos son definidos en UF, éstos serán calculados el día de cobro mes a mes, tomando el valor de la UF desde el Banco Central de Chile.</p>
+          <div class="form-group">
+            <label for="vfpcode" class="col-sm-2 control-label">Activación</label>
+            <div class="col-sm-10">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="active" name="active" value="1" {{ $bill->active ? 'checked' : '' }}>
+                  El cobro estará activo
+                </label>
+              </div>
+            </div>
+          </div>
+          <p class="col-sm-12 help-block">Si los montos son definidos en UF, éstos serán calculados el mismo día del cobro, tomando el valor de la UF desde SII.</p>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
@@ -150,19 +159,45 @@
 <script type="text/javascript">
   $( document ).ready(function() {
     $(".overdue").hide();
+    if($(".checkfinish").is(":checked")){
+      $(".finish").show();
+      $("#end_bill").prop('required',true);
+    } else {
+      $(".finish").hide();
+      $("#end_bill").prop('required',false);
+    }
+    if($(".checkoverdue").is(":checked")){
+      $(".overdue").show();
+      $("#overdue_day").prop('required',true);
+      $("#overdue_amount").prop('required',true);
+      $("#overdue_vfpcode").prop('required',true);
+    } else {
+      $(".overdue").hide();
+      $("#overdue_day").prop('required',false);
+      $("#overdue_amount").prop('required',false);
+      $("#overdue_vfpcode").prop('required',false);
+    }
   });
   $(".checkfinish").click(function() {
     if($(this).is(":checked")) {
       $(".finish").show();
+      $("#end_bill").prop('required',true);
     } else {
       $(".finish").hide();
+      $("#end_bill").prop('required',false);
     }
   });
   $(".checkoverdue").click(function() {
     if($(this).is(":checked")) {
       $(".overdue").show();
+      $("#overdue_day").prop('required',true);
+      $("#overdue_amount").prop('required',true);
+      $("#overdue_vfpcode").prop('required',true);
     } else {
       $(".overdue").hide();
+      $("#overdue_day").prop('required',false);
+      $("#overdue_amount").prop('required',false);
+      $("#overdue_vfpcode").prop('required',false);
     }
   });
 </script>

@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::group(['middleware' => ['init']], function () {
 		Route::get('home', 'HomeController@index');
 		Route::get('systemstatus', 'HomeController@systemstatus')->middleware('can:view_systeminfo');
+		Route::post('systemstatus', 'HomeController@updatesystemstatus')->middleware('can:mail_ssd_warning');
 
 		Route::group(['prefix' => 'register'], function () {
 			Route::get('partner', 'RegisterController@partner')->middleware('can:create_partner_account');
@@ -83,10 +84,10 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::get('create/{assign}', 'BillController@createassign')->middleware('can:can:add_bill');
 			Route::post('create/{assign}', 'BillController@createall')->middleware('can:can:add_bill');
 
-			Route::get('update', 'BillController@update')->middleware('can:can:modify_bill');
+			Route::get('update/{id}', 'BillController@update')->middleware('can:can:modify_bill');
 			Route::post('update', 'BillController@updatebill')->middleware('can:can:modify_bill');
-			Route::get('update/{assign}', 'BillController@updateassign')->middleware('can:can:modify_bill');
-			Route::post('update/{assign}', 'BillController@updateall')->middleware('can:can:modify_bill');
+			Route::get('updateassign/{assign}', 'BillController@updateassign')->middleware('can:can:modify_bill');
+			Route::post('updateassign/{assign}', 'BillController@updateall')->middleware('can:can:modify_bill');
 		});
 
 		Route::group(['prefix' => 'update'], function () {

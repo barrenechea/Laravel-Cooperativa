@@ -11,7 +11,7 @@ Modificar cobro - {{ Cache::get('bill')->description }}
 <div class="row">
   <div class="col-md-12">
     <div class="box box-primary">
-      <form role="form" class="form-horizontal" action="{{ url('/bill/create/'.$assign) }}" method="post">
+      <form role="form" class="form-horizontal" action="{{ url('/bill/updateassign/'.$assign) }}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="box-body">
           @if(isset($sectors))
@@ -21,7 +21,7 @@ Modificar cobro - {{ Cache::get('bill')->description }}
               <select class="form-control select2" id="sector_id" name="sector_id" required>
                 <option value="" disabled selected hidden>{{ $sectors->count() > 0 ? 'Seleccione un sector' : 'No hay sectores ingresados en el sistema' }}</option>
                 @foreach($sectors as $sector)
-                <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                <option value="{{ $sector->id }}" {{ $bill->sectors()->count() ? (($bill->sectors()->first()->id == $sector->id) ? 'selected' : '') : '' }}>{{ $sector->name }}</option>
                 @endforeach
               </select>
             </div>
@@ -33,7 +33,7 @@ Modificar cobro - {{ Cache::get('bill')->description }}
               <select class="form-control select2" id="group_id" name="group_id" required>
                 <option value="" disabled selected hidden>{{ $groups->count() > 0 ? 'Seleccione un grupo' : 'No hay grupos ingresados en el sistema' }}</option>
                 @foreach($groups as $group)
-                <option value="{{ $group->id }}">{{ $group->description }}</option>
+                <option value="{{ $group->id }}" {{ $bill->groups()->count() ? (($bill->groups()->first()->id == $group->id) ? 'selected' : '') : '' }}>{{ $group->description }}</option>
                 @endforeach
               </select>
             </div>
@@ -45,20 +45,24 @@ Modificar cobro - {{ Cache::get('bill')->description }}
               <select class="form-control select2" id="location_id" name="location_id" required>
                 <option value="" disabled selected hidden>{{ $locations->count() > 0 ? 'Seleccione una ubicación' : 'No hay ubicaciones ingresadas en el sistema' }}</option>
                 @foreach($locations as $location)
-                <option value="{{ $location->id }}">{{ $location->sector->name }} - {{ $location->code }} [{{ $location->type->name }}]</option>
+                <option value="{{ $location->id }}" {{ $bill->locations()->count() ? (($bill->locations()->first()->id == $location->id) ? 'selected' : '') : '' }}>{{ $location->sector->name }} - {{ $location->code }} [{{ $location->type->name }}]</option>
                 @endforeach
               </select>
             </div>
           </div>
           @endif
+          <div class="form-group">
+            <label for="reason" class="col-sm-2 control-label">Motivo de modificación</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="reason" name="reason" placeholder="Ingrese el motivo por el cual está realizando la modificación a este cobro" required>
+            </div>
+          </div>
         </div>
-        <!-- /.box-body -->
         <div class="box-footer">
-          <button type="submit" class="btn btn-primary pull-right">Agregar cobro</button>
+          <button type="submit" class="btn btn-primary pull-right">Modificar cobro</button>
         </div>
       </form>
     </div>
-    <!-- /.box -->
   </div>
 </div>
 @endsection
