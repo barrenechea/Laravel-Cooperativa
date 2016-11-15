@@ -60,7 +60,7 @@
                 <div class="form-group">
                   <label for="sector_id" class="col-sm-2 control-label">Sector</label>
                   <div class="col-sm-10">
-                   <select class="form-control" id="sector_id" name="sector_id" required>
+                   <select class="form-control select2" style="width: 100%" id="sector_id" name="sector_id" required>
                     <option value="" disabled selected hidden>{{ $sectors->count() > 0 ? 'Seleccione un sector' : 'No hay sectores ingresados en el sistema' }}</option>
                     @foreach($sectors as $sector)
                     <option value="{{ $sector->id }}">{{ $sector->name }}</option>
@@ -71,7 +71,7 @@
               <div class="form-group">
                 <label for="sector_id" class="col-sm-2 control-label">Tipo</label>
                 <div class="col-sm-10">
-                 <select class="form-control" id="type_id" name="type_id" required>
+                 <select class="form-control select2" style="width: 100%" id="type_id" name="type_id" required>
                   <option value="" disabled selected hidden>{{ $types->count() > 0 ? 'Seleccione un tipo' : 'No hay tipos ingresados en el sistema' }}</option>
                   @foreach($types as $type)
                   <option value="{{ $type->id }}">{{ $type->name }}</option>

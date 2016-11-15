@@ -1,28 +1,23 @@
 @extends('layouts.app')
 
-@section('htmlheader_title', 'Agregar grupos')
+@section('htmlheader_title', 'Reporte de contabilidad')
 
-@section('contentheader_title', 'Agregar grupos')
+@section('contentheader_title', 'Reporte de contabilidad')
 
 @section('main-content')
 <div class="row">
   <div class="col-md-12">
    <div class="box box-primary">
-    <form role="form" class="form-horizontal" action="{{ url('/system/addgroup') }}" method="post">
+    <form role="form" class="form-horizontal" action="{{ url('/report/accounting') }}" method="post">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="box-body">
         <div class="form-group">
-          <label for="description" class="col-sm-2 control-label">Descripción del grupo</label>
+          <label for="range" class="col-sm-2 control-label">Rango de fechas</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="description" name="description" placeholder="Ingrese descripción del grupo" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="location_id[]" class="col-sm-2 control-label">Ubicaciones a agrupar</label>
-          <div class="col-sm-10">
-            <select class="form-control select2" id="location_id[]" name="location_id[]" multiple="multiple" required>
-              @foreach($locations as $location)
-              <option value="{{$location->id}}">{{ $location->sector->name .' - '. $location->code }}</option>
+            <select class="form-control select2" style="width: 100%" id="range" name="range" required>
+              <option value="" disabled selected hidden>Seleccione un rango</option>
+              @foreach($types as $type)
+              <option value="{{ $type->id }}">{{ $type->name }}</option>
               @endforeach
             </select>
           </div>
@@ -38,7 +33,6 @@
         </div>
       </div>
       <div class="box-footer">
-        <a href="{{ url('/list/group') }}" class="btn btn-primary">Volver al listado</a>
         <button type="submit" class="btn btn-primary pull-right">Continuar</button>
       </div>
     </form>

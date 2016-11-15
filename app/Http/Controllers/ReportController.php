@@ -33,11 +33,14 @@ class ReportController extends Controller
 
     public function accounting()
     {
+        $first = Sesion::distinct('fecha')->orderBy('fecha')->first();
+        $last = Sesion::distinct('fecha')->orderBy('fecha')->last();
         return view('reports.accounting');
     }
 
     public function getaccounting(Request $request)
     {
+        //
     }
 
     public function log()
