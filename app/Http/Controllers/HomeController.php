@@ -44,7 +44,7 @@ class HomeController extends Controller
       $months = array();
       for ($i=6; $i > 0; $i--) {
         $date = Carbon::now()->startOfMonth()->subMonths($i);
-        $name = $date->formatLocalized('%B %Y');
+        $name = ucfirst($date->formatLocalized('%B %Y'));
 
         $income = Sesion::where('tipo', 'I')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->sum('haber');
         $income += Payment::whereNull('vfpsesion_id')->whereMonth('created_at', '=', $date->month)->whereYear('created_at', '=', $date->year)->sum('amount');
