@@ -31,7 +31,7 @@
       </li>
       @endcan
       @can('view_report_external_accounting')
-      <li><a href="{{ url('report/accounting') }}"><i class="fa fa-money"></i> <span>Contabilidad externa</span></a></li>
+      <li><a href="{{ url('report/accounting') }}"><i class="fa fa-money"></i> <span>Contabilidad</span></a></li>
       @endcan
       <li><a href="{{ url('list/messages') }}"><i class="fa fa-comment-o"></i><span>Ver mensajes</span></a></li>
       <li><a href="{{ url('list/files') }}"><i class="fa fa-file-o"></i><span>Ver archivos</span></a></li>
