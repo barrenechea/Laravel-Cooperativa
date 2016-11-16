@@ -17,16 +17,16 @@ class ReportController extends Controller
 {
     public function accounting()
     {
-        $first = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'asc')->first()->fecha->startOfMonth();
-        $last = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'desc')->first()->fecha->startOfMonth();
+        $first = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'asc')->first();
+        $last = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'desc')->first();
 
-        if(!isset($first) || !isset($last))
+        if(!$first->count() || !$last->count())
         {
             Session::flash('warning', 'El panel aún no se sincroniza con el sistema contable. No se pueden generar reportes contables.');
             return redirect()->back();
         }
 
-        $dates = $this->generateDateRange($first, $last);
+        $dates = $this->generateDateRange($first->fecha->startOfMonth(), $last->fecha->startOfMonth());
 
         return view('reports.accounting', ['dates' => $dates]);
     }
