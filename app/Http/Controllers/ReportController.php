@@ -54,7 +54,7 @@ class ReportController extends Controller
         if($displayMode == 1)
         {
             // Mostrar en pantalla
-            return redirect()->back()->withErrors(['Función aún no implementada']);
+            return redirect()->back()->withErrors(['Función \'Desplegar reporte en pantalla\' aún no implementada']);
         }
         elseif($displayMode == 2)
         {
