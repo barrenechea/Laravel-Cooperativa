@@ -20,6 +20,12 @@ class ReportController extends Controller
         $first = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'asc')->first()->fecha->startOfMonth();
         $last = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'desc')->first()->fecha->startOfMonth();
 
+        if(!isset($first) || !isset($last))
+        {
+            Session::flash('warning', 'El panel aún no se sincroniza con el sistema contable. No se pueden generar reportes contables.');
+            return redirect()->back();
+        }
+
         $dates = $this->generateDateRange($first, $last);
 
         return view('reports.accounting', ['dates' => $dates]);
