@@ -23,17 +23,17 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="return_mode" class="col-sm-2 control-label">Despliegue</label>
+          <label for="display_mode" class="col-sm-2 control-label">Despliegue</label>
           <div class="col-sm-10">
             <div class="radio">
               <label>
-                <input type="radio" id="return_mode" name="return_mode" value="1" required checked>
+                <input type="radio" id="display_mode" name="display_mode" value="1" required>
                 Desplegar reporte en pantalla
               </label>
             </div>
             <div class="radio">
               <label>
-                <input type="radio" id="return_mode" name="return_mode" value="2">
+                <input type="radio" id="display_mode" name="display_mode" value="2" checked>
                 Descargar reporte en planilla Excel
               </label>
             </div>
