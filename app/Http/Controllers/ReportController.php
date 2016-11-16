@@ -17,6 +17,7 @@ class ReportController extends Controller
 {
     public function accounting()
     {
+        setlocale(LC_TIME, 'es_ES.utf8');
         $first = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'asc')->first();
         $last = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'desc')->first();
 

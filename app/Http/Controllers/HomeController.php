@@ -39,7 +39,6 @@ class HomeController extends Controller
         //Last message
       $lastMsg = Message::latest()->where('has_file', false)->first();
 
-        //Egresos logic
       setlocale(LC_TIME, 'es_ES.utf8');
       $months = array();
       for ($i=6; $i > 0; $i--) {

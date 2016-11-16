@@ -18,7 +18,7 @@
               <option value="" disabled selected hidden>Seleccione un período</option>
               @if(isset($dates))
               @foreach($dates as $date)
-              <option value="{{ $date->toDateString() }}">{{ $date->formatLocalized('%B %Y') }}</option>
+              <option value="{{ $date->toDateString() }}">{{ ucfirst($date->formatLocalized('%B %Y')) }}</option>
               @endforeach
               @endif
             </select>
