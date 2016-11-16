@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Excel;
 use App\Log;
@@ -36,6 +37,12 @@ class ReportController extends Controller
         $incomes = Sesion::where('tipo', 'I')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->get();
         $outcomes = Sesion::where('tipo', 'E')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->get();
         
+        if(!$incomes->count() || !$outcomes->count())
+        {
+            Session::flash('danger', 'No se pudo generar el informe a falta de información contable');
+            return redirect()->back();
+        }
+
         $this->addlog('Generó reporte de contabilidad para el mes: '.$request->input('month'));
 
         if($displayMode == 1)
