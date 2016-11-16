@@ -29,7 +29,7 @@
         </table>
       </div>
       <div class="box-footer">
-        <a href="{{ url('/report/logexport') }}" class="btn btn-primary pull-right">Exportar a Excel</a>
+        <a href="{{ url('/report/logexport') }}" class="btn btn-primary pull-right">Exportar todo a Excel</a>
       </div>
     </div>
   </div>

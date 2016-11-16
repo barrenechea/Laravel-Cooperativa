@@ -275,7 +275,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for ($i=1; $i < 5; $i++) { 
+        for ($i=1; $i < 7; $i++) { 
             DB::table('locations')->insert([
             'type_id' => 1,
             'sector_id' => 1,

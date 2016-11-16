@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Excel;
 use App\Log;
@@ -28,6 +29,8 @@ class ReportController extends Controller
         $date = Carbon::createFromFormat('Y-m-d', $request->input('month'))->startOfDay();
         $payments = Payment::whereNotNull('vfpsesion_id')->pluck('vfpsesion_id');
         $objects = Sesion::where('tipo', 'I')->whereNotIn('id', $payments)->where('linea', '<>', 1)->whereDate('fecha', '>=', $date->copy()->startOfMonth())->whereDate('fecha', '<=', $date->copy()->endOfMonth())->orderBy('fecha')->get();
+        
+        $this->addlog('Generó reporte de contabilidad para el mes: '.$request->input('month'));
 
         dd($objects);
     }
@@ -35,12 +38,41 @@ class ReportController extends Controller
     public function log()
     {
         $logs = Log::all();
+
+        $this->addlog('Visualizó registro de actividad');
+
         return view('reports.log', ['logs' => $logs]);
     }
 
     public function logexport()
     {
-        dd('asd');
+        $this->addlog('Exportó registro de actividad');
+        $logs = Log::all();
+        $dataArray = [];
+
+        foreach ($logs as $log) {
+            $dataArray[] = [
+            $log->created_at->format('d-m-Y'),
+            $log->created_at->format('H:i'),
+            $log->user->name,
+            $log->message
+            ];
+        }
+
+        Excel::create(('ACTIVIDAD-'.Carbon::now()), function($excel) use ($dataArray) {
+            $excel->sheet('Reg. Actividad', function($sheet) use ($dataArray) {
+                $sheet->setColumnFormat(array(
+                    'A' => 'dd-mm-yyyy',
+                    'B' => 'h:mm',
+                    ));
+                $sheet->appendRow(['Fecha', 'Hora', 'Administrador', 'Actividad']);
+                foreach ($dataArray as $row)
+                    $sheet->appendRow($row);
+
+                $sheet->setAutoFilter();
+                $sheet->setAutoSize(true);
+            });
+        })->download('xlsx');
     }
 
     public function overdue()
@@ -80,6 +112,8 @@ class ReportController extends Controller
 
         if(count($overdue) === 0)
             return redirect()->back()->withErrors(['No se han encontrado socios morosos para el reporte seleccionado.']);
+
+        $this->addlog('Generó reporte de morosos - '. ($request->input('report_type') == 1 ? 'Pérdida de derechos' : 'Proceso de exclusión'));
 
         if($request->input('return_mode') == 1)
         {
@@ -130,5 +164,13 @@ class ReportController extends Controller
             $dates[] = $date->copy();
         
         return $dates;
+    }
+
+    private function addlog($message)
+    {
+        $log = new Log;
+        $log->user_id = Auth::user()->id;
+        $log->message = $message;
+        $log->save();
     }
 }

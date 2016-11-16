@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Bill;
 use App\Sector;
 use App\Group;
 use App\Location;
+use App\Log;
 
 use Validator;
 
@@ -96,6 +98,8 @@ class BillController extends Controller
 
 		Cache::forget('bill');
 		Session::flash('success', '¡El cobro se ha ingresado exitosamente!');
+
+		$this->addlog('Creó nuevo cobro: '.$bill->description);
 
 		return redirect('bill/create');
 	}
@@ -196,6 +200,16 @@ class BillController extends Controller
 		Cache::forget('bill');
 		Session::flash('success', '¡El cobro se ha actualizado exitosamente!');
 
+		$this->addlog('Actualizó cobro: '.$bill->description.'. Motivo: '.$reason);
+
 		return redirect('list/bills');
+	}
+
+	private function addlog($message)
+	{
+		$log = new Log;
+		$log->user_id = Auth::user()->id;
+		$log->message = $message;
+		$log->save();
 	}
 }

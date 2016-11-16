@@ -12,6 +12,8 @@ use App\Location;
 use App\Partner;
 use App\User;
 use App\Role;
+use App\Log;
+
 use Validator;
 
 class UpdateController extends Controller
@@ -68,6 +70,7 @@ class UpdateController extends Controller
         Auth::user()->save();
 
         Session::flash('success', '¡Su perfil ha sido actualizado exitosamente!');
+
         return redirect('/home');
     }
 
@@ -90,6 +93,9 @@ class UpdateController extends Controller
         Mail::to($user)->queue(new Password($user, $password, false));
 
         Session::flash('success', '¡La nueva contraseña ha sido enviada al administrador!');
+
+        $this->addlog('Generó nueva contraseña para la cuenta de administrador: '.$user->username);
+
         return redirect()->back();
     }
 
@@ -125,13 +131,20 @@ class UpdateController extends Controller
         $user->email = $request->input('email');
 
         if($request->input('roles'))
+        {
             $user->roles()->sync($request->input('roles'));
+            $this->addlog('Actualizó los datos y/o permisos de la cuenta de administrador: '.$user->username);
+        }
         else
+        {
             $user->roles()->detach();
+            $this->addlog('Deshabilitó la cuenta de administrador: '.$user->username);
+        }
 
         $user->save();
 
         Session::flash('success', '¡El perfil ha sido actualizado exitosamente!');
+
         return redirect('/list/admin');
     }
 
@@ -148,6 +161,9 @@ class UpdateController extends Controller
         Mail::to($user)->queue(new Password($user, $password, false));
 
         Session::flash('success', '¡La nueva contraseña ha sido enviada al socio!');
+
+        $this->addlog('Generó nueva contraseña para la cuenta de socio: '.$user->username);
+
         return redirect()->back();
     }
 
@@ -180,9 +196,23 @@ class UpdateController extends Controller
                 $location->partner_id = $partner->id;
                 $location->save();
             }
+            $this->addlog('Actualizó los datos y/o ubicaciones del socio: '.$partner->user->username);
+        }
+        else
+        {
+            $this->addlog('Desvinculó todas las ubicaciones del socio: '.$partner->user->username);
         }
 
         Session::flash('success', '¡El perfil ha sido actualizado exitosamente!');
+
         return redirect('/list/partner');
+    }
+
+    private function addlog($message)
+    {
+        $log = new Log;
+        $log->user_id = Auth::user()->id;
+        $log->message = $message;
+        $log->save();
     }
 }

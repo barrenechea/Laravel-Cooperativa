@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
@@ -13,6 +14,7 @@ use App\Location;
 use App\Group;
 use App\Percentage;
 use App\Logic;
+use App\Log;
 
 use Validator;
 
@@ -31,6 +33,9 @@ class SystemController extends Controller
     	$sector->save();
 
     	Session::flash('success', 'El sector ha sido ingresado exitosamente!');
+
+        $this->addlog('Creó nuevo sector: '.$sector->code);
+
         return redirect()->back();
     }
 
@@ -40,6 +45,9 @@ class SystemController extends Controller
     	$type->save();
 
     	Session::flash('success', 'El tipo ha sido ingresado exitosamente!');
+
+        $this->addlog('Creó nuevo tipo: '.$type->name);
+
         return redirect()->back();
     }
 
@@ -49,6 +57,9 @@ class SystemController extends Controller
     	$location->save();
 
     	Session::flash('success', 'La ubicación ha sido ingresada exitosamente!');
+
+        $this->addlog('Creó nueva ubicación: '.$location->code);
+
         return redirect()->back();
     }
 
@@ -87,6 +98,9 @@ class SystemController extends Controller
             $group->locations()->sync($locations);
 
             Session::flash('success', 'El grupo ha sido creado exitosamente!');
+
+            $this->addlog('Creó nuevo grupo: '.$group->description);
+
             return redirect('/list/group');
         }
     }
@@ -137,6 +151,9 @@ class SystemController extends Controller
         Cache::forget('group');
 
         Session::flash('success', 'El grupo ha sido creado exitosamente!');
+
+        $this->addlog('Creó nuevo grupo: '.$group->description);
+
         return redirect('list/group');
     }
 
@@ -173,6 +190,9 @@ class SystemController extends Controller
             $group->locations()->sync($locations);
 
             Session::flash('success', 'El grupo ha sido actualizado exitosamente!');
+
+            $this->addlog('Modificó grupo: '.$group->description);
+
             return redirect('list/group');
         }
     }
@@ -213,6 +233,9 @@ class SystemController extends Controller
         Cache::forget('group');
 
         Session::flash('success', 'El grupo ha sido actualizado exitosamente!');
+
+        $this->addlog('Modificó grupo: '.$group->description);
+
         return redirect('list/group');
     }
 
@@ -224,6 +247,17 @@ class SystemController extends Controller
         $logic->save();
 
         Session::flash('success', 'Los días de clasificación han sido actualizados exitosamente!');
+
+        $this->addlog('Modificó días de clasificación para reportes de morosos');
+
         return redirect()->back();
+    }
+
+    private function addlog($message)
+    {
+        $log = new Log;
+        $log->user_id = Auth::user()->id;
+        $log->message = $message;
+        $log->save();
     }
 }

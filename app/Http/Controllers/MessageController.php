@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Message;
+use App\Log;
 
 use Validator;
 
@@ -14,16 +15,6 @@ class MessageController extends Controller
 {
 	public function add(Request $request)
 	{
-		$validator = Validator::make($request->all(), [
-			'message' => 'required|max:255',
-			]);
-
-		if ($validator->fails()) {
-			return redirect()->back()
-			->withErrors($validator)
-			->withInput();
-		}
-
 		$message = new Message();
 		$message->user_id = Auth::user()->id;
 		$message->message = $request->input('message');
@@ -31,6 +22,8 @@ class MessageController extends Controller
 		$message->save();
 
 		Session::flash('success', 'El mensaje ha sido publicado exitosamente!');
+
+		$this->addlog('Envió un nuevo mensaje. ID:'.$message->id);
 
 		return redirect()->back();
 	}
@@ -49,6 +42,17 @@ class MessageController extends Controller
 
 		$message->delete();
 		Session::flash('success', 'El mensaje ha sido eliminado exitosamente!');
+
+		$this->addlog('Eliminó un mensaje. ID:'.$message->id);
+
 		return redirect()->back();
+	}
+
+	private function addlog($message)
+	{
+		$log = new Log;
+		$log->user_id = Auth::user()->id;
+		$log->message = $message;
+		$log->save();
 	}
 }

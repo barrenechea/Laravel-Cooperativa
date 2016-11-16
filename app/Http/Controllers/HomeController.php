@@ -19,6 +19,7 @@ use App\Sesion;
 use App\Bill;
 use App\Payment;
 use App\Mailing;
+use App\Log;
 
 use Validator;
 
@@ -42,22 +43,18 @@ class HomeController extends Controller
       setlocale(LC_TIME, 'es_ES.utf8');
       $months = array();
       for ($i=6; $i > 0; $i--) {
-        $name = ucfirst(Carbon::now()->subMonths($i)->formatLocalized('%B %Y'));
-        $start = Carbon::now()->subMonths($i)->startOfMonth();
-        $end = Carbon::now()->subMonths($i)->endOfMonth();
+        $date = Carbon::now()->startOfMonth()->subMonths($i);
+        $name = $date->formatLocalized('%B %Y');
 
-        $income = Sesion::where('linea', '1')->where('tipo', 'I')->whereDate('fecha', '>=', $start)->whereDate('fecha', '<=', $end)->sum('debe');
-        $income += Payment::whereNull('vfpsesion_id')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->sum('amount');
-        $outcome = Sesion::where('linea', '1')->where('tipo', 'E')->whereDate('fecha', '>=', $start)->whereDate('fecha', '<=', $end)->sum('debe');
+        $income = Sesion::where('tipo', 'I')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->sum('haber');
+        $income += Payment::whereNull('vfpsesion_id')->whereMonth('created_at', '=', $date->month)->whereYear('created_at', '=', $date->year)->sum('amount');
+        $outcome = Sesion::where('tipo', 'E')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->sum('haber');
 
         $months[] = ['name' => $name, 'income' => $income, 'outcome' => $outcome];
       }
 
-        //dd($months[0]['name']);
-
       if(Auth::user()->is_admin)
       {
-            // Boxes data
         $sectors = Sector::all()->count();
         $types = Type::all()->count();
         $locations = Location::all()->count();
@@ -158,6 +155,17 @@ public function updatesystemstatus(Request $request)
   }
 
   Session::flash('success', 'Las alertas de almacenamiento se han actualizado exitosamente!');
+
+  $this->log('Actualizó las cuentas de destino para alertas de almacenamiento crítico');
+
   return redirect()->back();
+}
+
+private function log($message)
+{
+  $log = new Log;
+  $log->user_id = Auth::user()->id;
+  $log->message = $message;
+  $log->save();
 }
 }

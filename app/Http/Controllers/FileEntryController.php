@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Fileentry;
 use App\Message;
+use App\Log;
 
 use Validator;
 
@@ -47,6 +48,8 @@ class FileEntryController extends Controller
 
 		Session::flash('success', 'El archivo ha sido subido exitosamente!');
 
+		$this->addlog('Subió nuevo archivo: '.$message->message);
+
 		return redirect()->back();
 	}
 
@@ -74,7 +77,19 @@ class FileEntryController extends Controller
 		Storage::disk('local')->delete($message->fileentry->filename);
 		$message->fileentry->delete();
 		$message->delete();
+
 		Session::flash('success', 'El archivo ha sido eliminado exitosamente!');
+
+		$this->addlog('Eliminó archivo: '.$message->message);
+
 		return redirect()->back();
+	}
+
+	private function addlog($message)
+	{
+		$log = new Log;
+		$log->user_id = Auth::user()->id;
+		$log->message = $message;
+		$log->save();
 	}
 }

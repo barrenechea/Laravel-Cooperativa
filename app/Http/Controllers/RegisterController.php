@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Partner;
 use App\Role;
 use App\Tabaux10;
 use App\Location;
+use App\Log;
 
 use App\Mail\Password;
 use Validator;
@@ -64,7 +66,9 @@ class RegisterController extends Controller
 
         Mail::to($user)->queue(new Password($user, $password, true));
 
-        Session::flash('success', 'La cuenta ha sido ingresada exitosamente!');
+        Session::flash('success', 'La cuenta ha sido ingresada exitosamente y se ha enviado un mail al nuevo socio!');
+
+        $this->addlog('Registró nuevo socio: '.$user->username);
 
         return redirect()->back();
     }
@@ -103,6 +107,16 @@ class RegisterController extends Controller
 
         Session::flash('success', 'La cuenta ha sido ingresada exitosamente y se ha enviado un mail al nuevo administrador!');
 
+        $this->addlog('Registró nuevo administrador: '.$user->username);
+
         return redirect()->back();
+    }
+
+    private function addlog($message)
+    {
+        $log = new Log;
+        $log->user_id = Auth::user()->id;
+        $log->message = $message;
+        $log->save();
     }
 }
