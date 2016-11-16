@@ -16,9 +16,11 @@
           <div class="col-sm-10">
             <select class="form-control select2" style="width: 100%" id="month" name="month" required>
               <option value="" disabled selected hidden>Seleccione un período</option>
+              @if(isset($dates))
               @foreach($dates as $date)
               <option value="{{ $date->toDateString() }}">{{ $date->formatLocalized('%B %Y') }}</option>
               @endforeach
+              @endif
             </select>
           </div>
         </div>
