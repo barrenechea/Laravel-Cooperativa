@@ -138,6 +138,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->roles->where('name', 'modify_bill')->count();
         });
 
+        Gate::define('modify_billdetail', function ($user) {
+            return $user->roles->where('name', 'modify_billdetail')->count();
+        });
+
         Gate::define('new_message', function ($user) {
             return $user->roles->where('name', 'new_message')->count();
         });

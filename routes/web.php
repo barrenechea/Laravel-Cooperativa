@@ -119,6 +119,8 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::post('modify', 'PaymentController@modifypost')->middleware('can:modify_payment');
 			Route::get('view/{id}', 'PaymentController@view')->middleware('can:view_list_billdetail_payment');
 			Route::get('deletedetail/{id}', 'PaymentController@deletedetail')->middleware('can:delete_billdetail');
+			Route::get('modifydetail/{id}', 'PaymentController@modifydetail')->middleware('can:modify_billdetail');
+			Route::post('modifydetail', 'PaymentController@postmodifydetail')->middleware('can:modify_billdetail');
 			Route::get('deletepayment/{id}', 'PaymentController@deletepayment')->middleware('can:delete_payment');
 		});
 

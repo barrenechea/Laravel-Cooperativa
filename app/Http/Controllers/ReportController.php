@@ -34,6 +34,7 @@ class ReportController extends Controller
 
     public function getaccounting(Request $request)
     {
+        setlocale(LC_TIME, 'es_ES.utf8');
         $displayMode = $request->input('display_mode');
 
         $date = Carbon::createFromFormat('Y-m-d', $request->input('month'))->startOfDay();
@@ -46,11 +47,11 @@ class ReportController extends Controller
         
         if(!$incomes->count() || !$outcomes->count())
         {
-            Session::flash('danger', 'No se pudo generar el informe a falta de información contable');
+            Session::flash('danger', 'No se pudo generar el informe dado a falta de información contable');
             return redirect()->back();
         }
 
-        $this->addlog('Generó reporte de contabilidad para el mes: '.$request->input('month'));
+        $this->addlog('Generó reporte de contabilidad para el período: '. ucfirst($date->formatLocalized('%B %Y')));
 
         if($displayMode == 1)
         {

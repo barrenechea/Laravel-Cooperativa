@@ -71,13 +71,16 @@ Listado de Cobros - {{ $location->code }}, {{ $location->sector->name }}
         </div>
         <div class="modal-footer">
           @can('delete_billdetail')
-          <a href="#" id="deleteDetail" class="btn btn-danger pull-left">Eliminar cobro</a>
+          <a href="#" id="deleteDetail" class="btn btn-danger pull-left">Eliminar</a>
+          @endcan
+          @can('modify_billdetail')
+          <a href="#" id="modifyBilldetail" class="btn btn-warning pull-left">Modificar monto</a>
           @endcan
           @can('add_payment')
           <a href="#" id="addPayment" class="btn btn-outline">Agregar pago</a>
           @endcan
           @can('view_list_billdetail_payment')
-          <a href="#" id="viewDetail" class="btn btn-outline">Ver detalle</a>
+          <a href="#" id="viewDetail" class="btn btn-outline">Ver pagos</a>
           @endcan
         </div>
       </div>
@@ -87,6 +90,9 @@ Listado de Cobros - {{ $location->code }}, {{ $location->sector->name }}
     $(':input[type=button]').click(function(){
       @can('delete_billdetail')
       $("#deleteDetail").attr("href", "/payment/deletedetail/" + $(this).attr('id'));
+      @endcan
+      @can('modify_billdetail')
+      $("#modifyBilldetail").attr("href", "/payment/modifydetail/" + $(this).attr('id'));
       @endcan
       @can('add_payment')
       $("#addPayment").attr("href", "/payment/new/" + $(this).attr('id'));

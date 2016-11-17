@@ -147,6 +147,11 @@ class DatabaseSeeder extends Seeder
 			]);
 
 		DB::table('roles')->insert([
+			'name' => 'modify_billdetail',
+			'description' => 'Modificar detalle de cobro',
+			]);
+
+		DB::table('roles')->insert([
 			'name' => 'new_message',
 			'description' => 'Enviar mensajes',
 			]);

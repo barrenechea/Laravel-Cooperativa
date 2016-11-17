@@ -67,6 +67,27 @@ class PaymentController extends Controller
 		return redirect()->back();
 	}
 
+	public function modifydetail($id)
+	{
+		$billdetail = Billdetail::findOrFail($id);
+
+		return view('payments.modifydetail', ['billdetail' => $billdetail]);
+	}
+
+	public function postmodifydetail(Request $request)
+	{
+		$billdetail = Billdetail::findOrFail($request->input('billdetail_id'));
+
+		$billdetail->amount = $request->input('amount');
+		$billdetail->save();
+
+		Session::flash('success', 'Monto de cobro modificado exitosamente!');
+
+		$this->addlog('Modificó monto de cobro ya emitido. Cobro: '.$billdetail->bill->description.' para '.$billdetail->location->code.'. Motivo: '.$request->input('reason'));
+
+		return redirect('/list/payments/' . $billdetail->location->id);
+	}
+
 	public function deletepayment($id)
 	{
 		$payment = Payment::findOrFail($id);
