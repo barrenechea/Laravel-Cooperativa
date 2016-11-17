@@ -12,7 +12,6 @@ use App\Partner;
 use App\Role;
 use App\Tabaux10;
 use App\Location;
-use App\Log;
 
 use App\Mail\Password;
 use Validator;
@@ -110,13 +109,5 @@ class RegisterController extends Controller
         $this->addlog('Registró nuevo administrador: '.$user->username);
 
         return redirect()->back();
-    }
-
-    private function addlog($message)
-    {
-        $log = new Log;
-        $log->user_id = Auth::user()->id;
-        $log->message = $message;
-        $log->save();
     }
 }

@@ -14,7 +14,6 @@ use App\Location;
 use App\Group;
 use App\Percentage;
 use App\Logic;
-use App\Log;
 
 use Validator;
 
@@ -251,13 +250,5 @@ class SystemController extends Controller
         $this->addlog('Modificó días de clasificación para reportes de morosos');
 
         return redirect()->back();
-    }
-
-    private function addlog($message)
-    {
-        $log = new Log;
-        $log->user_id = Auth::user()->id;
-        $log->message = $message;
-        $log->save();
     }
 }

@@ -9,7 +9,6 @@ use App\Http\Requests;
 use App\Payment;
 use App\Billdetail;
 use App\Location;
-use App\Log;
 
 class PaymentController extends Controller
 {
@@ -100,13 +99,5 @@ class PaymentController extends Controller
 		$this->addlog('Modificó pago. Corresponde a cobro: '.$payment->billdetail->bill->description.' '. $payment->billdetail->created_at->toDateString().' para '.$payment->billdetail->location->code.'. Antes: '.$originalAmount.' Ahora: '.$payment->amount);
 
 		return redirect('/list/payments/' . $payment->billdetail->location_id);
-	}
-
-	private function addlog($message)
-	{
-		$log = new Log;
-		$log->user_id = Auth::user()->id;
-		$log->message = $message;
-		$log->save();
 	}
 }

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Message;
-use App\Log;
 
 use Validator;
 
@@ -46,13 +45,5 @@ class MessageController extends Controller
 		$this->addlog('Eliminó un mensaje. ID:'.$message->id);
 
 		return redirect()->back();
-	}
-
-	private function addlog($message)
-	{
-		$log = new Log;
-		$log->user_id = Auth::user()->id;
-		$log->message = $message;
-		$log->save();
 	}
 }

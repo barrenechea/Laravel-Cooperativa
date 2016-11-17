@@ -12,7 +12,6 @@ use App\Location;
 use App\Partner;
 use App\User;
 use App\Role;
-use App\Log;
 
 use Validator;
 
@@ -206,13 +205,5 @@ class UpdateController extends Controller
         Session::flash('success', '¡El perfil ha sido actualizado exitosamente!');
 
         return redirect('/list/partner');
-    }
-
-    private function addlog($message)
-    {
-        $log = new Log;
-        $log->user_id = Auth::user()->id;
-        $log->message = $message;
-        $log->save();
     }
 }

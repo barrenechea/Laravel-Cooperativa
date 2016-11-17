@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Fileentry;
 use App\Message;
-use App\Log;
 
 use Validator;
 
@@ -83,13 +82,5 @@ class FileEntryController extends Controller
 		$this->addlog('Eliminó archivo: '.$message->message);
 
 		return redirect()->back();
-	}
-
-	private function addlog($message)
-	{
-		$log = new Log;
-		$log->user_id = Auth::user()->id;
-		$log->message = $message;
-		$log->save();
 	}
 }

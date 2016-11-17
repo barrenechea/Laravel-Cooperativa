@@ -251,12 +251,4 @@ public function getoverdue(Request $request)
         
         return $dates;
     }
-
-    private function addlog($message)
-    {
-        $log = new Log;
-        $log->user_id = Auth::user()->id;
-        $log->message = $message;
-        $log->save();
-    }
 }

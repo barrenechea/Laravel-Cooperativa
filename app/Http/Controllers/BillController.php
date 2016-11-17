@@ -12,7 +12,6 @@ use App\Bill;
 use App\Sector;
 use App\Group;
 use App\Location;
-use App\Log;
 
 use Validator;
 
@@ -203,13 +202,5 @@ class BillController extends Controller
 		$this->addlog('Actualizó cobro: '.$bill->description.'. Motivo: '.$reason);
 
 		return redirect('list/bills');
-	}
-
-	private function addlog($message)
-	{
-		$log = new Log;
-		$log->user_id = Auth::user()->id;
-		$log->message = $message;
-		$log->save();
 	}
 }
