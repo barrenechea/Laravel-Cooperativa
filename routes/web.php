@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::post('addgrouppct', 'SystemController@addgrouppct')->middleware('can:add_group');
 			
 			Route::post('overduedates', 'SystemController@updateoverduedates')->middleware('can:modify_overdue');
+			Route::post('notifybill', 'SystemController@updatenotifybill')->middleware('can:nofify_bill');
 		});
 
 		Route::group(['prefix' => 'messages'], function () {

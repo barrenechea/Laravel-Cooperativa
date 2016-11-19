@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Sector;
 use App\Type;
@@ -15,6 +15,8 @@ use App\Partner;
 use App\Bill;
 use App\Message;
 use App\Fileentry;
+use App\Mailing;
+use App\Logic;
 
 class ListController extends Controller
 {
@@ -65,7 +67,16 @@ class ListController extends Controller
     public function listbill()
     {
         $bills = Bill::all();
-        return view('lists.bills', ['bills' => $bills]);
+        $admins = 0;
+        $mailing = 0;
+        $logic_days = 0;
+        if(Auth::user()->can('nofify_bill'))
+        {
+            $admins = User::with('roles')->has('roles')->where('id', '<>', 1)->get();
+            $mailing = Mailing::where('reason', 2)->get();
+            $logic_days = Logic::first()->endbill_notificationdays;
+        }
+        return view('lists.bills', ['bills' => $bills, 'admins' => $admins, 'mailing' => $mailing, 'logic_days' => $logic_days]);
     }
 
     public function listmessage()

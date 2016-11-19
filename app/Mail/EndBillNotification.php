@@ -7,17 +7,19 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class StorageWarning extends Mailable
+class EndBillNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $billdescriptions;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($billdescriptions)
     {
+        $this->billdescriptions = $billdescriptions;
     }
 
     /**
@@ -27,6 +29,7 @@ class StorageWarning extends Mailable
      */
     public function build()
     {
-        return $this->subject('Alerta de almacenamiento en servidor')->view('emails.storagewarning');
+        $subject = 'Notificación de término de cobro' . (count($this->billdescriptions) > 1 ? 's' : '');
+        return $this->subject($subject)->view('emails.endbillnotification');
     }
 }

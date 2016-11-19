@@ -178,7 +178,17 @@ class DatabaseSeeder extends Seeder
 
 		DB::table('roles')->insert([
 			'name' => 'view_report_external_accounting',
-			'description' => 'Contabilidad externa',
+			'description' => 'Contabilidad',
+			]);
+
+		DB::table('roles')->insert([
+			'name' => 'mail_ssd_warning',
+			'description' => 'Configurar alertas de tope del servidor',
+			]);
+
+		DB::table('roles')->insert([
+			'name' => 'nofify_bill',
+			'description' => 'Configurar notificaciones para el término de cobros',
 			]);
 
 		DB::table('roles')->insert([
@@ -189,11 +199,6 @@ class DatabaseSeeder extends Seeder
 		DB::table('roles')->insert([
 			'name' => 'view_systeminfo',
 			'description' => 'Ver información del sistema',
-			]);
-
-		DB::table('roles')->insert([
-			'name' => 'mail_ssd_warning',
-			'description' => 'Configurar alertas de tope del servidor',
 			]);
 
 			// Laravel Administrator is Super Admin

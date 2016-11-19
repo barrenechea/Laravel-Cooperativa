@@ -44,7 +44,17 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="vfpcode" class="col-sm-2 control-label">Cuenta contable</label>
+            <label for="vfpcode_destination" class="col-sm-2 control-label">C. Contable destino</label>
+            <div class="col-sm-10">
+              <select class="form-control select2" id="vfpcode_destination" name="vfpcode_destination" required>
+                @foreach($accounts as $account)
+                <option value="{{ $account->codigo }}">{{ $account->codigo }} - {{ $account->nombre }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="vfpcode" class="col-sm-2 control-label">C. Contable actividad</label>
             <div class="col-sm-10">
               <select class="form-control select2" id="vfpcode" name="vfpcode" required>
                 @foreach($accounts as $account)
@@ -103,7 +113,18 @@
             </div>
           </div>
           <div class="form-group overdue">
-            <label for="overdue_vfpcode" class="col-sm-2 control-label">Cuenta contable</label>
+            <label for="overdue_is_uf" class="col-sm-2 control-label">Cobro diario</label>
+            <div class="col-sm-10">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="overdue_is_daily" name="overdue_is_daily" value="1" {{ old('overdue_is_daily') ? 'checked' : '' }}>
+                  El monto incrementará por cada día de atraso
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group overdue">
+            <label for="overdue_vfpcode" class="col-sm-2 control-label">C. Contable actividad</label>
             <div class="col-sm-10">
               <select class="form-control select2" id="overdue_vfpcode" name="overdue_vfpcode" required>
                 @foreach($accounts as $account)

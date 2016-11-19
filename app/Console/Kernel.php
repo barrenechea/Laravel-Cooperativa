@@ -7,6 +7,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StorageWarning;
+use App\Mail\EndBillNotification;
 
 use App\Bill;
 use App\Billdetail;
@@ -61,13 +62,56 @@ class Kernel extends ConsoleKernel
                         $mails[] = $mailing->user->email;
                 }
 
-                Mail::to('noresponder@alamedamaipu.cl')->bcc($mails)->queue(new StorageWarning());
+                if(count($mails))
+                {
+                    Mail::to('noresponder@alamedamaipu.cl')
+                        ->bcc($mails)
+                        ->queue(new StorageWarning());
+                }
 
                 $logic->ssd_warning = 1;
                 $logic->save();
             }
-        })->dailyAt('05:30');
-        //})->dailyAt(Carbon::now()->hour . ':' . Carbon::now()->minute);
+        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '05:30');
+
+        // This will send mails if any bill is about to finish
+        $schedule->call(function ()
+        {
+            $logic = Logic::first();
+
+            $bills = Bill::whereNotNull('end_bill')
+            ->where('end_bill_notified', false)
+            ->whereDate('end_bill', '<=', Carbon::today()->addDays($logic->endbill_notificationdays)->toDateString())
+            ->get();
+
+            $billdescriptions = [];
+
+            foreach($bills as $bill)
+            {
+                $billdescriptions[] = ['description' => $bill->description, 'end_bill' => $bill->end_bill->copy()];
+                $bill->end_bill_notified = true;
+                $bill->save();
+            }
+
+            if(count($billdescriptions))
+            {
+                $mailings = Mailing::where('reason', 2)->get();
+                $mails = [];
+
+                foreach ($mailings as $mailing)
+                {
+                    if($mailing->user->roles()->count())
+                        $mails[] = $mailing->user->email;
+                }
+
+                if(count($mails))
+                {
+                    Mail::to('noresponder@alamedamaipu.cl')
+                        ->bcc($mails)
+                        ->queue(new EndBillNotification($billdescriptions));
+                }
+            }
+        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '05:35');
 
         // This will disable bills that reached their limit cycle
         $schedule->call(function ()
@@ -84,8 +128,7 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
-        })->dailyAt('05:45');
-        //})->dailyAt(Carbon::now()->hour . ':' . Carbon::now()->minute);
+        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '05:45');
 
         // This will generate BillDetail objects on database based on Bills
         $schedule->call(function ()
@@ -194,49 +237,89 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
-        })->dailyAt('06:00');
-        //})->dailyAt(Carbon::now()->hour . ':' . Carbon::now()->minute);
+        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '06:00');
 
-        // This will generate Overdue stuff
-$schedule->call(function ()
-{
-    $billdetails = Billdetail::whereNotNull('overdue_date')
-    ->whereNotNull('overdue_billed')
-    ->where('overdue_date', '<', Carbon::today()->toDateString())
-    ->where('overdue_billed', false)
-    ->get();
-    if($billdetails->count())
-    {
-        foreach ($billdetails as $billdetail) {
-            if($billdetail->amount > $billdetail->payments->sum('amount'))
+        // This will generate Overdue stuff where not daily
+        $schedule->call(function ()
+        {
+            $billdetails = Billdetail::whereNotNull('overdue_date')
+            ->whereNotNull('overdue_billed')
+            ->where('overdue_date', '<', Carbon::today()->toDateString())
+            ->where('overdue_billed', false)
+            ->get();
+            if($billdetails->count())
             {
-                if(isset($billdetail->bill->overdue_day) && isset($billdetail->bill->overdue_amount) && isset($billdetail->bill->overdue_is_uf))
-                {
-                    $newBillDetail = new BillDetail;
-                    $newBillDetail->bill_id = $billdetail->bill->id;
-                    $newBillDetail->location_id = $billdetail->location_id;
-                    $newBillDetail->partner_id = $billdetail->partner_id;
-                    $newBillDetail->vfpcode = $billdetail->bill->overdue_vfpcode;
-                    if($billdetail->bill->overdue_is_uf)
+                foreach ($billdetails as $billdetail) {
+                    if($billdetail->amount > $billdetail->payments->sum('amount'))
                     {
-                        $uf = $this->fetchUFValue();
-                        $amount = $billdetail->bill->overdue_amount * $uf;
+                        if(isset($billdetail->bill->overdue_day) && isset($billdetail->bill->overdue_amount) && isset($billdetail->bill->overdue_is_uf))
+                        {
+                            // Overdue only one payment, not daily
+                            $newBillDetail = new BillDetail;
+                            $newBillDetail->bill_id = $billdetail->bill->id;
+                            $newBillDetail->location_id = $billdetail->location_id;
+                            $newBillDetail->partner_id = $billdetail->partner_id;
+                            $newBillDetail->vfpcode = $billdetail->bill->overdue_vfpcode;
+                            if($billdetail->bill->overdue_is_uf)
+                            {
+                                $uf = $this->fetchUFValue();
+                                $amount = $billdetail->bill->overdue_amount * $uf;
+                            }
+                            else
+                                $amount = $billdetail->bill->overdue_amount;
+                            $newBillDetail->amount = $amount;
+                            $newBillDetail->overdue_date = null;
+                            if(isset($billdetail->bill->overdue_is_daily) && $billdetail->bill->overdue_is_daily)
+                            {
+                                $newBillDetail->overdue_billed = false;
+                                $newBillDetail->overdue_is_daily = true;
+                            }
+                            else
+                            {
+                                $newBillDetail->overdue_billed = null;
+                                $newBillDetail->overdue_is_daily = null;
+                            }
+                            $newBillDetail->save();
+                        }
                     }
-                    else
-                        $amount = $billdetail->bill->overdue_amount;
-                    $newBillDetail->amount = $amount;
-                    $newBillDetail->overdue_date = null;
-                    $newBillDetail->overdue_billed = null;
-                    $newBillDetail->save();
+                    $billdetail->overdue_billed = true;
+                    $billdetail->save();
                 }
             }
-            $billdetail->overdue_billed = true;
-            $billdetail->save();
-        }
+        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '06:15');
+
+        // This will generate Overdue stuff where not daily
+        $schedule->call(function ()
+        {
+            $billdetails = Billdetail::whereNull('overdue_date')
+            ->whereNotNull('overdue_billed')
+            ->whereNotNull('overdue_is_daily')
+            ->where('overdue_billed', false)
+            ->where('overdue_is_daily', true)
+            ->whereDate('created_at', '<>', Carbon::today()->toDateString())
+            ->get();
+            if($billdetails->count())
+            {
+                foreach ($billdetails as $billdetail) {
+                    if($billdetail->amount > $billdetail->payments->sum('amount'))
+                    {
+                        if($billdetail->bill->overdue_is_uf)
+                        {
+                            $uf = $this->fetchUFValue();
+                            $amount = $billdetail->bill->overdue_amount * $uf;
+                        }
+                        else
+                            $amount = $billdetail->bill->overdue_amount;
+                        
+                        $billdetail->amount += $amount;
+                    }
+                    else
+                        $billdetail->overdue_billed = true;
+                    $billdetail->save();
+                }
+            }
+        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '06:20');
     }
-})->dailyAt('06:15');
-        //})->dailyAt(Carbon::now()->hour . ':' . Carbon::now()->minute);
-}
 
     /**
      * Register the Closure based commands for the application.

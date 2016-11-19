@@ -36,7 +36,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-            //Last message
         $lastMsg = Message::latest()->where('has_file', false)->first();
 
         if(Cache::has('graphicdata'))
@@ -112,7 +111,7 @@ class HomeController extends Controller
         $mailing = 0;
         if(Auth::user()->can('mail_ssd_warning'))
         {
-            $admins = User::where('is_admin', true)->where('id', '<>', 1)->get();
+            $admins = User::with('roles')->has('roles')->where('id', '<>', 1)->get();
             $mailing = Mailing::where('reason', 1)->get();
         }
         $path = '/';
@@ -161,7 +160,7 @@ class HomeController extends Controller
         $graphicdata = array();
 
         // Cuentas contables a omitir en ingresos
-        $avoidAccountIncome = ['51-01-003', '51-01-006', '51-01-004', ];
+        #$avoidAccountIncome = ['51-01-003', '51-01-006', '51-01-004', ];
         $avoidAccountIncome = [];
 
         // Cuentas contables a omitir en egresos
@@ -174,10 +173,9 @@ class HomeController extends Controller
                 $date = Carbon::now()->startOfMonth()->subMonths($i+1);
 
             $name = ucfirst($date->formatLocalized('%B %Y'));
-            // ->where('glosa', 'NOT LIKE', '%Traspaso%')
-            $income = Sesion::where('tipo', 'I')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->whereNotIn('codigo', $avoidAccountIncome)->sum('haber');
+            $income = Sesion::where('tipo', 'I')->where('glosa', 'NOT LIKE', '%**%')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->whereNotIn('codigo', $avoidAccountIncome)->sum('haber');
             $income += Payment::whereNull('vfpsesion_id')->whereMonth('created_at', '=', $date->month)->whereYear('created_at', '=', $date->year)->sum('amount');
-            $outcome = Sesion::where('tipo', 'E')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->whereNotIn('codigo', $avoidAccountOutcome)->sum('haber');
+            $outcome = Sesion::where('tipo', 'E')->where('glosa', 'NOT LIKE', '%**%')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->whereNotIn('codigo', $avoidAccountOutcome)->sum('haber');
 
             $graphicdata[] = ['name' => $name, 'income' => $income, 'outcome' => $outcome];
         }

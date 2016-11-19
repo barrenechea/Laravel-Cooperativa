@@ -38,7 +38,7 @@ class PaymentController extends Controller
 
 		Session::flash('success', 'El pago se ha agregado exitosamente!');
 
-		$this->addlog('Agregó nuevo pago. ID:'.$payment->id.'. Corresponde a cobro: '.$payment->billdetail->bill->description.' '. $payment->billdetail->created_at->toDateString() .' - '.$payment->location->code);
+		$this->addlog('Agregó nuevo pago. ID:'.$payment->id.'. Corresponde a cobro: '.$payment->billdetail->bill->description.' '. $payment->billdetail->created_at->toDateString() .' - '.$payment->billdetail->location->code);
 
 		return redirect('/list/payments/' . $payment->billdetail->location_id);
 	}
@@ -48,12 +48,9 @@ class PaymentController extends Controller
 		$payments = Payment::where('billdetail_id', $id)->get();
 		if($payments->count() > 0)
 			return view('payments.view', ['payments' => $payments]);
-		else
-		{
-			Session::flash('warning', 'No hay detalle disponible para el cobro seleccionado');
-			return redirect()->back();
-			// Ver como arreglarlo!
-		}
+		
+		Session::flash('warning', 'No hay detalle disponible para el cobro seleccionado');
+		return redirect()->back();
 	}
 
 	public function deletedetail($id)
@@ -78,7 +75,8 @@ class PaymentController extends Controller
 	{
 		$billdetail = Billdetail::findOrFail($request->input('billdetail_id'));
 
-		$billdetail->amount = $request->input('amount');
+		$billdetail->fill($request->all());
+
 		$billdetail->save();
 
 		Session::flash('success', 'Monto de cobro modificado exitosamente!');
@@ -91,11 +89,13 @@ class PaymentController extends Controller
 	public function deletepayment($id)
 	{
 		$payment = Payment::findOrFail($id);
+		$billdetail = $payment->billdetail;
 		$payment->delete();
 		Session::flash('success', 'Pago eliminado exitosamente!');
 
 		$this->addlog('Eliminó pago. Corresponde a cobro: '.$payment->billdetail->bill->description.' '. $payment->billdetail->created_at->toDateString().' para '.$payment->billdetail->location->code);
-
+		if($billdetail->payments()->count() == 0)
+			return redirect('list/payments/' . $billdetail->location->id);
 		return redirect()->back();
 	}
 
@@ -110,9 +110,8 @@ class PaymentController extends Controller
 		$payment = Payment::findOrFail($request->input('payment_id'));
 
 		$originalAmount = $payment->amount;
-
-		$payment->user_id = $request->input('user_id');
-		$payment->amount = $request->input('amount');
+		
+		$payment->fill($request->all());
 		$payment->save();
 
 		Session::flash('success', 'El pago se ha modificado exitosamente!');

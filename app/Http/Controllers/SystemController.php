@@ -14,18 +14,12 @@ use App\Location;
 use App\Group;
 use App\Percentage;
 use App\Logic;
+use App\Mailing;
 
 use Validator;
 
 class SystemController extends Controller
 {
-    public function base()
-    {
-    	$sectors = Sector::all();
-    	$types = Type::all();
-        return view('system.base', ['sectors' => $sectors, 'types' => $types]);
-    }
-
     public function addsector(Request $request)
     {
     	$sector = new Sector($request->all());
@@ -248,6 +242,31 @@ class SystemController extends Controller
         Session::flash('success', 'Los días de clasificación han sido actualizados exitosamente!');
 
         $this->addlog('Modificó días de clasificación para reportes de morosos');
+
+        return redirect()->back();
+    }
+
+    public function updatenotifybill(Request $request)
+    {
+        $logic = Logic::first();
+        $logic->endbill_notificationdays = $request->input('days');
+        $logic->save();
+
+        $mailings = Mailing::where('reason', 2)->get();
+        foreach($mailings as $mailing)
+            $mailing->delete();
+
+        foreach($request->input('admins') as $admin)
+        {
+            $mailing = new Mailing;
+            $mailing->user_id = $admin;
+            $mailing->reason = 2;
+            $mailing->save();
+        }
+
+        Session::flash('success', 'Los administradores a notificar han sido actualizados exitosamente!');
+
+        $this->addlog('Modificó administradores que reciben notificaciones de término de cobros');
 
         return redirect()->back();
     }

@@ -23,6 +23,7 @@ class CreateBillDetailsTable extends Migration
             $table->integer('amount');
             $table->date('overdue_date')->nullable();
             $table->boolean('overdue_billed')->nullable()->default(false);
+            $table->boolean('overdue_is_daily')->nullable()->default(false);
             $table->timestamps();
             $table->softDeletes();
 

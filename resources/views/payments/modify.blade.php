@@ -20,7 +20,13 @@ Modificar Pago - {{ $payment->billdetail->location->code }}, {{ $payment->billde
           <div class="form-group">
             <label for="amount" class="col-sm-2 control-label">Monto a pagar</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control" id="amount" name="amount" placeholder="Ingrese cantidad a pagar, máximo: ${{ number_format(($payment->billdetail->amount - $payment->billdetail->payments()->where('id', '<>', $payment->id)->sum('amount')), 0, ',', '.') }}" value="{{ old('username') }}" max="{{ $payment->billdetail->amount - $payment->billdetail->payments()->where('id', '<>', $payment->id)->sum('amount') }}" required>
+              <input type="number" class="form-control" id="amount" name="amount" placeholder="Ingrese cantidad a pagar, máximo: ${{ number_format(($payment->billdetail->amount - $payment->billdetail->payments()->where('id', '<>', $payment->id)->sum('amount')), 0, ',', '.') }}" value="{{ $payment->amount }}" max="{{ $payment->billdetail->amount - $payment->billdetail->payments()->where('id', '<>', $payment->id)->sum('amount') }}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="document_id" class="col-sm-2 control-label">N° Documento</label>
+            <div class="col-sm-10">
+            <input type="string" class="form-control" id="document_id" name="document_id" placeholder="Ingrese ID del documento vinculado al pago" value="{{ $payment->document_id }}" required>
             </div>
           </div>
           <p class="col-sm-12 help-block">No ingresar puntos ni comas en el campo "Monto a pagar".</p>

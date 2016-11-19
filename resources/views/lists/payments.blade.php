@@ -33,8 +33,8 @@ Listado de Cobros - {{ $location->code }}, {{ $location->sector->name }}
               <td hidden>{{ $billdetail->id }}</td>
               <td>{{ $billdetail->bill->description }}{{ $billdetail->vfpcode !== $billdetail->bill->vfpcode ? ' [Multa por atraso]' : '' }}</td>
               <td>{{ $billdetail->partner->user->name }}</td>
-              <td>{{ $billdetail->created_at->toDateString() }}</td>
-              <td>{{ $billdetail->overdue_date ? $billdetail->overdue_date->toDateString() : 'No posee' }}</td>
+              <td>{{ $billdetail->created_at->format('d-m-Y') }}</td>
+              <td>{{ $billdetail->overdue_date ? $billdetail->overdue_date->format('d-m-Y') : 'No posee' }}</td>
               <td>${{ (number_format($billdetail->amount, 0, ',', '.')) }}</td>
               <td>${{ (number_format($billdetail->payments()->sum('amount'), 0, ',', '.')) }}</td>
               @if($billdetail->amount <= $billdetail->payments()->sum('amount'))

@@ -48,7 +48,7 @@
   </div>
   @can('nofify_bill')
   <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <form role="form" class="form-horizontal" action="{{ url('/system/addsector') }}" method="post">
+    <form role="form" class="form-horizontal" action="{{ url('/system/notifybill') }}" method="post">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -60,17 +60,21 @@
             <div class="modal-body">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="name" class="col-sm-3 control-label">Días</label>
+                  <label for="days" class="col-sm-3 control-label">Días</label>
                   <div class="col-sm-9">
-                    <input type="number" class="form-control" id="days" name="days" placeholder="Ingrese cantidad de días previo a la fecha de expiración" required>
+                    <input type="number" class="form-control" id="days" name="days" placeholder="Ingrese cantidad de días previo a la fecha de expiración" value="{{ $logic_days }}" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="code" class="col-sm-3 control-label">Administradores</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="code" name="code" placeholder="Ingrese código (Ejemplo: AS)" required>
-                  </div>
+                <label for="admins[]" class="col-sm-3 control-label">Administradores</label>
+                <div class="col-sm-9">
+                  <select class="form-control select2" style="width: 100%;" id="admins[]" name="admins[]" multiple="multiple" required>
+                    @foreach($admins as $admin)
+                    <option value="{{ $admin->id }}" {{ $mailing->where('user_id', $admin->id)->count() ? 'selected' : '' }}>{{ $admin->name }}</option>
+                    @endforeach
+                  </select>
                 </div>
+              </div>
               </div>
             </div>
             <div class="modal-footer">

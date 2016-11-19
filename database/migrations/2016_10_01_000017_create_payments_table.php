@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->integer('billdetail_id')->unsigned();
             $table->integer('vfpsesion_id')->unsigned()->nullable();
             $table->integer('amount');
+            $table->string('document_id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();

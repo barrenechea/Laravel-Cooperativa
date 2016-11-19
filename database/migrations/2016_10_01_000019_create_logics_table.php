@@ -19,6 +19,7 @@ class CreateLogicsTable extends Migration
             $table->integer('firstoverdue');
             $table->integer('secondoverdue');
             $table->integer('ssd_warning')->default(0);
+            $table->integer('endbill_notificationdays')->default(60);
         });
     }
 

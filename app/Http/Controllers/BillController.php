@@ -39,6 +39,7 @@ class BillController extends Controller
 			$bill->overdue_amount = null;
 			$bill->overdue_is_uf = null;
 			$bill->overdue_vfpcode = null;
+			$bill->overdue_is_daily = null;
 		}
 		Cache::put('bill', $bill, 5);
 
@@ -117,6 +118,7 @@ class BillController extends Controller
 	{
 		$bill = Bill::findOrFail($request->input('id'));
 		$bill->fill($request->all());
+
 		if($request->input('active') === null)
 			$bill->active = false;
 		if($request->input('is_uf') === null)
@@ -132,7 +134,18 @@ class BillController extends Controller
 			$bill->overdue_amount = null;
 			$bill->overdue_is_uf = null;
 			$bill->overdue_vfpcode = null;
+			$bill->overdue_is_daily = null;
 		}
+		else
+		{
+			if($request->input('overdue_is_uf') === null)
+				$bill->overdue_is_uf = false;
+			if($request->input('overdue_is_daily') === null)
+				$bill->overdue_is_daily = false;
+		}
+
+		$bill->end_bill_notified = false;
+		
 		Cache::put('bill', $bill, 5);
 
 		return redirect('bill/updateassign/' . $request->input('assign'));

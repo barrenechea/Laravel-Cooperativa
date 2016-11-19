@@ -21,6 +21,7 @@ class CreateBillsTable extends Migration
             $table->boolean('is_uf')->default(false);
             $table->string('description');
             $table->string('vfpcode');
+            $table->string('vfpcode_destination');
             $table->integer('overdue_day')->nullable();
             $table->decimal('overdue_amount', 9, 2)->nullable();
             $table->boolean('overdue_is_uf')->nullable()->default(false);

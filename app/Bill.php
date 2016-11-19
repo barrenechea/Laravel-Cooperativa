@@ -26,6 +26,7 @@ class Bill extends Model
     'is_uf',
     'description',
     'vfpcode',
+    'vfpcode_destination',
     'active',
     'end_bill',
     'end_bill_notified',
