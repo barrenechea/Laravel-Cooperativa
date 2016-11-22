@@ -240,7 +240,7 @@
 				<table align="center" border="0" cellpadding="0" cellspacing="0" class="flex-size" style="border-collapse: collapse;border-spacing: 0;">
 					<tr>
 						<td align="center" class="text--footer" style="color: #aebdc1;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 12px;line-height: 18px;padding: 32px 20px 0 20px;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
-							2016 Cooperativa de Servicios Alameda Maipú Ltda.
+							{{ \Carbon\Carbon::today()->year }} Cooperativa de Servicios Alameda Maipú Ltda.
 						</td>
 					</tr>
 					<tr>

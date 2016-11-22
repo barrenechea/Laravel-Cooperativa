@@ -8,10 +8,8 @@
         <div class="login-box">
             <div class="error-content">
                 <br/>
-                <h3><i class="fa fa-warning text-red"></i> Oops! {{ trans('adminlte_lang::message.serviceunavailable') }}</h3>
-                <p>
-                    {{ trans('adminlte_lang::message.wewillwork') }}
-                </p>
+                <h3><i class="fa fa-warning text-red"></i> Oops! Servicio no disponible</h3>
+                <p>La plataforma se encuenta en mantención. Intente nuevamente más tarde.</p>
             </div>
         </div>
     </div>
