@@ -1,177 +1,265 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>email</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Mail</title>
 	<style type="text/css">
-		* {
-			-ms-text-size-adjust:100%;
+		table{
+			border-collapse:collapse;
+			border-spacing:0;
+		}
+		td.text,td.text--footer,.has-btn{
+			mso-line-height-rule:exactly;
+			-webkit-font-smoothing:antialiased;
+			-ms-text-size-adjust:none;
 			-webkit-text-size-adjust:none;
-			-webkit-text-resize:100%;
-			text-resize:100%;
 		}
-		a{
-			outline:none;
-			color:#40aceb;
-			text-decoration:underline;
+		a[x-apple-data-detectors]{
+			color:inherit !important;
+			text-decoration:none !important;
+			font-size:inherit !important;
+			font-family:inherit !important;
+			font-weight:inherit !important;
+			line-height:inherit !important;
 		}
-		a:hover{text-decoration:none !important;}
-		.nav a:hover{text-decoration:underline !important;}
-		.title a:hover{text-decoration:underline !important;}
-		.title-2 a:hover{text-decoration:underline !important;}
-		.btn:hover{opacity:0.8;}
-		.btn a:hover{text-decoration:none !important;}
-		.btn{
-			-webkit-transition:all 0.3s ease;
-			-moz-transition:all 0.3s ease;
-			-ms-transition:all 0.3s ease;
-			transition:all 0.3s ease;
-		}
-		table td {border-collapse: collapse !important;}
-		.ExternalClass, .ExternalClass a, .ExternalClass span, .ExternalClass b, .ExternalClass br, .ExternalClass p, .ExternalClass div{line-height:inherit;}
-		@media only screen and (max-width:500px) {
-			table[class="flexible"]{width:100% !important;}
-			table[class="center"]{
-				float:none !important;
-				margin:0 auto !important;
+		@media screen and (max-width: 600px){
+			.text{
+				font-size:14px !important;
+				line-height:21px !important;
 			}
-			*[class="hide"]{
-				display:none !important;
-				width:0 !important;
-				height:0 !important;
-				padding:0 !important;
-				font-size:0 !important;
-				line-height:0 !important;
+		}    @media screen and (max-width: 600px){
+			.text--footer{
+				font-size:12px !important;
+				line-height:18px !important;
 			}
-			td[class="img-flex"] img{
+		}    @media screen and (max-width: 600px){
+			.h1{
+				font-size:20px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.h2{
+				font-size:18px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.h3{
+				font-size:16px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.h4{
+				font-size:14px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.h5{
+				font-size:14px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			table{
+				line-height:1.5 !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.h1,.h2,.h3,.h4,.h5{
+				line-height:1.2 !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.cs-logo{
+				width:120px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.flex-size{
+				max-width:100% !important;
 				width:100% !important;
-				height:auto !important;
 			}
-			td[class="aligncenter"]{text-align:center !important;}
-			th[class="flex"]{
+		}    @media screen and (max-width: 600px){
+			.flex-size img{
+				max-width:100% !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-height{
+				height:10px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-db{
 				display:block !important;
-				width:100% !important;
 			}
-			td[class="wrapper"]{padding:0 !important;}
-			td[class="holder"]{padding:30px 15px 20px !important;}
-			td[class="nav"]{
-				padding:20px 0 0 !important;
+		}    @media screen and (max-width: 600px){
+			.s-dib{
+				display:inline-block !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-hf{
+				height:0 !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-paf{
+				padding:0 !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-pbf{
+				padding-bottom:0 !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-pbm{
+				padding-bottom:16px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-plf{
+				padding-left:0 !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-prf{
+				padding-right:0 !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-pts{
+				padding-top:8px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-ptm{
+				padding-top:16px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-ptl{
+				padding-top:32px !important;
+			}
+		}    @media screen and (max-width: 600px){
+			.s-tac{
 				text-align:center !important;
 			}
-			td[class="h-auto"]{height:auto !important;}
-			td[class="description"]{padding:30px 20px !important;}
-			td[class="i-120"] img{
-				width:120px !important;
-				height:auto !important;
+		}    @media screen and (max-width: 600px){
+			.s-tal{
+				text-align:left !important;
 			}
-			td[class="footer"]{padding:5px 20px 20px !important;}
-			td[class="footer"] td[class="aligncenter"]{
-				line-height:25px !important;
-				padding:20px 0 0 !important;
+		}    @media screen and (max-width: 600px){
+			.s-tss{
+				font-size:12px !important;
 			}
-			tr[class="table-holder"]{
-				display:table !important;
-				width:100% !important;
+		}    @media screen and (min-device-width: 375px) and (max-device-width: 667px){
+			.text{
+				font-size:16px !important;
 			}
-			th[class="thead"]{display:table-header-group !important; width:100% !important;}
-			th[class="tfoot"]{display:table-footer-group !important; width:100% !important;}
+		}        .bg-email{
+			background-size:cover;
+		}
+		.mask-link-a a{
+			color:#575a5b !important;
+		}
+		.mask-link-b a{
+			color:#758e94 !important;
 		}
 	</style>
+	<!--[if !mso]><!-->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
+	<!--<![endif]-->
 </head>
-<body style="margin:0; padding:0;" bgcolor="#eaeced">
-	<table style="min-width:320px;" width="100%" cellspacing="0" cellpadding="0" bgcolor="#eaeced">
-		<!-- fix for gmail -->
+<body style="margin: 0; padding: 0;">
+	<!-- ====== HEADER ============ -->
+	<table width="100%" style="border-collapse: collapse;border-spacing: 0;">
 		<tr>
-			<td class="hide">
-				<table width="600" cellpadding="0" cellspacing="0" style="width:600px !important;">
+			<td align="center" style="padding: 12px 0;">
+				<a href="http://www.alamedamaipu.cl">
+					<img src="{{ asset('/img/logo_mail.png') }}" alt="Cooperativa Logo" style="display: block;" width="190">
+				</a>
+			</td>
+		</tr>
+	</table>
+	<!-- ====== MAIN WRAPPER ============ -->
+	<table border="0" cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse;border-spacing: 0;">
+		<tr>
+			<td bgcolor="#ffffff" style="padding: 0 20px 40px 20px;">
+				<!-- ====== CONTENT: {name} ========== -->
+				<table border="0" cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse;border-spacing: 0;">
 					<tr>
-						<td style="min-width:600px; font-size:0; line-height:0;">&nbsp;</td>
+						<td style="font-size: 0;"> </td>
+						<td width="480">
+							<table border="0" cellspacing="0" cellpadding="0" width="100%" style="border-collapse: collapse;border-spacing: 0;">
+								<tr>
+									<td align="center" class="text h4" style="color: #575a5b;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 20px;font-weight: bold;line-height: 30px;padding-top: 16px;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
+										Estimado(a) {{ $user->name }}
+									</td>
+								</tr>
+								<tr>
+									<td align="center" class="text s-tal" style="color: #575a5b;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 16px;line-height: 24px;padding-top: 4px;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
+										Se han {{ $isNew ? 'generado' : 'actualizado' }} sus credenciales de acceso al sistema.
+										<ul style="list-style-type: none;">
+											<li><strong>Nombre de usuario: </strong>{{ $user->username }}</li>
+											<li><strong>Contraseña: </strong> {{ $password }}</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td align="center" class="text s-tal" style="color: #575a5b;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 16px;line-height: 24px;padding-top: 4px;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
+										Por motivos de seguridad, se le solicitará actualizar sus datos tras ingresar con esta contraseña.
+									</td>
+								</tr>
+								<tr>
+									<td align="center" style="padding-top: 16px;">
+										<a class="btn-a" href="http://panel.alamedamaipu.cl" style="background-color:#3c8dbc; border-radius:100px; color:#ffffff; display:inline-block; font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif; font-size:16px; font-weight:600; line-height:48px; text-align:center; text-decoration:none; width:280px;">Acceder al Panel</a>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td style="font-size: 0;"> </td>
 					</tr>
 				</table>
 			</td>
 		</tr>
+	</table>
+	<!-- ===== FOOTER ========== -->
+	<table bgcolor="#2d3033" border="0" cellpadding="0" cellspacing="0" class="wrapper" style="color: #aebdc1;font-size: 12px;border-collapse: collapse;border-spacing: 0;" width="100%">
 		<tr>
-			<td class="wrapper" style="padding:0 10px;">
-				<div style="padding:29px 0 30px;"></div>
-				<table data-module="module-3" width="100%" cellpadding="0" cellspacing="0">
+			<td align="center">
+				<table align="center" border="0" cellpadding="0" cellspacing="0" class="flex-size" style="border-collapse: collapse;border-spacing: 0;">
 					<tr>
-						<td data-bgcolor="bg-module" bgcolor="#eaeced">
-							<table class="flexible" width="600" align="center" style="margin:0 auto;" cellpadding="0" cellspacing="0">
-								<tr>
-									<td data-bgcolor="bg-block" class="holder" style="padding:65px 60px 50px;" bgcolor="#f9f9f9">
-										<table width="100%" cellpadding="0" cellspacing="0">
-											<tr>
-												<td data-color="title" data-size="size title" data-min="20" data-max="40" data-link-color="link title color" data-link-style="text-decoration:none; color:#292c34;" class="title" align="center" style="font:30px/33px Arial, Helvetica, sans-serif; color:#292c34; padding:0 0 24px;">
-													¡Hola!
-												</td>
-											</tr>
-											<tr>
-												<td data-color="text" data-size="size text" data-min="10" data-max="26" data-link-color="link text color" data-link-style="font-weight:bold; text-decoration:underline; color:#40aceb;" align="center" style="font:16px/29px Arial, Helvetica, sans-serif; color:#888; padding:0 0 21px;">
-													<p>Estimado(a) {{ $user->name }}:</p>
-													<p>Se han {{ $isNew ? 'generado' : 'actualizado' }} sus credenciales de acceso al sistema.</p>
-													<p><strong>Nombre de usuario: </strong>{{ $user->username }}</p>
-													<p><strong>Contraseña: </strong> {{ $password }}</p>
-													<p></p>
-													<p>Por motivos de seguridad, se le solicitará actualizar sus datos tras ingresar con esta contraseña.</p>
-													<p>Para ingresar, haga clic en el siguiente botón:</p>
-												</td>
-											</tr>
-											<tr>
-												<td style="padding:0 0 20px;">
-													<table width="134" align="center" style="margin:0 auto;" cellpadding="0" cellspacing="0">
-														<tr>
-															<td data-bgcolor="bg-button" data-size="size button" data-min="10" data-max="16" class="btn" align="center" style="font:12px/14px Arial, Helvetica, sans-serif; color:#f8f9fb; text-transform:uppercase; mso-padding-alt:12px 10px 10px; border-radius:2px;" bgcolor="#3c8dbc">
-																<a target="_blank" style="text-decoration:none; color:#f8f9fb; display:block; padding:12px 10px 10px;" href="http://panel.alamedamaipu.cl">INGRESAR</a>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td data-color="text" data-size="size text" data-min="10" data-max="26" data-link-color="link text color" data-link-style="font-weight:bold; text-decoration:underline; color:#40aceb;" align="center" style="font:16px/29px Arial, Helvetica, sans-serif; color:#888; padding:0 0 21px;">
-													<p>Si el botón no funciona, ingrese con la siguiente dirección: http://panel.alamedamaipu.cl</p>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-								<tr><td height="28"></td></tr>
-							</table>
+						<td align="left" class="text--footer s-tac" style="color: #aebdc1;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 14px;line-height: 21px;padding-top: 24px;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
+							¿Tiene preguntas o necesita asistencia?
 						</td>
 					</tr>
 				</table>
-				<table data-module="module-7" width="100%" cellpadding="0" cellspacing="0">
+				<table align="center" border="0" cellpadding="0" cellspacing="0" class="flex-size" style="border-collapse: collapse;border-spacing: 0;">
 					<tr>
-						<td data-bgcolor="bg-module" bgcolor="#eaeced">
-							<table class="flexible" width="600" align="center" style="margin:0 auto;" cellpadding="0" cellspacing="0">
+						<td align="center">
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="flex-size" style="max-width: 384px;border-collapse: collapse;border-spacing: 0;" width="100%">
 								<tr>
-									<td class="footer" style="padding:0 0 10px;">
-										<table width="100%" cellpadding="0" cellspacing="0">
-											<tr class="table-holder">
-												<th class="tfoot" width="400" align="left" style="vertical-align:top; padding:0;">
-													<table width="100%" cellpadding="0" cellspacing="0">
-														<tr>
-															<td data-color="text" data-link-color="link text color" data-link-style="text-decoration:underline; color:#797c82;" class="aligncenter" style="font:12px/16px Arial, Helvetica, sans-serif; color:#797c82; padding:0 0 10px;">
-																Este correo ha sido generado automáticamente, favor no responder.<br/>
-																Cooperativa de Servicios Alameda Maipú.
-															</td>
-														</tr>
-													</table>
-												</th>
-											</tr>
-										</table>
+									<td style="font-size: 0; text-align: center;">
+										<div style="display: inline-block;">
+											<table align="left" border="0" cellpadding="0" cellspacing="0" class="content" width="182" style="border-collapse: collapse;border-spacing: 0;">
+												<tr>
+													<td align="center" style="padding: 16px 16px 0 16px;">
+														<a href="mailto:secretaria@alamedamaipu.cl?Subject=Contacto" style="background-color:#2d3033;border:1px solid #aebdc1;border-radius:20px;color:#aebdc1;display:inline-block;font-family:'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size:12px;font-weight:300;line-height:40px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;text-transform: uppercase;mso-hide:all;">Contacto</a>
+													</td>
+												</tr>
+											</table>
+										</div>
 									</td>
 								</tr>
 							</table>
 						</td>
 					</tr>
 				</table>
+				<table align="center" border="0" cellpadding="0" cellspacing="0" class="flex-size" style="border-collapse: collapse;border-spacing: 0;">
+					<tr>
+						<td align="center" class="text--footer" style="color: #aebdc1;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 12px;line-height: 18px;padding: 32px 20px 0 20px;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
+							2016 Cooperativa de Servicios Alameda Maipú Ltda.
+						</td>
+					</tr>
+					<tr>
+						<td align="center" class="text--footer" style="color: #aebdc1;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 12px;line-height: 18px;padding: 0 20px;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
+							<span class="maskLink-footer">Alameda Libertador Bernardo O'Higgins #12421,	Santiago</span>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" class="text--footer" style="color: #aebdc1;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 12px;line-height: 18px;padding: 0 20px;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
+							<span class="maskLink-footer">Teléfono: 2 - 2681 3005</span>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" class="text--footer" style="color: #aebdc1;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 12px;line-height: 18px;padding: 16px 0 32px 0;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
+							<i>Este correo ha sido generado automáticamente.</i>
+						</td>
+					</tr>
+				</table>
 			</td>
-		</tr>
-		<!-- fix for gmail -->
-		<tr>
-			<td style="line-height:0;"><div style="display:none; white-space:nowrap; font:15px/1px courier;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div></td>
 		</tr>
 	</table>
 </body>

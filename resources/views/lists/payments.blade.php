@@ -11,7 +11,7 @@ Listado de Cobros - {{ $location->code }}, {{ $location->sector->name }}
   <div class="col-xs-12">
     <div class="box box-primary">
       <div class="box-body">
-        <table class="table table-bordered table-striped">
+        <table class="table tableresp table-bordered table-striped">
           <thead>
             <tr>
               <th hidden>ID</th>

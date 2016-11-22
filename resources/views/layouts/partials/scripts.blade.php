@@ -15,7 +15,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".select2").select2();
-		$('.table').DataTable();
+		$('.tableresp').DataTable();
 	});
 </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.

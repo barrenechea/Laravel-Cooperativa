@@ -23,4 +23,9 @@ class Partner extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function billdetails()
+    {
+        return $this->hasMany('App\Billdetail');
+    }
 }

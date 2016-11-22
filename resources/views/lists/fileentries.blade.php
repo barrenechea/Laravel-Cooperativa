@@ -10,7 +10,7 @@
     <div class="box">
       <!-- /.box-header -->
       <div class="box-body">
-        <table class="table table-bordered table-striped">
+        <table class="table tableresp table-bordered table-striped">
           <thead>
             <tr>
               <th>Autor</th>

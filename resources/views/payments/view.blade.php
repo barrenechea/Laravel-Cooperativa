@@ -3,7 +3,7 @@
 @section('htmlheader_title', 'Listado de Pagos')
 
 @section('contentheader_title')
-Listado de Pagos - {{ $payments->first()->billdetail->location->code }}, {{ $payments->first()->billdetail->location->sector->name }} [{{ $payments->first()->billdetail->bill->description }}, fecha de emisión {{ $payments->first()->billdetail->created_at->toDateString() }}]
+Listado de Pagos - {{ $payments->first()->billdetail->location->code }}, {{ $payments->first()->billdetail->location->sector->name }} [{{ $payments->first()->billdetail->bill->description }}, fecha de emisión {{ $payments->first()->billdetail->created_at->format('d-m-Y') }}]
 @endsection
 
 @section('main-content')
@@ -27,16 +27,18 @@ Listado de Pagos - {{ $payments->first()->billdetail->location->code }}, {{ $pay
             @foreach($payments as $payment)
             <tr>
               <td hidden>{{ $payment->id }}</td>
-              <td>{{ $payment->created_at }}</td>
+              <td>{{ $payment->created_at->format('d-m-Y H:i:s') }}</td>
               <td>${{ (number_format($payment->amount, 0, ',', '.')) }}</td>
               <td>{{ $payment->user->name ?? 'Sistema Contable Drysoft' }}</td>
+              @if($payment->user && (Auth::user()->can('delete_payment') || Auth::user()->can('modify_payment')))
               <td>
-                @if($payment->user && (Auth::user()->can('delete_payment') || Auth::user()->can('modify_payment')))
                 <input type="button" id="{{ $payment->id }}" value="Ver acciones" data-toggle="modal" data-target="#modal" class="btn btn-block btn-primary btn-xs">
-                @else
-                <input type="button" value="No disponible" class="btn btn-block btn-danger btn-xs" disabled>
-                @endif
               </td>
+              @elseif(!Auth::user()->partner)
+              <td>
+                <input type="button" value="No disponible" class="btn btn-block btn-danger btn-xs" disabled>
+              </td>
+              @endif
             </tr>
             @endforeach
           </tbody>

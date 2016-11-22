@@ -33,6 +33,9 @@
       @can('view_report_external_accounting')
       <li><a href="{{ url('report/accounting') }}"><i class="fa fa-money"></i> <span>Contabilidad</span></a></li>
       @endcan
+      @if(!Auth::user()->is_admin)
+      <li><a href="{{ url('partner/mybills') }}"><i class="fa fa-money"></i> <span>Mis cobros</span></a></li>
+      @endif
       <li><a href="{{ url('list/messages') }}"><i class="fa fa-comment-o"></i><span>Ver mensajes</span></a></li>
       <li><a href="{{ url('list/files') }}"><i class="fa fa-file-o"></i><span>Ver archivos</span></a></li>
     </ul>

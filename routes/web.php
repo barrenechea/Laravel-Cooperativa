@@ -105,6 +105,8 @@ Route::group(['middleware' => ['auth']], function () {
 				Route::get('password/{id}', 'UpdateController@newpartnerpassword')->middleware('can:restore_password_partner_account');
 				Route::get('data/{id}', 'UpdateController@partnerdata')->middleware('can:modify_partner_account');
 				Route::post('data/{id}', 'UpdateController@savepartnerdata')->middleware('can:modify_partner_account');
+
+				Route::get('payments/{id}', 'PaymentController@view');
 			});
 
 			Route::get('group/{id}', 'SystemController@updgroup')->middleware('can:modify_group');
@@ -124,6 +126,12 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::post('modifydetail', 'PaymentController@postmodifydetail')->middleware('can:modify_billdetail');
 			Route::get('deletepayment/{id}', 'PaymentController@deletepayment')->middleware('can:delete_payment');
 		});
+
+		Route::group(['prefix' => 'partner'], function () {
+				Route::get('payments/{id}', 'ListController@partner_paymentdetails');
+				Route::get('mybills', 'ListController@partner_mybills');
+
+			});
 
 		Route::group(['prefix' => 'report'], function () {
 			Route::get('accounting', 'ReportController@accounting')->middleware('can:view_report_external_accounting');

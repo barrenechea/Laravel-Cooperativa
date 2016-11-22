@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -17,6 +18,8 @@ use App\Message;
 use App\Fileentry;
 use App\Mailing;
 use App\Logic;
+use App\Billdetail;
+use App\Payment;
 
 class ListController extends Controller
 {
@@ -89,5 +92,23 @@ class ListController extends Controller
     {
         $messages = Message::latest()->where('has_file', true)->get();
         return view('lists.fileentries', ['messages' => $messages]);
+    }
+
+    public function partner_mybills()
+    {
+        if(Auth::user()->is_admin)
+            return redirect()->back()->withErrors(['Sólo los socios pueden acceder a esta área!']);
+
+        $billdetails = Auth::user()->partner->billdetails()->orderBy('id', 'desc')->get();
+        return view('partner.listbills', ['billdetails' => $billdetails]);
+    }
+
+    public function partner_paymentdetails($id)
+    {
+        $billdetail = Billdetail::find($id);
+        return view('partner.paymentdetails', ['billdetail' => $billdetail]);
+        
+        Session::flash('warning', 'No hay detalle disponible para el cobro seleccionado');
+        return redirect()->back();
     }
 }

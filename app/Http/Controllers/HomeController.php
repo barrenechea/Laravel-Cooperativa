@@ -49,13 +49,15 @@ class HomeController extends Controller
             $types = Type::all()->count();
             $locations = Location::all()->count();
             $groups = Group::all()->count();
-            $partners = Partner::all()->count();
+            $partners = Partner::with('locations')->has('locations')->count();
             $bills = Bill::where('active', true)->count();
 
             return view('home', ['msg' => $lastMsg, 'months' => $graphData, 'groups' => $groups, 'sectors' => $sectors, 'types' => $types, 'locations' => $locations, 'bills' => $bills, 'partners' => $partners]);
         }
 
-        return 'Partner';
+        $lastbills = Auth::user()->partner->billdetails()->orderBy('id', 'desc')->take(5)->get();
+
+        return view('homepartner', ['msg' => $lastMsg, 'months' => $graphData, 'lastbills' => $lastbills]);
     }
 
     public function init()

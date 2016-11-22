@@ -9,7 +9,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-body">
-        <table class="table table-bordered table-striped">
+        <table class="table tableresp table-bordered table-striped">
           <thead>
             <tr>
               <th>Descripción</th>
