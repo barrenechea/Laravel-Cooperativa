@@ -27,9 +27,6 @@ class Initialized
 
         if(!Auth::user()->initialized)
             return redirect('/init');
-
-        // Realizar validación para rutas
-        //dd($request);
         
         return $next($request);
     }
