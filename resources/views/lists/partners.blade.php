@@ -8,7 +8,7 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="box box-primary">
-      <div class="box-body">
+      <div class="box-body table-responsive">
         <table class="table tableresp table-bordered table-striped">
           <thead>
             <tr>
