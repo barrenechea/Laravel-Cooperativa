@@ -29,7 +29,7 @@
               <td>{{ $billdetail->partner->user->name }}</td>
               <td>{{ $billdetail->location->code }}</td>
               <td>{{ $billdetail->bill->description }}</td>
-              <td>{{ $billdetail->created_at->toDateString() }}</td>
+              <td>{{ $billdetail->created_at->format('d-m-Y') }}</td>
               <td>{{ $billdetail->created_at->diffInDays(Carbon\Carbon::now()) }}</td>
               <td>${{ (number_format($billdetail->amount, 0, ',', '.')) }}</td>
               <td>${{ (number_format($billdetail->payments()->sum('amount'), 0, ',', '.')) }}</td>

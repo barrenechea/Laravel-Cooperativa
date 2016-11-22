@@ -55,6 +55,7 @@
               <tr>
                 <th>Fecha pago</th>
                 <th>Monto pago</th>
+                <th>N° Documento</th>
                 <th>Generado por</th>
               </tr>
             </thead>
@@ -64,6 +65,7 @@
               <tr>
                 <td>{{ $payment->created_at->format('d-m-Y H:i:s') }}</td>
                 <td>${{ (number_format($payment->amount, 0, ',', '.')) }}</td>
+                <td>{{ $payment->document_id }}</td>
                 <td>{{ $payment->user->name ?? 'Sistema Contable Cooperativa' }}</td>
               </tr>
               @endforeach

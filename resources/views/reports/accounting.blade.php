@@ -24,26 +24,9 @@
             </select>
           </div>
         </div>
-        <div class="form-group">
-          <label for="display_mode" class="col-sm-2 control-label">Despliegue</label>
-          <div class="col-sm-10">
-            <div class="radio">
-              <label>
-                <input type="radio" id="display_mode" name="display_mode" value="1" required>
-                Desplegar reporte en pantalla
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" id="display_mode" name="display_mode" value="2" checked>
-                Descargar reporte en planilla Excel
-              </label>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="box-footer">
-        <button type="submit" class="btn btn-primary pull-right">Obtener reporte</button>
+        <button type="submit" class="btn btn-primary pull-right">Obtener Ezcel</button>
       </div>
     </form>
   </div>

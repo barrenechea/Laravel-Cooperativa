@@ -17,6 +17,7 @@ Listado de Pagos - {{ $payments->first()->billdetail->location->code }}, {{ $pay
               <th hidden>ID</th>
               <th>Fecha pago</th>
               <th>Monto pago</th>
+              <th>N° Documento</th>
               <th>Generado por</th>
               @if(Auth::user()->can('delete_payment') || Auth::user()->can('modify_payment'))
               <th>Acción</th>
@@ -29,6 +30,7 @@ Listado de Pagos - {{ $payments->first()->billdetail->location->code }}, {{ $pay
               <td hidden>{{ $payment->id }}</td>
               <td>{{ $payment->created_at->format('d-m-Y H:i:s') }}</td>
               <td>${{ (number_format($payment->amount, 0, ',', '.')) }}</td>
+              <td>{{ $payment->document_id }}</td>
               <td>{{ $payment->user->name ?? 'Sistema Contable Drysoft' }}</td>
               @if($payment->user && (Auth::user()->can('delete_payment') || Auth::user()->can('modify_payment')))
               <td>

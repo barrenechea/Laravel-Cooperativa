@@ -53,74 +53,67 @@ class ReportController extends Controller
 
         $this->addlog('Generó reporte de contabilidad para el período: '. ucfirst($date->formatLocalized('%B %Y')));
 
-        if($displayMode == 1)
-        {
-            // Mostrar en pantalla
-            return redirect()->back()->withErrors(['Función \'Desplegar reporte en pantalla\' aún no implementada']);
-        }
-        elseif($displayMode == 2)
-        {
-            // Generar Excel
-            Excel::create('CONTABILIDAD_'.$date->format('m-Y'), function($excel) use ($incomes, $outcomes) {
-                $excel->sheet('INGRESOS', function($sheet) use ($incomes) {
-                    $sheet->setColumnFormat(array(
+        // Generar Excel
+        Excel::create('CONTABILIDAD_'.$date->format('m-Y'), function($excel) use ($incomes, $outcomes) {
+            $excel->sheet('INGRESOS', function($sheet) use ($incomes) {
+                $sheet->setColumnFormat(array(
                         'X' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
                         'Y' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
                         ));
-                    $sheet->appendRow(['NUMERO', 'CORREL', 'VA_IFRS', 'CANBCO', 'BANCO', 'CUENTA', 'CHEQUE', 'FECHA', 'GLOSA', 'BENEFI', 'FECHACH', 'AREA', 'LINEA', 'CODIGO', 'TIPDOC', 'FECHAFAC', 'FAC', 'CORRFAC', 'DETALLE1', 'DETALLE2', 'DETALLE3', 'DETALLE4', 'IMP', 'DEBE', 'HABER', 'ESTADO']);
-                    foreach ($incomes as $income) {
-                        $row = [$income->numero, $income->correl, $income->va_ifrs, $income->canbco, $income->banco, $income->cuenta, $income->cheque, $income->fecha->format('d-m-Y'), $income->glosa, $income->benefi, $income->fechach->format('d-m-Y'), $income->area, $income->linea, $income->codigo, $income->tipdoc, ($income->fechafac->year == 1899 ? '' : $income->fechafac->format('d-m-Y')), $income->fac, $income->corrfac, $income->detalle1, $income->detalle2, $income->detalle3, $income->detalle4, $income->imp, $income->debe, $income->haber, $income->estado];
-                        $sheet->appendRow($row);
-                    }
-                    $debe = 'X';
-                    $debe .= $incomes->count()+2;
-                    $sumdebe = '=SUM(X2:X';
-                    $sumdebe .= $incomes->count()+1;
-                    $sumdebe .= ')';
-                    $haber = 'Y';
-                    $haber .= $incomes->count()+2;
-                    $sumhaber = '=SUM(Y2:Y';
-                    $sumhaber .= $incomes->count()+1;
-                    $sumhaber .= ')';
-                    $sheet->setCellValue($debe, $sumdebe);
-                    $sheet->setCellValue($haber, $sumhaber);
-                    $sheet->cells($debe.':'.$haber, function($cells) {
-                        $cells->setFontWeight('bold');
-                    });
-                    $sheet->setAutoFilter();
-                    $sheet->setAutoSize(true);
+                $sheet->appendRow(['NUMERO', 'CORREL', 'VA_IFRS', 'CANBCO', 'BANCO', 'CUENTA', 'CHEQUE', 'FECHA', 'GLOSA', 'BENEFI', 'FECHACH', 'AREA', 'LINEA', 'CODIGO', 'TIPDOC', 'FECHAFAC', 'FAC', 'CORRFAC', 'DETALLE1', 'DETALLE2', 'DETALLE3', 'DETALLE4', 'IMP', 'DEBE', 'HABER', 'ESTADO']);
+                foreach ($incomes as $income) {
+                    $row = [$income->numero, $income->correl, $income->va_ifrs, $income->canbco, $income->banco, $income->cuenta, $income->cheque, $income->fecha->format('d-m-Y'), $income->glosa, $income->benefi, $income->fechach->format('d-m-Y'), $income->area, $income->linea, $income->codigo, $income->tipdoc, ($income->fechafac->year == 1899 ? '' : $income->fechafac->format('d-m-Y')), $income->fac, $income->corrfac, $income->detalle1, $income->detalle2, $income->detalle3, $income->detalle4, $income->imp, $income->debe, $income->haber, $income->estado];
+                    $sheet->appendRow($row);
+                }
+                $debe = 'X';
+                $debe .= $incomes->count()+2;
+                $sumdebe = '=SUM(X2:X';
+                $sumdebe .= $incomes->count()+1;
+                $sumdebe .= ')';
+                $haber = 'Y';
+                $haber .= $incomes->count()+2;
+                $sumhaber = '=SUM(Y2:Y';
+                $sumhaber .= $incomes->count()+1;
+                $sumhaber .= ')';
+                $sheet->setCellValue($debe, $sumdebe);
+                $sheet->setCellValue($haber, $sumhaber);
+                $sheet->cells($debe.':'.$haber, function($cells) {
+                    $cells->setFontWeight('bold');
                 });
-                $excel->sheet('EGRESOS', function($sheet) use ($outcomes) {
-                    $sheet->setColumnFormat(array(
+                $sheet->setAutoFilter();
+                $sheet->setAutoSize(true);
+            });
+            $excel->sheet('EGRESOS', function($sheet) use ($outcomes) {
+                $sheet->setColumnFormat(array(
                         'X' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
                         'Y' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
                         ));
-                    $sheet->appendRow(['NUMERO', 'CORREL', 'VA_IFRS', 'CANBCO', 'BANCO', 'CUENTA', 'CHEQUE', 'FECHA', 'GLOSA', 'BENEFI', 'FECHACH', 'AREA', 'LINEA', 'CODIGO', 'TIPDOC', 'FECHAFAC', 'FAC', 'CORRFAC', 'DETALLE1', 'DETALLE2', 'DETALLE3', 'DETALLE4', 'IMP', 'DEBE', 'HABER', 'ESTADO']);
-                    foreach ($outcomes as $outcome) {
-                        $row = [$outcome->numero, $outcome->correl, $outcome->va_ifrs, $outcome->canbco, $outcome->banco, $outcome->cuenta, $outcome->cheque, $outcome->fecha->format('d-m-Y'), $outcome->glosa, $outcome->benefi, $outcome->fechach->format('d-m-Y'), $outcome->area, $outcome->linea, $outcome->codigo, $outcome->tipdoc, ($outcome->fechafac->year == 1899 ? '' : $outcome->fechafac->format('d-m-Y')), $outcome->fac, $outcome->corrfac, $outcome->detalle1, $outcome->detalle2, $outcome->detalle3, $outcome->detalle4, $outcome->imp, $outcome->debe, $outcome->haber, $outcome->estado];
-                        $sheet->appendRow($row);
-                    }
-                    $debe = 'X';
-                    $debe .= $outcomes->count()+2;
-                    $sumdebe = '=SUM(X2:X';
-                    $sumdebe .= $outcomes->count()+1;
-                    $sumdebe .= ')';
-                    $haber = 'Y';
-                    $haber .= $outcomes->count()+2;
-                    $sumhaber = '=SUM(Y2:Y';
-                    $sumhaber .= $outcomes->count()+1;
-                    $sumhaber .= ')';
-                    $sheet->setCellValue($debe, $sumdebe);
-                    $sheet->setCellValue($haber, $sumhaber);
-                    $sheet->cells($debe.':'.$haber, function($cells) {
-                        $cells->setFontWeight('bold');
-                    });
-                    $sheet->setAutoFilter();
-                    $sheet->setAutoSize(true);
+                $sheet->appendRow(['NUMERO', 'CORREL', 'VA_IFRS', 'CANBCO', 'BANCO', 'CUENTA', 'CHEQUE', 'FECHA', 'GLOSA', 'BENEFI', 'FECHACH', 'AREA', 'LINEA', 'CODIGO', 'TIPDOC', 'FECHAFAC', 'FAC', 'CORRFAC', 'DETALLE1', 'DETALLE2', 'DETALLE3', 'DETALLE4', 'IMP', 'DEBE', 'HABER', 'ESTADO']);
+                foreach ($outcomes as $outcome) {
+                    $row = [$outcome->numero, $outcome->correl, $outcome->va_ifrs, $outcome->canbco, $outcome->banco, $outcome->cuenta, $outcome->cheque, $outcome->fecha->format('d-m-Y'), $outcome->glosa, $outcome->benefi, $outcome->fechach->format('d-m-Y'), $outcome->area, $outcome->linea, $outcome->codigo, $outcome->tipdoc, ($outcome->fechafac->year == 1899 ? '' : $outcome->fechafac->format('d-m-Y')), $outcome->fac, $outcome->corrfac, $outcome->detalle1, $outcome->detalle2, $outcome->detalle3, $outcome->detalle4, $outcome->imp, $outcome->debe, $outcome->haber, $outcome->estado];
+                    $sheet->appendRow($row);
+                }
+                $debe = 'X';
+                $debe .= $outcomes->count()+2;
+                $sumdebe = '=SUM(X2:X';
+                $sumdebe .= $outcomes->count()+1;
+                $sumdebe .= ')';
+                $haber = 'Y';
+                $haber .= $outcomes->count()+2;
+                $sumhaber = '=SUM(Y2:Y';
+                $sumhaber .= $outcomes->count()+1;
+                $sumhaber .= ')';
+                $sheet->setCellValue($debe, $sumdebe);
+                $sheet->setCellValue($haber, $sumhaber);
+                $sheet->cells($debe.':'.$haber, function($cells) {
+                    $cells->setFontWeight('bold');
                 });
-            })->download('xlsx');
+                $sheet->setAutoFilter();
+                $sheet->setAutoSize(true);
+            });
+        })->download('xlsx');
 }
-}
+
 
 public function log()
 {
