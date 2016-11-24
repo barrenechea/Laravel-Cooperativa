@@ -44,6 +44,11 @@ Acceder
                         <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('adminlte_lang::message.buttonsign') }}</button>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="help-block">En caso de olvido de contraseña, contáctese con Gerencia.</p>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

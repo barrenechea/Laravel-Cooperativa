@@ -245,7 +245,7 @@
 					</tr>
 					<tr>
 						<td align="center" class="text--footer" style="color: #aebdc1;font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif;font-size: 12px;line-height: 18px;padding: 0 20px;mso-line-height-rule: exactly;-webkit-font-smoothing: antialiased;-ms-text-size-adjust: none;-webkit-text-size-adjust: none;">
-							<span class="maskLink-footer">Alameda Libertador Bernardo O'Higgins #12421,	Santiago</span>
+							<span class="maskLink-footer">Alameda Libertador Bernardo O'Higgins #3027 3er piso,	Santiago</span>
 						</td>
 					</tr>
 					<tr>

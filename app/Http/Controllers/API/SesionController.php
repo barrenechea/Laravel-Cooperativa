@@ -152,7 +152,7 @@ class SesionController extends Controller
                     //Verified that the location has a partner assigned
                     $billdetails = Billdetail::where('location_id', $location->id)->where('vfpcode', $sesion->codigo)->get();
                     foreach ($billdetails as $billdetail) {
-                        $sesionDate = Carbon::createFromFormat('d-m-Y', '01-'.$month.'-'.$year);
+                        $sesionDate = Carbon::createFromFormat('d-m-Y', '01-'.$month.'-'.$year)->subMonth();
                         if($billdetail->created_at->year === $sesionDate->year && $billdetail->created_at->month === $sesionDate->month)
                         {
                             // The dates matches correctly!

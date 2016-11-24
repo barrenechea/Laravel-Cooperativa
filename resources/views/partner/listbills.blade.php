@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('htmlheader_title', 'Mis cobros')
+@section('htmlheader_title', 'Todos mis cobros')
 
-@section('contentheader_title', 'Mis cobros')
+@section('contentheader_title', 'Todos mis cobros')
 
 @section('main-content')
 <div class="row">
@@ -40,7 +40,7 @@
               @else
               <td><span class="label label-danger">Atrasado</span></td>
               @endif
-              <td><a href="{{ url('partner/payments/'. $billdetail->id ) }}" class="btn btn-block btn-primary btn-xs" {{ $billdetail->payments()->count() ? '' : 'disabled' }}>Ver detalle</a></td>
+              <td><a href="{{ url('partner/payments/'. $billdetail->id ) }}" class="btn btn-block btn-primary btn-xs">Ver detalle</a></td>
             </tr>
             @endforeach
           </tbody>

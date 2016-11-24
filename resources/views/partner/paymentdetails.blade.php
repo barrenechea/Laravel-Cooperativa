@@ -70,7 +70,7 @@
               </tr>
               @endforeach
               @else
-              <td colspan="3"><p class="text-center">No posee pagos registrados en el sistema</p></td>
+              <td colspan="4"><p class="text-center">No posee pagos registrados en el sistema</p></td>
               @endif
             </tbody>
           </table>

@@ -113,23 +113,6 @@ class Kernel extends ConsoleKernel
             }
         })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '05:35');
 
-        // This will disable bills that reached their limit cycle
-        $schedule->call(function ()
-        {
-            $bills = Bill::where('payment_day', Carbon::today()->day)->where('active', true)->whereNotNull('end_bill')->get();
-            if($bills->count())
-            {
-                foreach ($bills as $bill)
-                {
-                    if($bill->end_bill->lte(Carbon::today()))
-                    {
-                        $bill->active = false;
-                        $bill->save();
-                    }
-                }
-            }
-        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '05:45');
-
         // This will generate BillDetail objects on database based on Bills
         $schedule->call(function ()
         {
@@ -237,7 +220,25 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
-        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '06:00');
+        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '05:45');
+
+
+        // This will disable bills that reached their limit cycle
+        $schedule->call(function ()
+        {
+            $bills = Bill::where('payment_day', Carbon::today()->day)->where('active', true)->whereNotNull('end_bill')->get();
+            if($bills->count())
+            {
+                foreach ($bills as $bill)
+                {
+                    if($bill->end_bill->lte(Carbon::today()))
+                    {
+                        $bill->active = false;
+                        $bill->save();
+                    }
+                }
+            }
+        })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '06:05');
 
         // This will generate Overdue stuff where not daily
         $schedule->call(function ()

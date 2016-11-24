@@ -29,50 +29,53 @@ Bienvenido(a), {{ Auth::user()->name }}!
   <div class="col-md-12">
     <div class="box">
       <div class="box-header with-border">
-      <h3 class="box-title">Mis últimos cinco cobros</h3>
+        <h3 class="box-title">Mis últimos cinco cobros</h3>
       </div>
-      <div class="box-body">
-        <div class="table-responsive">
-          <table class="table table-condensed table-striped no-margin">
-            <thead>
-              <tr>
-                <th>Fecha emisión</th>
-                <th>Fecha vencimiento</th>
-                <th>Sector</th>
-                <th>Ubicación</th>
-                <th>Cobro</th>
-                <th>Monto</th>
-                <th>Pagado</th>
-                <th>Estado</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($lastbills as $billdetail)
-              <tr>
-                <td>{{ $billdetail->created_at->format('d-m-Y') }}</td>
-                <td>{{ $billdetail->overdue_date ? $billdetail->overdue_date->format('d-m-Y') : 'No posee' }}</td>
-                <td>{{ $billdetail->location->sector->name }}</td>
-                <td>{{ $billdetail->location->type->name }} {{ explode('.', $billdetail->location->code)[count(explode('.', $billdetail->location->code)) - 1] }}</td>
-                <td>{{ $billdetail->bill->description }}</td>
-                <td>${{ (number_format($billdetail->amount, 0, ',', '.')) }}</td>
-                <td>${{ (number_format($billdetail->payments()->sum('amount'), 0, ',', '.')) }}</td>
-                @if($billdetail->amount <= $billdetail->payments()->sum('amount'))
-                <td><span class="label label-success">Pagado</span></td>
-                @elseif(!isset($billdetail->overdue_date) || $billdetail->overdue_date->gte(Carbon\Carbon::today()))
-                <td><span class="label label-warning">Pendiente</span></td>
-                @else
-                <td><span class="label label-danger">Atrasado</span></td>
-                @endif
-                <td><a href="{{ url('partner/payments/'. $billdetail->id ) }}" class="btn btn-block btn-primary btn-xs" {{ $billdetail->payments()->count() ? '' : '' }}>Ver detalle</a></td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
+      <div class="box-body table-responsive">
+        <table class="table table-condensed table-striped no-margin">
+          <thead>
+            <tr>
+              <th>Fecha emisión</th>
+              <th>Fecha vencimiento</th>
+              <th>Sector</th>
+              <th>Ubicación</th>
+              <th>Cobro</th>
+              <th>Monto</th>
+              <th>Pagado</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($lastbills as $billdetail)
+            <tr>
+              <td>{{ $billdetail->created_at->format('d-m-Y') }}</td>
+              <td>{{ $billdetail->overdue_date ? $billdetail->overdue_date->format('d-m-Y') : 'No posee' }}</td>
+              <td>{{ $billdetail->location->sector->name }}</td>
+              <td>{{ $billdetail->location->type->name }} {{ explode('.', $billdetail->location->code)[count(explode('.', $billdetail->location->code)) - 1] }}</td>
+              <td>{{ $billdetail->bill->description }}</td>
+              <td>${{ (number_format($billdetail->amount, 0, ',', '.')) }}</td>
+              <td>${{ (number_format($billdetail->payments()->sum('amount'), 0, ',', '.')) }}</td>
+              @if($billdetail->amount <= $billdetail->payments()->sum('amount'))
+              <td><span class="label label-success">Pagado</span></td>
+              @elseif(!isset($billdetail->overdue_date) || $billdetail->overdue_date->gte(Carbon\Carbon::today()))
+              <td><span class="label label-warning">Pendiente</span></td>
+              @else
+              <td><span class="label label-danger">Atrasado</span></td>
+              @endif
+              <td><a href="{{ url('partner/payments/'. $billdetail->id ) }}" class="btn btn-block btn-primary btn-xs">Ver detalle</a></td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
       </div>
       <div class="box-footer clearfix">
-        <a href="{{ url('partner/mybills') }}" class="btn btn-sm btn-default btn-flat pull-right">Ver todos mis cobros</a>
+        <div class="col-md-8">
+          <p class="help-block">Tenga en consideración que puede tener más cobros por pagar. Para ver todo, haga clic en el siguiente botón:</p>
+        </div>
+        <div class="col-md-4">
+          <a href="{{ url('partner/mybills') }}" class="btn btn-sm btn-default btn-flat pull-right">Todos mis cobros</a>
+        </div>
       </div>
     </div>
   </div>
@@ -82,7 +85,7 @@ Bienvenido(a), {{ Auth::user()->name }}!
   <div class="col-md-12">
     <div class="box">
       <div class="box-header with-border">
-      <h3 class="box-title">Mis ubicaciones</h3>
+        <h3 class="box-title">Mis ubicaciones</h3>
       </div>
       <div class="box-body">
         <div class="table-responsive">

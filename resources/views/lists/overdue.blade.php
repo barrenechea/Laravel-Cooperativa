@@ -30,7 +30,7 @@
               <td>{{ $billdetail->location->code }}</td>
               <td>{{ $billdetail->bill->description }}</td>
               <td>{{ $billdetail->created_at->format('d-m-Y') }}</td>
-              <td>{{ $billdetail->created_at->diffInDays(Carbon\Carbon::now()) }}</td>
+              <td>{{ $billdetail->created_at->startOfDay()->diffInDays(Carbon\Carbon::today()) }}</td>
               <td>${{ (number_format($billdetail->amount, 0, ',', '.')) }}</td>
               <td>${{ (number_format($billdetail->payments()->sum('amount'), 0, ',', '.')) }}</td>
               <td>{{ $billdetail->partner->phone === ' ' ? 'No llenado' : $billdetail->partner->phone }}</td>
