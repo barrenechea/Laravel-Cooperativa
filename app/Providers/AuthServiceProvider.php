@@ -173,6 +173,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view_systeminfo', function ($user) {
+            if(Gate::allows('mail_ssd_warning'))
+                return true;
             return $user->roles->where('name', 'view_systeminfo')->count();
         });
 
