@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
 			'initialized' => 1,
 			]);
 
-			// id = 1
 		DB::table('roles')->insert([
 			'name' => 'super_admin',
 			'description' => 'Laravel Super Administrator',
@@ -112,6 +111,11 @@ class DatabaseSeeder extends Seeder
 			]);
 
 		DB::table('roles')->insert([
+			'name' => 'modify_billdetail',
+			'description' => 'Modificar cobros ya realizados a ubicaciones',
+			]);
+
+		DB::table('roles')->insert([
 			'name' => 'delete_billdetail',
 			'description' => 'Eliminar cobros ya realizados a ubicaciones',
 			]);
@@ -147,8 +151,8 @@ class DatabaseSeeder extends Seeder
 			]);
 
 		DB::table('roles')->insert([
-			'name' => 'modify_billdetail',
-			'description' => 'Modificar detalle de cobro',
+			'name' => 'nofify_bill',
+			'description' => 'Configurar notificaciones para el término de cobros',
 			]);
 
 		DB::table('roles')->insert([
@@ -182,13 +186,13 @@ class DatabaseSeeder extends Seeder
 			]);
 
 		DB::table('roles')->insert([
-			'name' => 'mail_ssd_warning',
-			'description' => 'Configurar alertas de tope del servidor',
+			'name' => 'view_systeminfo',
+			'description' => 'Ver información del sistema',
 			]);
 
 		DB::table('roles')->insert([
-			'name' => 'nofify_bill',
-			'description' => 'Configurar notificaciones para el término de cobros',
+			'name' => 'mail_ssd_warning',
+			'description' => 'Configurar alertas de tope del servidor',
 			]);
 
 		DB::table('roles')->insert([
@@ -196,12 +200,7 @@ class DatabaseSeeder extends Seeder
 			'description' => 'Ver registro de actividad (para auditorías)',
 			]);
 
-		DB::table('roles')->insert([
-			'name' => 'view_systeminfo',
-			'description' => 'Ver información del sistema',
-			]);
-
-			// Laravel Administrator is Super Admin
+		// Laravel Administrator is Super Admin
 		DB::table('role_user')->insert([
 			'role_id' => 1,
 			'user_id' => 1,
