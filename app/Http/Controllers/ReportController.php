@@ -22,6 +22,9 @@ class ReportController extends Controller
 		$first = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'asc')->first();
 		$last = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'desc')->first();
 
+		$first = Sesion::distinct('fecha')->orderBy('fecha', 'asc')->first();
+		$last = Sesion::distinct('fecha')->orderBy('fecha', 'desc')->first();
+
 		if(!$first || !$last)
 		{
 			Session::flash('warning', 'El panel aún no se sincroniza con el sistema contable. No se pueden generar reportes contables.');
@@ -56,8 +59,34 @@ class ReportController extends Controller
 		$this->addlog('Generó reporte de contabilidad para el período: '. ucfirst($date->formatLocalized('%B %Y')));
 
 		// Generar Excel
-		Excel::create('CONTABILIDAD'.$date->format('-m-Y'), function($excel) use ($incomes, $outcomes, $payments) 
+		Excel::create('CONTABILIDAD'.$date->format('-m-Y'), function($excel) use ($date, $incomes, $outcomes, $payments) 
 		{
+			$excel->sheet('INFORMACION', function($sheet) use ($date)
+			{
+				$sheet->setColumnFormat(array(
+						'B' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
+						));
+
+				$title = 'Montos estimados de ingresos para el mes: ';
+				$title .= ucfirst($date->formatLocalized('%B %Y'));
+				$sheet->appendRow([$title]);
+				$sheet->mergeCells('A1:H1');
+				$sheet->cells('A1:H1', function($cells) {
+					$cells->setFontWeight('bold');
+				});
+
+				$billdetails = Billdetail::whereMonth('created_at', '=', $date->month)->whereYear('created_at', '=', $date->year)->get();
+				$pluckedIds = $billdetails->pluck('location_id');
+
+				$sectors = Sector::all();
+				foreach($sectors as $sector)
+				{
+					$pluckedLocations = $sector->locations->whereIn('id', $pluckedIds)->pluck('id');
+					$amount = $billdetails->whereIn('location_id', $pluckedLocations)->sum('amount');
+					$row = [$sector->name, $amount];
+					$sheet->appendRow($row);
+				}
+			});
 			$excel->sheet('INGRESOS', function($sheet) use ($incomes, $payments)
 			{
 				$sheet->setColumnFormat(array(

@@ -161,6 +161,7 @@ class HomeController extends Controller
         for ($i=6; $i > 0; $i--) {
             $date = Carbon::now()->startOfMonth()->subMonths($i);
             $name = ucfirst($date->formatLocalized('%B %Y'));
+            
             if($date->lte(Carbon::createFromFormat('Y-m-d', '2016-11-01')))
             {
                 $income = 0;

@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  @can('add_sector')
+  @can('add_type')
   <div class="modal fade modal-primary" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <form role="form" class="form-horizontal" action="{{ url('/system/addtype') }}" method="post">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">

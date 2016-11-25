@@ -136,13 +136,13 @@ class SesionController extends Controller
         // Now obtain an array with all the Sector codes
         $sectors = Sector::pluck('code')->all();
         // Attempt to see if any sector is contained in the Sesion description
-        $match_sector=array_intersect($splitted,$sectors);
+        $match_sector=array_intersect($splitted, $sectors);
         if(count($match_sector) > 0)
         {
             // Found a sector match!
             $sector = Sector::where('code', $match_sector)->first();
             $locations = Location::where('sector_id', $sector->id)->pluck('code')->all();
-            $match_location=array_intersect($splitted,$locations);
+            $match_location=array_intersect($splitted, $locations);
             if(count($match_location) > 0)
             {
                 // Found a location match!
