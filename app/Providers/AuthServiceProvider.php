@@ -129,7 +129,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view_list_bill', function ($user) {
-            if(Gate::allows('add_bill') || Gate::allows('modify_bill'))
+            if(Gate::allows('add_bill') || Gate::allows('modify_bill') || Gate::allows('nofify_bill'))
                 return true;
             return $user->roles->where('name', 'view_list_bill')->count();
         });
@@ -140,6 +140,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('modify_bill', function ($user) {
             return $user->roles->where('name', 'modify_bill')->count();
+        });
+
+        Gate::define('nofify_bill', function ($user) {
+            return $user->roles->where('name', 'nofify_bill')->count();
         });
 
         Gate::define('new_message', function ($user) {
