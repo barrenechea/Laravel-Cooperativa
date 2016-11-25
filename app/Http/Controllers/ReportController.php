@@ -12,6 +12,7 @@ use App\Billdetail;
 use App\Payment;
 use Carbon\Carbon;
 use App\Sesion;
+use App\Sector;
 
 class ReportController extends Controller
 {
@@ -60,34 +61,34 @@ class ReportController extends Controller
 			$excel->sheet('INGRESOS', function($sheet) use ($incomes, $payments)
 			{
 				$sheet->setColumnFormat(array(
-						'N' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
-						'O' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
+						'P' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
+						'Q' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
 						));
-				$sheet->appendRow(['VOUCHER', 'FECHA', 'GLOSA', 'BENEFICIARIO', 'SECTOR', 'LINEA', 'CODIGO', 'CUENTA CONTABLE', 'TIPO DOCUMENTO', 'FECHA FACTURA', 'FACTURA', 'DETALLE', 'DETALLE3', 'DEBE', 'HABER']);
+				$sheet->appendRow(['VOUCHER', 'FECHA', 'GLOSA', 'BENEFICIARIO', 'SECTOR', 'TIPO', 'UBICACION', 'LINEA', 'CODIGO', 'CUENTA CONTABLE', 'TIPO DOCUMENTO', 'FECHA FACTURA', 'FACTURA', 'DETALLE', 'DETALLE3', 'DEBE', 'HABER']);
 
 				foreach ($incomes as $income)
 				{
 					$payment = $payments->where('vfpsesion_id', $income->id)->first();
 					if($payment)
 					{
-						$row = ['', $payment->created_at->format('d-m-Y'), $payment->billdetail->bill->description, $payment->billdetail->partner->user->name, $payment->billdetail->location->sector->name, '', $payment->billdetail->bill->vfpcode, \App\MaeCue::where('codigo', $income->codigo)->first()->nombre, '', '', $payment->document_id, $income->detalle2, $income->detalle3, $income->debe, $income->haber];
+						$row = ['', $payment->created_at->format('d-m-Y'), $payment->billdetail->bill->description, $payment->billdetail->partner->user->name, $payment->billdetail->location->sector->name, '', '', '', $payment->billdetail->bill->vfpcode, \App\MaeCue::where('codigo', $income->codigo)->first()->nombre, '', '', $payment->document_id, $income->detalle2, $income->detalle3, $income->debe, $income->haber];
 						$sheet->appendRow($row);
 					}
 					else
 					{
 						$benefi = \App\Tabaux10::where('kod', $income->detalle3)->first();
-						$row = [$income->numero, $income->fecha->format('d-m-Y'), $income->glosa, ($benefi ? $benefi->desc : ''), '',  $income->linea, $income->codigo, \App\MaeCue::where('codigo', $income->codigo)->first()->nombre, $income->tipdoc, ($income->fechafac->year == 1899 ? '' : $income->fechafac->format('d-m-Y')), ($income->fac != 0 ? $income->fac : ''), $income->detalle2, $income->detalle3, $income->debe, $income->haber];
+						$row = [$income->numero, $income->fecha->format('d-m-Y'), $income->glosa, ($benefi ? $benefi->desc : ''), '', '', '',  $income->linea, $income->codigo, \App\MaeCue::where('codigo', $income->codigo)->first()->nombre, $income->tipdoc, ($income->fechafac->year == 1899 ? '' : $income->fechafac->format('d-m-Y')), ($income->fac != 0 ? $income->fac : ''), $income->detalle2, $income->detalle3, $income->debe, $income->haber];
 						$sheet->appendRow($row);
 					}
 				}
-				$debe = 'N';
+				$debe = 'P';
 				$debe .= $incomes->count()+2;
-				$sumdebe = '=SUM(N2:N';
+				$sumdebe = '=SUM(P2:P';
 				$sumdebe .= $incomes->count()+1;
 				$sumdebe .= ')';
-				$haber = 'O';
+				$haber = 'Q';
 				$haber .= $incomes->count()+2;
-				$sumhaber = '=SUM(O2:O';
+				$sumhaber = '=SUM(Q2:Q';
 				$sumhaber .= $incomes->count()+1;
 				$sumhaber .= ')';
 				$sheet->setCellValue($debe, $sumdebe);
@@ -103,9 +104,16 @@ class ReportController extends Controller
 						'R' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
 						'S' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
 						));
-				$sheet->appendRow(['VOUCHER', 'BANCO', 'CUENTA', 'CHEQUE', 'FECHA', 'GLOSA', 'BENEFICIARIO', 'FECHA CHEQUE', 'AREA', 'LINEA', 'CODIGO', 'CUENTA CONTABLE', 'TIPO DOCUMENTO', 'FECHA FACTURA', 'FACTURA', 'DETALLE', 'DETALLE3', 'DEBE', 'HABER']);
+				$sheet->appendRow(['VOUCHER', 'BANCO', 'CUENTA', 'CHEQUE', 'FECHA', 'GLOSA', 'BENEFICIARIO', 'FECHA CHEQUE', 'SECTOR', 'LINEA', 'CODIGO', 'CUENTA CONTABLE', 'TIPO DOCUMENTO', 'FECHA FACTURA', 'FACTURA', 'DETALLE', 'DETALLE3', 'DEBE', 'HABER']);
+				$sectors = Sector::pluck('code')->all();
 				foreach ($outcomes as $outcome) {
-					$row = [$outcome->numero, $outcome->banco, $outcome->cuenta, $outcome->cheque, $outcome->fecha->format('d-m-Y'), $outcome->glosa, $outcome->benefi, $outcome->fechach->format('d-m-Y'), $outcome->area, $outcome->linea, $outcome->codigo, \App\MaeCue::where('codigo', $outcome->codigo)->first()->nombre, $outcome->tipdoc, ($outcome->fechafac->year == 1899 ? '' : $outcome->fechafac->format('d-m-Y')), ($outcome->fac != 0 ? $outcome->fac : ''), $outcome->detalle2, $outcome->detalle3, $outcome->debe, $outcome->haber];
+					$splitted = explode(" ", strtoupper($outcome->detalle2));
+					$sector = 'General';
+			        $match_sector=array_intersect($splitted, $sectors);
+			        if(count($match_sector) > 0)
+        				$sector = Sector::where('code', $match_sector)->first()->name;
+			        
+					$row = [$outcome->numero, $outcome->banco, $outcome->cuenta, $outcome->cheque, $outcome->fecha->format('d-m-Y'), $outcome->glosa, $outcome->benefi, $outcome->fechach->format('d-m-Y'), $sector, $outcome->linea, $outcome->codigo, \App\MaeCue::where('codigo', $outcome->codigo)->first()->nombre, $outcome->tipdoc, ($outcome->fechafac->year == 1899 ? '' : $outcome->fechafac->format('d-m-Y')), ($outcome->fac != 0 ? $outcome->fac : ''), $outcome->detalle2, $outcome->detalle3, $outcome->debe, $outcome->haber];
 					$sheet->appendRow($row);
 				}
 				$debe = 'R';

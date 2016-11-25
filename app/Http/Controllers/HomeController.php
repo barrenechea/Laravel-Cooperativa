@@ -38,9 +38,6 @@ class HomeController extends Controller
     {
         $lastMsg = Message::latest()->where('has_file', false)->first();
 
-        if(Cache::has('graphicdata'))
-            Cache::forget('graphicdata');
-
         $graphData = $this->getGraphData();
 
         if(Auth::user()->is_admin)
@@ -161,23 +158,20 @@ class HomeController extends Controller
         setlocale(LC_TIME, 'es_ES.utf8');
         $graphicdata = array();
 
-        // Cuentas contables a omitir en ingresos
-        #$avoidAccountIncome = ['51-01-003', '51-01-006', '51-01-004', ];
-        $avoidAccountIncome = [];
-
-        // Cuentas contables a omitir en egresos
-        $avoidAccountOutcome = [];
-
         for ($i=6; $i > 0; $i--) {
-            if(Carbon::now()->day >= 13)
-                $date = Carbon::now()->startOfMonth()->subMonths($i);
-            else
-                $date = Carbon::now()->startOfMonth()->subMonths($i+1);
-
+            $date = Carbon::now()->startOfMonth()->subMonths($i);
             $name = ucfirst($date->formatLocalized('%B %Y'));
-            $income = Sesion::where('tipo', 'I')->where('glosa', 'NOT LIKE', '%**%')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->whereNotIn('codigo', $avoidAccountIncome)->sum('haber');
-            $income += Payment::whereNull('vfpsesion_id')->whereMonth('created_at', '=', $date->month)->whereYear('created_at', '=', $date->year)->sum('amount');
-            $outcome = Sesion::where('tipo', 'E')->where('glosa', 'NOT LIKE', '%**%')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->whereNotIn('codigo', $avoidAccountOutcome)->sum('haber');
+            if($date->lte(Carbon::createFromFormat('Y-m-d', '2016-11-01')))
+            {
+                $income = 0;
+                $outcome = 0;
+            }
+            else
+            {
+                $income = Sesion::where('tipo', 'I')->where('glosa', 'NOT LIKE', '%**%')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->sum('haber');
+                $income += Payment::whereNull('vfpsesion_id')->whereMonth('created_at', '=', $date->month)->whereYear('created_at', '=', $date->year)->sum('amount');
+                $outcome = Sesion::where('tipo', 'E')->where('glosa', 'NOT LIKE', '%**%')->whereMonth('fecha', '=', $date->month)->whereYear('fecha', '=', $date->year)->sum('haber');
+            }
 
             $graphicdata[] = ['name' => $name, 'income' => $income, 'outcome' => $outcome];
         }
