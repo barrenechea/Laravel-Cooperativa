@@ -154,12 +154,14 @@ class AuthServiceProvider extends ServiceProvider
             return $user->roles->where('name', 'delete_message_file')->count();
         });
 
-        Gate::define('modify_overdue', function ($user) {
-            return $user->roles->where('name', 'modify_overdue')->count();
+        Gate::define('view_report_overdue', function ($user) {
+            if(Gate::allows('modify_overdue'))
+                return true;
+            return $user->roles->where('name', 'view_report_overdue')->count();
         });
 
-        Gate::define('view_report_overdue', function ($user) {
-            return $user->roles->where('name', 'view_report_overdue')->count();
+        Gate::define('modify_overdue', function ($user) {
+            return $user->roles->where('name', 'modify_overdue')->count();
         });
 
         Gate::define('view_report_external_accounting', function ($user) {
