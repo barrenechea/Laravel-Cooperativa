@@ -80,15 +80,15 @@ Route::group(['middleware' => ['auth']], function () {
 		});
 
 		Route::group(['prefix' => 'bill'], function () {
-			Route::get('create', 'BillController@create')->middleware('can:can:add_bill');
-			Route::post('create', 'BillController@createbill')->middleware('can:can:add_bill');
-			Route::get('create/{assign}', 'BillController@createassign')->middleware('can:can:add_bill');
-			Route::post('create/{assign}', 'BillController@createall')->middleware('can:can:add_bill');
+			Route::get('create', 'BillController@create')->middleware('can:add_bill');
+			Route::post('create', 'BillController@createbill')->middleware('can:add_bill');
+			Route::get('create/{assign}', 'BillController@createassign')->middleware('can:add_bill');
+			Route::post('create/{assign}', 'BillController@createall')->middleware('can:add_bill');
 
-			Route::get('update/{id}', 'BillController@update')->middleware('can:can:modify_bill');
-			Route::post('update', 'BillController@updatebill')->middleware('can:can:modify_bill');
-			Route::get('updateassign/{assign}', 'BillController@updateassign')->middleware('can:can:modify_bill');
-			Route::post('updateassign/{assign}', 'BillController@updateall')->middleware('can:can:modify_bill');
+			Route::get('update/{id}', 'BillController@update')->middleware('can:modify_bill');
+			Route::post('update', 'BillController@updatebill')->middleware('can:modify_bill');
+			Route::get('updateassign/{assign}', 'BillController@updateassign')->middleware('can:modify_bill');
+			Route::post('updateassign/{assign}', 'BillController@updateall')->middleware('can:modify_bill');
 		});
 
 		Route::group(['prefix' => 'update'], function () {
