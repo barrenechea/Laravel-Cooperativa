@@ -78,7 +78,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-outline">Agregar sector</button>
+              <button type="submit" class="btn btn-outline">Actualizar</button>
             </div>
           </div>
         </div>
