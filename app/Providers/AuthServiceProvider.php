@@ -89,7 +89,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view_list_billdetail_payment', function ($user) {
-            if(Gate::allows('add_payment') || Gate::allows('modify_payment') || Gate::allows('delete_payment') || Gate::allows('delete_billdetail'))
+            if(Gate::allows('add_payment') || Gate::allows('modify_payment') || Gate::allows('delete_payment') || Gate::allows('modify_billdetail') || Gate::allows('delete_billdetail'))
                 return true;
             return $user->roles->where('name', 'view_list_billdetail_payment')->count();
         });
@@ -104,6 +104,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('delete_payment', function ($user) {
             return $user->roles->where('name', 'delete_payment')->count();
+        });
+
+        Gate::define('modify_billdetail', function ($user) {
+            return $user->roles->where('name', 'modify_billdetail')->count();
         });
 
         Gate::define('delete_billdetail', function ($user) {
@@ -136,10 +140,6 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('modify_bill', function ($user) {
             return $user->roles->where('name', 'modify_bill')->count();
-        });
-
-        Gate::define('modify_billdetail', function ($user) {
-            return $user->roles->where('name', 'modify_billdetail')->count();
         });
 
         Gate::define('new_message', function ($user) {
