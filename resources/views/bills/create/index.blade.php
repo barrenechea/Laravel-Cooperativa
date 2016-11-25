@@ -74,8 +74,8 @@
             </div>
           </div>
           <div class="form-group finish" hidden>
-            <label for="end_bill" class="col-sm-2 control-label">Fecha de Término</label>
-            <div class="col-sm-10">
+            <label for="end_bill" class="col-sm-offset-2 col-sm-2 control-label">Fecha de Término</label>
+            <div class="col-sm-8">
               <input type="date" class="form-control" id="end_bill" name="end_bill" value="{{ old('end_bill') }}">
             </div>
           </div>
@@ -90,20 +90,20 @@
             </div>
           </div>
           <div class="form-group overdue">
-            <label for="overdue_day" class="col-sm-2 control-label">Día de expiración</label>
-            <div class="col-sm-10">
+            <label for="overdue_day" class="col-sm-offset-2 col-sm-2 control-label">Día de expiración</label>
+            <div class="col-sm-8">
               <input type="number" class="form-control" id="overdue_day" name="overdue_day" placeholder="Ingrese el día del siguiente mes a considerar como vencimiento" min="1" max="31" value="{{ old('overdue_day') }}">
             </div>
           </div>
           <div class="form-group overdue">
-            <label for="overdue_amount" class="col-sm-2 control-label">Monto de atraso</label>
-            <div class="col-sm-10">
+            <label for="overdue_amount" class="col-sm-offset-2 col-sm-2 control-label">Monto de atraso</label>
+            <div class="col-sm-8">
               <input type="number" class="form-control" id="overdue_amount" name="overdue_amount" placeholder="Ingrese el monto a cobrar por atraso" min="0.01" step="0.01" value="{{ old('overdue_amount') }}">
             </div>
           </div>
           <div class="form-group overdue">
-            <label for="overdue_is_uf" class="col-sm-2 control-label">UF</label>
-            <div class="col-sm-10">
+            <label for="overdue_is_uf" class="col-sm-offset-2 col-sm-2 control-label">UF</label>
+            <div class="col-sm-8">
               <div class="checkbox">
                 <label>
                   <input type="checkbox" id="overdue_is_uf" name="overdue_is_uf" value="1" {{ old('overdue_is_uf') ? 'checked' : '' }}>
@@ -113,8 +113,8 @@
             </div>
           </div>
           <div class="form-group overdue">
-            <label for="overdue_is_uf" class="col-sm-2 control-label">Cobro diario</label>
-            <div class="col-sm-10">
+            <label for="overdue_is_uf" class="col-sm-offset-2 col-sm-2 control-label">Cobro diario</label>
+            <div class="col-sm-8">
               <div class="checkbox">
                 <label>
                   <input type="checkbox" id="overdue_is_daily" name="overdue_is_daily" value="1" {{ old('overdue_is_daily') ? 'checked' : '' }}>
@@ -124,8 +124,8 @@
             </div>
           </div>
           <div class="form-group overdue">
-            <label for="overdue_vfpcode" class="col-sm-2 control-label">C. Contable actividad</label>
-            <div class="col-sm-10">
+            <label for="overdue_vfpcode" class="col-sm-offset-2 col-sm-2 control-label">C. Contable actividad</label>
+            <div class="col-sm-8">
               <select class="form-control select2" id="overdue_vfpcode" name="overdue_vfpcode" required>
                 @foreach($accounts as $account)
                 <option value="{{ $account->codigo }}" {{ $account->codigo == "52-01-005" ? 'selected' : ''}}>{{ $account->codigo }} - {{ $account->nombre }}</option>
