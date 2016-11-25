@@ -71,7 +71,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('view_list_sector_type_location', function ($user) {
-            if(Gate::allows('add_sector') || Gate::allows('add_type') || Gate::allows('add_location'))
+            if(Gate::allows('add_sector') || Gate::allows('add_type') || Gate::allows('add_location') || Gate::allows('view_list_billdetail_payment'))
                 return true;
             return $user->roles->where('name', 'view_list_sector_type_location')->count();
         });

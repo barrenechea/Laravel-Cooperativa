@@ -86,6 +86,20 @@ class ReportController extends Controller
 					$row = [$sector->name, $amount];
 					$sheet->appendRow($row);
 				}
+				$sum = '=SUM(B2:B';
+				$sum .= $sectors->count()+1;
+				$sum .= ')';
+				$lastLine = ['Total:', $sum];
+
+				$sheet->appendRow($lastLine);
+				$boldArea = 'A';
+				$boldArea .= $sectors->count()+2;
+				$boldArea .= ':B';
+				$boldArea .= $sectors->count()+2;
+				
+				$sheet->cells($boldArea, function($cells) {
+					$cells->setFontWeight('bold');
+				});
 			});
 			$excel->sheet('INGRESOS', function($sheet) use ($incomes, $payments)
 			{
