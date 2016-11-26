@@ -500,5 +500,133 @@ class DatabaseSeeder extends Seeder
 				'code' => $i
 				]);
 		}
+
+		//Bills
+		// ID = 1
+		DB::table('bills')->insert([
+			'payment_day' => 21,
+			'amount' => 7.05,
+			'is_uf' => 1,
+			'description' => 'Crédito Hipotecario BancoEstado',
+			'vfpcode' => '51-01-006',
+			'vfpcode_destination' => '11-02-006',
+			'overdue_day' => 20,
+			'overdue_amount' => 25500,
+			'overdue_is_uf' => 0,
+			'overdue_is_daily' => 0,
+			'overdue_vfpcode' => '52-01-005',
+			'active' => 1,
+			'end_bill' => null,
+			'end_bill_notified' => 0,
+			'created_at' => \Carbon\Carbon::now(),
+			'updated_at' => \Carbon\Carbon::now(),
+			'deleted_at' => null
+			]);
+
+		// ID = 2
+		DB::table('bills')->insert([
+			'payment_day' => 21,
+			'amount' => 115400,
+			'is_uf' => 0,
+			'description' => 'Crédito Hipotecario Banco Scotiabank',
+			'vfpcode' => '51-01-004',
+			'vfpcode_destination' => '11-02-002',
+			'overdue_day' => 20,
+			'overdue_amount' => 9000,
+			'overdue_is_uf' => 0,
+			'overdue_is_daily' => 0,
+			'overdue_vfpcode' => '52-01-005',
+			'active' => 1,
+			'end_bill' => '2016-12-20',
+			'end_bill_notified' => 0,
+			'created_at' => \Carbon\Carbon::now(),
+			'updated_at' => \Carbon\Carbon::now(),
+			'deleted_at' => null
+			]);
+
+		// ID = 3
+		DB::table('bills')->insert([
+			'payment_day' => 26,
+			'amount' => 35000,
+			'is_uf' => 0,
+			'description' => 'Cuota Social',
+			'vfpcode' => '51-01-003',
+			'vfpcode_destination' => '11-02-008',
+			'overdue_day' => 25,
+			'overdue_amount' => 5000,
+			'overdue_is_uf' => 0,
+			'overdue_is_daily' => 0,
+			'overdue_vfpcode' => '52-01-005',
+			'active' => 1,
+			'end_bill' => null,
+			'end_bill_notified' => 0,
+			'created_at' => \Carbon\Carbon::now(),
+			'updated_at' => \Carbon\Carbon::now(),
+			'deleted_at' => null
+			]);
+
+		// ID = 4
+		DB::table('bills')->insert([
+			'payment_day' => 26,
+			'amount' => 50000,
+			'is_uf' => 0,
+			'description' => 'Gasto Común A. Santiago',
+			'vfpcode' => '51-01-103',
+			'vfpcode_destination' => '11-02-007',
+			'overdue_day' => 25,
+			'overdue_amount' => 5000,
+			'overdue_is_uf' => 0,
+			'overdue_is_daily' => 0,
+			'overdue_vfpcode' => '52-01-003',
+			'active' => 1,
+			'end_bill' => null,
+			'end_bill_notified' => 0,
+			'created_at' => \Carbon\Carbon::now(),
+			'updated_at' => \Carbon\Carbon::now(),
+			'deleted_at' => null
+			]);
+
+		// ID = 5
+		DB::table('bills')->insert([
+			'payment_day' => 11,
+			'amount' => 50000,
+			'is_uf' => 0,
+			'description' => 'Gasto Común A. Maipú',
+			'vfpcode' => '51-01-103',
+			'vfpcode_destination' => '11-02-001',
+			'overdue_day' => 10,
+			'overdue_amount' => 4500,
+			'overdue_is_uf' => 0,
+			'overdue_is_daily' => 0,
+			'overdue_vfpcode' => '52-01-003',
+			'active' => 1,
+			'end_bill' => null,
+			'end_bill_notified' => 0,
+			'created_at' => \Carbon\Carbon::now(),
+			'updated_at' => \Carbon\Carbon::now(),
+			'deleted_at' => null
+			]);
+
+		// ID = 6
+		DB::table('bills')->insert([
+			'payment_day' => 10,
+			'amount' => 40000,
+			'is_uf' => 0,
+			'description' => 'Estacionamiento',
+			'vfpcode' => '52-01-004',
+			'vfpcode_destination' => '11-02-004',
+			'overdue_day' => null,
+			'overdue_amount' => null,
+			'overdue_is_uf' => null,
+			'overdue_is_daily' => null,
+			'overdue_vfpcode' => null,
+			'active' => 1,
+			'end_bill' => null,
+			'end_bill_notified' => 0,
+			'created_at' => \Carbon\Carbon::now(),
+			'updated_at' => \Carbon\Carbon::now(),
+			'deleted_at' => null
+			]);
+
 	}
 }

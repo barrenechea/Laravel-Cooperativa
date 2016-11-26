@@ -21,6 +21,9 @@ use App\Logic;
 use App\Billdetail;
 use App\Payment;
 
+use Carbon\Carbon;
+use Excel;
+
 class ListController extends Controller
 {
     public function listsector()
@@ -110,5 +113,28 @@ class ListController extends Controller
         
         Session::flash('warning', 'No hay detalle disponible para el cobro seleccionado');
         return redirect()->back();
+    }
+
+    public function downloadlist()
+    {
+        $locations = Location::all();
+        $dataArray = [];
+        foreach ($locations as $location) {
+            $dataArray[] = [$location->sector->name, $location->sector->code, $location->type->name, $location->code];
+        }
+        Excel::create(('UBICACIONES-'.Carbon::today()->format('d-m-Y')), function($excel) use ($dataArray)
+        {
+            $excel->sheet('Ubicaciones', function($sheet) use ($dataArray) {
+
+                $sheet->appendRow(['Sector', 'Código Sector', 'Tipo', 'Código ubicación']);
+                foreach ($dataArray as $row)
+                    $sheet->appendRow($row);
+
+                $sheet->setAutoFilter();
+                $sheet->setAutoSize(true);
+            });
+        })->download('xlsx');
+        
+        return;
     }
 }

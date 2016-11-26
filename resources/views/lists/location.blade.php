@@ -36,11 +36,12 @@
             @endforeach
           </table>
         </div>
-        @can('add_location')
         <div class="box-footer">
+          <a href="{{ url('/list/downloadlist/') }}" class="btn btn-primary">Generar Excel</a>
+          @can('add_location')
           <input type="button" value="Agregar ubicación" data-toggle="modal" data-target="#modal" class="btn btn-primary pull-right">
+          @endcan
         </div>
-        @endcan
       </div>
     </div>
   </div>

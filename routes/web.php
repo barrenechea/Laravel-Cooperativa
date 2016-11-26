@@ -77,6 +77,8 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::get('payments/{location_id}', 'PaymentController@list')->middleware('can:view_list_billdetail_payment');
 			Route::get('messages', 'ListController@listmessage');
 			Route::get('files', 'ListController@listfile');
+
+			Route::get('downloadlist', 'ListController@downloadlist')->middleware('can:view_list_sector_type_location');
 		});
 
 		Route::group(['prefix' => 'bill'], function () {

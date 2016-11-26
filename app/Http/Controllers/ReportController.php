@@ -19,25 +19,6 @@ class ReportController extends Controller
 {
 	public function accounting()
 	{
-		$locations = Location::all();
-		$dataArray = [];
-		foreach ($locations as $location) {
-			$dataArray[] = [$location->sector->name, $location->sector->code, $location->type->name, $location->code, strlen($location->code)];
-		}
-		Excel::create(('UBICACIONES-'.Carbon::today()->format('d-m-Y')), function($excel) use ($dataArray)
-		{
-			$excel->sheet('Ubicaciones', function($sheet) use ($dataArray) {
-
-				$sheet->appendRow(['Sector', 'Código Sector', 'Tipo', 'Código ubicación', 'Cantidad de caracteres']);
-				foreach ($dataArray as $row)
-					$sheet->appendRow($row);
-
-				$sheet->setAutoFilter();
-				$sheet->setAutoSize(true);
-			});
-		})->download('xlsx');
-
-		return;
 		setlocale(LC_TIME, 'es_ES.utf8');
 		$first = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'asc')->first();
 		$last = Sesion::distinct('fecha')->whereDate('fecha', '<', Carbon::now()->startOfMonth())->orderBy('fecha', 'desc')->first();
