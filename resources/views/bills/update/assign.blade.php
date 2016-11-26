@@ -16,12 +16,23 @@ Modificar cobro - {{ Cache::get('bill')->description }}
         <div class="box-body">
           @if(isset($sectors))
           <div class="form-group">
-            <label for="sector_id" class="col-sm-2 control-label">Sector</label>
+            <label for="sector_id[]" class="col-sm-2 control-label">Sectores</label>
             <div class="col-sm-10">
-              <select class="form-control select2" id="sector_id" name="sector_id" required>
-                <option value="" disabled selected hidden>{{ $sectors->count() > 0 ? 'Seleccione un sector' : 'No hay sectores ingresados en el sistema' }}</option>
+              <select class="form-control select2" id="sector_id[]" name="sector_id[]" multiple="multiple" required>
+                <option value="" disabled hidden>{{ $sectors->count() > 0 ? 'Seleccione un sector' : 'No hay sectores ingresados en el sistema' }}</option>
                 @foreach($sectors as $sector)
-                <option value="{{ $sector->id }}" {{ $bill->sectors()->count() ? (($bill->sectors()->first()->id == $sector->id) ? 'selected' : '') : '' }}>{{ $sector->name }}</option>
+                <option value="{{ $sector->id }}" {{ $bill->sectors()->count() ? (($bill->sectors()->where('id', $sector->id)->count()) ? 'selected' : '') : '' }}>{{ $sector->name }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="type_id[]" class="col-sm-2 control-label">Tipos</label>
+            <div class="col-sm-10">
+              <select class="form-control select2" id="type_id[]" name="type_id[]" multiple="multiple" required>
+                <option value="" disabled hidden>{{ $types->count() > 0 ? 'Seleccione los tipos a aplicar los cobros' : 'No hay tipos ingresados en el sistema' }}</option>
+                @foreach($types as $type)
+                <option value="{{ $type->id }}" {{ $bill->types()->count() ? (($bill->types()->where('id', $type->id)->count() ) ? 'selected' : '') : '' }}>{{ $type->name }}</option>
                 @endforeach
               </select>
             </div>

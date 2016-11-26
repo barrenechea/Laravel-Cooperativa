@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="box-footer">
-        <button type="submit" class="btn btn-primary pull-right">Obtener Ezcel</button>
+        <button type="submit" class="btn btn-primary pull-right">Obtener Excel</button>
       </div>
     </form>
   </div>

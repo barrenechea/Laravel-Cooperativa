@@ -12,6 +12,7 @@ use App\Bill;
 use App\Sector;
 use App\Group;
 use App\Location;
+use App\Type;
 
 use Validator;
 
@@ -54,7 +55,8 @@ class BillController extends Controller
 		if($assign === 'sector')
 		{
 			$sectors = Sector::all();
-			return view('bills.create.assign', ['sectors' => $sectors, 'assign' => $assign]);
+			$types = Type::all();
+			return view('bills.create.assign', ['sectors' => $sectors, 'types' => $types, 'assign' => $assign]);
 		}
 		elseif ($assign === 'group')
 		{
@@ -80,8 +82,11 @@ class BillController extends Controller
 
 		if($assign === 'sector')
 		{
-			$sector = Sector::where('id', $request->input('sector_id'))->get();
-			$bill->sectors()->sync($sector);
+			$sectors = Sector::whereIn('id', $request->input('sector_id'))->get();
+			$bill->sectors()->sync($sectors);
+
+			$types = Type::whereIn('id', $request->input('type_id'))->get();
+			$bill->types()->sync($types);
 		}
 		elseif ($assign === 'group')
 		{
@@ -161,7 +166,8 @@ class BillController extends Controller
 		if($assign === 'sector')
 		{
 			$sectors = Sector::all();
-			return view('bills.update.assign', ['bill' => $bill, 'sectors' => $sectors, 'assign' => $assign]);
+			$types = Type::all();
+			return view('bills.update.assign', ['bill' => $bill, 'sectors' => $sectors, 'types' => $types, 'assign' => $assign]);
 		}
 		elseif ($assign === 'group')
 		{
@@ -188,13 +194,17 @@ class BillController extends Controller
 		$reason = $request->input('reason');
 
 		$bill->sectors()->detach();
+		$bill->types()->detach();
 		$bill->groups()->detach();
 		$bill->locations()->detach();
 
 		if($assign === 'sector')
 		{
-			$sector = Sector::where('id', $request->input('sector_id'))->get();
-			$bill->sectors()->sync($sector);
+			$sectors = Sector::whereIn('id', $request->input('sector_id'))->get();
+			$bill->sectors()->sync($sectors);
+
+			$types = Type::whereIn('id', $request->input('type_id'))->get();
+			$bill->types()->sync($types);
 		}
 		elseif ($assign === 'group')
 		{

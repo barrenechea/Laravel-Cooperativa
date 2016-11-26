@@ -17,4 +17,9 @@ class Type extends Model
     {
         return $this->hasMany('App\Location');
     }
+
+    public function bills()
+    {
+        return $this->belongsToMany('App\Bill');
+    }
 }
