@@ -115,7 +115,7 @@ class ReportController extends Controller
 					$payment = $payments->where('vfpsesion_id', $income->id)->first();
 					if($payment)
 					{
-						$row = ['', $payment->created_at->format('d-m-Y'), $payment->billdetail->bill->description, $payment->billdetail->partner->user->name, $payment->billdetail->location->sector->name, '', '', '', $payment->billdetail->bill->vfpcode, \App\MaeCue::where('codigo', $income->codigo)->first()->nombre, '', '', $payment->document_id, $income->detalle2, $income->detalle3, $income->debe, $income->haber];
+						$row = [$income->numero, $income->fecha->format('d-m-Y'), $payment->billdetail->bill->description, $payment->billdetail->partner->user->name, $payment->billdetail->location->sector->name, '', '', '', $payment->billdetail->bill->vfpcode, \App\MaeCue::where('codigo', $income->codigo)->first()->nombre, '', '', $payment->document_id, $income->detalle2, $income->detalle3, $income->debe, $income->haber];
 						$sheet->appendRow($row);
 					}
 					else

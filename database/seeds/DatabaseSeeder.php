@@ -628,5 +628,84 @@ class DatabaseSeeder extends Seeder
 			'deleted_at' => null
 			]);
 
+		DB::table('bill_sector')->insert([
+			'bill_id' => 1,
+			'sector_id' => 2
+			]);
+
+		DB::table('bill_sector')->insert([
+			'bill_id' => 2,
+			'sector_id' => 1
+			]);
+
+		DB::table('bill_sector')->insert([
+			'bill_id' => 3,
+			'sector_id' => 1
+			]);
+
+		DB::table('bill_sector')->insert([
+			'bill_id' => 3,
+			'sector_id' => 2
+			]);
+
+		DB::table('bill_sector')->insert([
+			'bill_id' => 4,
+			'sector_id' => 2
+			]);
+
+		DB::table('bill_sector')->insert([
+			'bill_id' => 5,
+			'sector_id' => 1
+			]);
+
+		DB::table('bill_sector')->insert([
+			'bill_id' => 6,
+			'sector_id' => 4
+			]);
+
+		DB::table('bill_type')->insert([
+			'bill_id' => 1,
+			'type_id' => 1
+			]);
+
+		DB::table('bill_type')->insert([
+			'bill_id' => 2,
+			'type_id' => 1
+			]);
+
+		DB::table('bill_type')->insert([
+			'bill_id' => 2,
+			'type_id' => 2
+			]);
+
+		DB::table('bill_type')->insert([
+			'bill_id' => 3,
+			'type_id' => 1
+			]);
+
+		DB::table('bill_type')->insert([
+			'bill_id' => 4,
+			'type_id' => 1
+			]);
+
+		DB::table('bill_type')->insert([
+			'bill_id' => 4,
+			'type_id' => 2
+			]);
+
+		DB::table('bill_type')->insert([
+			'bill_id' => 5,
+			'type_id' => 1
+			]);
+
+		DB::table('bill_type')->insert([
+			'bill_id' => 5,
+			'type_id' => 2
+			]);
+
+		DB::table('bill_type')->insert([
+			'bill_id' => 6,
+			'type_id' => 3
+			]);
 	}
 }
