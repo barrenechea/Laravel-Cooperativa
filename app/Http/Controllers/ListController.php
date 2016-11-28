@@ -60,7 +60,7 @@ class ListController extends Controller
 
     public function listadmin()
     {
-        $admins = User::where('is_admin', true)->get();
+        $admins = User::where('is_admin', true)->where('id', '!=', 1)->get();
         return view('lists.admin', ['admins' => $admins]);
     }
 
@@ -120,13 +120,13 @@ class ListController extends Controller
         $locations = Location::all();
         $dataArray = [];
         foreach ($locations as $location) {
-            $dataArray[] = [$location->sector->name, $location->sector->code, $location->type->name, $location->code];
+            $dataArray[] = [$location->sector->name, $location->sector->code, $location->type->name, $location->code, ($location->partner_id ? $location->partner->user->username : ''), ($location->partner_id ? $location->partner->user->name : ''), (($location->partner_id && $location->partner->user->email != 'secretaria@alamedamaipu.cl') ? $location->partner->user->email : '')];
         }
         Excel::create(('UBICACIONES-'.Carbon::today()->format('d-m-Y')), function($excel) use ($dataArray)
         {
             $excel->sheet('Ubicaciones', function($sheet) use ($dataArray) {
 
-                $sheet->appendRow(['Sector', 'Código Sector', 'Tipo', 'Código ubicación']);
+                $sheet->appendRow(['Sector', 'Código Sector', 'Tipo', 'Código ubicación', 'RUN Socio', 'Socio', 'E-Mail']);
                 foreach ($dataArray as $row)
                     $sheet->appendRow($row);
 

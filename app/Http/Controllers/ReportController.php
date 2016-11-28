@@ -62,6 +62,7 @@ class ReportController extends Controller
 		// Generar Excel
 		Excel::create('CONTABILIDAD'.$date->format('-m-Y'), function($excel) use ($date, $incomes, $outcomes, $payments) 
 		{
+			/*
 			$excel->sheet('INFORMACION', function($sheet) use ($date)
 			{
 				$sheet->setColumnFormat(array(
@@ -76,7 +77,9 @@ class ReportController extends Controller
 					$cells->setFontWeight('bold');
 				});
 
-				$billdetails = Billdetail::whereMonth('created_at', '=', $date->month)->whereYear('created_at', '=', $date->year)->get();
+				$newDate = $date->copy()->addMonth();
+
+				$billdetails = Billdetail::whereMonth('created_at', '=', $newDate->month)->whereYear('created_at', '=', $newDate->year)->get();
 				$pluckedIds = $billdetails->pluck('location_id');
 
 				$sectors = Sector::all();
@@ -102,38 +105,130 @@ class ReportController extends Controller
 					$cells->setFontWeight('bold');
 				});
 			});
-			$excel->sheet('INGRESOS', function($sheet) use ($incomes, $payments)
+			*/
+			$excel->sheet('INGRESOS', function($sheet) use ($incomes, $payments, $date)
 			{
 				$sheet->setColumnFormat(array(
 						'P' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
 						'Q' => '_ $* #,##0_ ;_ $* -#,##0_ ;_ $* "-"_ ;_ @_ ', // Contabilidad
 						));
-				$sheet->appendRow(['VOUCHER', 'FECHA', 'GLOSA', 'BENEFICIARIO', 'SECTOR', 'TIPO', 'UBICACION', 'LINEA', 'CODIGO', 'CUENTA CONTABLE', 'TIPO DOCUMENTO', 'FECHA FACTURA', 'FACTURA', 'DETALLE', 'DETALLE3', 'DEBE', 'HABER']);
+				$sheet->appendRow(['VOUCHER', 'FECHA', 'GLOSA', 'BENEFICIARIO', 'SECTOR', 'TIPO', 'UBICACION', 'LINEA', 'CODIGO', 'CUENTA CONTABLE', 'TIPO DOCUMENTO', 'FECHA FACTURA', 'FACTURA', 'DETALLE', 'RUN', 'DEBE', 'HABER']);
 
 				foreach ($incomes as $income)
 				{
 					$payment = $payments->where('vfpsesion_id', $income->id)->first();
 					if($payment)
 					{
-						$row = [$income->numero, $income->fecha->format('d-m-Y'), $payment->billdetail->bill->description, $payment->billdetail->partner->user->name, $payment->billdetail->location->sector->name, '', '', '', $payment->billdetail->bill->vfpcode, \App\MaeCue::where('codigo', $income->codigo)->first()->nombre, '', '', $payment->document_id, $income->detalle2, $income->detalle3, $income->debe, $income->haber];
+						$row = [
+							$income->numero,
+							$income->fecha->format('d-m-Y'),
+							$income->glosa,
+							($benefi ? $benefi->desc : $payment->billdetail->partner->user->name),
+							$payment->billdetail->location->sector->name,
+							$payment->billdetail->location->type->name,
+							$payment->billdetail->location->code,
+							$income->linea,
+							$income->codigo,
+							\App\MaeCue::where('codigo', $income->codigo)->first()->nombre,
+							$income->tipdoc,
+							($income->fechafac->year == 1899 ? '' : $income->fechafac->format('d-m-Y')),
+							($income->fac != 0 ? $income->fac : ''),
+							$income->detalle2,
+							$income->detalle3,
+							$income->debe,
+							$income->haber
+						];
 						$sheet->appendRow($row);
 					}
 					else
 					{
 						$benefi = \App\Tabaux10::where('kod', $income->detalle3)->first();
-						$row = [$income->numero, $income->fecha->format('d-m-Y'), $income->glosa, ($benefi ? $benefi->desc : ''), '', '', '',  $income->linea, $income->codigo, \App\MaeCue::where('codigo', $income->codigo)->first()->nombre, $income->tipdoc, ($income->fechafac->year == 1899 ? '' : $income->fechafac->format('d-m-Y')), ($income->fac != 0 ? $income->fac : ''), $income->detalle2, $income->detalle3, $income->debe, $income->haber];
+						$row = [
+							$income->numero,
+							$income->fecha->format('d-m-Y'),
+							$income->glosa,
+							($benefi ? $benefi->desc : ''),
+							'',
+							'',
+							'',
+							$income->linea,
+							$income->codigo,
+							\App\MaeCue::where('codigo', $income->codigo)->first()->nombre,
+							$income->tipdoc,
+							($income->fechafac->year == 1899 ? '' : $income->fechafac->format('d-m-Y')),
+							($income->fac != 0 ? $income->fac : ''),
+							$income->detalle2,
+							$income->detalle3,
+							$income->debe,
+							$income->haber
+						];
 						$sheet->appendRow($row);
 					}
 				}
+
+				$unrelatedPayments = Payment::whereNull('vfpsesion_id')->whereMonth('created_at', '=', $date->month)->whereYear('created_at', '=', $date->year)->get();
+
+				setlocale(LC_TIME, 'es_ES.utf8');
+
+				foreach ($unrelatedPayments as $unrelatedPayment) {
+					$desc = $unrelatedPayment->billdetail->bill->description;
+					$desc .= ' ';
+					$desc .= ucfirst($unrelatedPayment->billdetail->created_at->copy()->addMonth()->formatLocalized('%B %Y'));
+					$row = [
+						'',
+						$unrelatedPayment->created_at->format('d-m-Y'),
+						$desc,
+						'',
+						$unrelatedPayment->billdetail->location->sector->name,
+						$unrelatedPayment->billdetail->location->type->name,
+						$unrelatedPayment->billdetail->location->code,
+						1,
+						$unrelatedPayment->billdetail->bill->vfpcode_destination,
+						\App\MaeCue::where('codigo', $unrelatedPayment->billdetail->bill->vfpcode_destination)->first()->nombre,
+						'',
+						'',
+						'',
+						$unrelatedPayment->billdetail->bill->description,
+						'',
+						$unrelatedPayment->amount,
+						0
+					];
+					$sheet->appendRow($row);
+
+					$desc = $unrelatedPayment->billdetail->bill->description;
+					$desc .= ' ';
+					$desc .= ucfirst($unrelatedPayment->billdetail->created_at->copy()->addMonth()->formatLocalized('%B %Y'));
+					$row = [
+						'',
+						$unrelatedPayment->created_at->format('d-m-Y'),
+						$desc,
+						$unrelatedPayment->billdetail->partner->user->name,
+						$unrelatedPayment->billdetail->location->sector->name,
+						$unrelatedPayment->billdetail->location->type->name,
+						$unrelatedPayment->billdetail->location->code,
+						2,
+						$unrelatedPayment->billdetail->vfpcode,
+						\App\MaeCue::where('codigo', $unrelatedPayment->billdetail->vfpcode)->first()->nombre,
+						'',
+						'',
+						$unrelatedPayment->document_id,
+						$unrelatedPayment->billdetail->bill->description,
+						$unrelatedPayment->billdetail->partner->user->username,
+						0,
+						$unrelatedPayment->amount
+					];
+					$sheet->appendRow($row);
+				}
+				
 				$debe = 'P';
-				$debe .= $incomes->count()+2;
+				$debe .= $incomes->count() + ($unrelatedPayments->count() * 2) + 2;
 				$sumdebe = '=SUM(P2:P';
-				$sumdebe .= $incomes->count()+1;
+				$sumdebe .= $incomes->count() + ($unrelatedPayments->count() * 2) + 1;
 				$sumdebe .= ')';
 				$haber = 'Q';
-				$haber .= $incomes->count()+2;
+				$haber .= $incomes->count() + ($unrelatedPayments->count() * 2) + 2;
 				$sumhaber = '=SUM(Q2:Q';
-				$sumhaber .= $incomes->count()+1;
+				$sumhaber .= $incomes->count() + ($unrelatedPayments->count() * 2) + 1;
 				$sumhaber .= ')';
 				$sheet->setCellValue($debe, $sumdebe);
 				$sheet->setCellValue($haber, $sumhaber);
