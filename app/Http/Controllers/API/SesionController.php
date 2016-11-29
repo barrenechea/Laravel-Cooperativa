@@ -126,7 +126,7 @@ class SesionController extends Controller
         }
         if(!isset($supposedDate)) return;
         $log = new Log;
-        $log->user_id = 0;
+        $log->user_id = 1;
         $log->message = 'Supposed date';
         $log->save();
         // We have a supposed date inside the Sesion description!
@@ -138,7 +138,7 @@ class SesionController extends Controller
         }
         if(!isset($year) || !isset($month)) return;
         $log = new Log;
-        $log->user_id = 0;
+        $log->user_id = 1;
         $log->message = 'Supposed date part 2';
         $log->save();
         // We have a year and a month! We can continue
@@ -149,7 +149,7 @@ class SesionController extends Controller
         if(count($match_sector) > 0)
         {
             $log = new Log;
-            $log->user_id = 0;
+            $log->user_id = 1;
             $log->message = 'Match sector 1';
             $log->save();
             // Found a sector match!
@@ -159,7 +159,7 @@ class SesionController extends Controller
             if(count($match_location) > 0)
             {
                 $log = new Log;
-            $log->user_id = 0;
+            $log->user_id = 1;
             $log->message = 'Match location';
             $log->save();
                 // Found a location match!
@@ -167,7 +167,7 @@ class SesionController extends Controller
                 if($location->partner_id)
                 {
                     $log = new Log;
-                    $log->user_id = 0;
+                    $log->user_id = 1;
                     $log->message = 'Has partner';
                     $log->save();
                     //Verified that the location has a partner assigned
@@ -177,7 +177,7 @@ class SesionController extends Controller
                         if($billdetail->created_at->year === $sesionDate->year && $billdetail->created_at->month === $sesionDate->month)
                         {
                             $log = new Log;
-                            $log->user_id = 0;
+                            $log->user_id = 1;
                             $log->message = 'Date matches';
                             $log->save();
                             // The dates matches correctly!
@@ -188,7 +188,7 @@ class SesionController extends Controller
                             $payment->save();
                             // Everything done! :D now stop running the foreach
                             $log = new Log;
-                            $log->user_id = 0;
+                            $log->user_id = 1;
                             $log->message = 'Success';
                             $log->save();
                             break;
