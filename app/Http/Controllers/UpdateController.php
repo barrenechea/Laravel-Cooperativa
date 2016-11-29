@@ -61,6 +61,7 @@ class UpdateController extends Controller
         {
             Auth::user()->partner->address = $request->input('address');
             Auth::user()->partner->phone = $request->input('phone');
+            Auth::user()->partner->save();
         }
 
         if($request->input('newpassword'))
