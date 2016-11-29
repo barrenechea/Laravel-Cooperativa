@@ -55,6 +55,7 @@ class InitPartnerMail extends Command
 
             Mail::to($user)->queue(new Password($user, $password, true));
         }
+
         $coopUser = User::where('username', '73923900-1')->first();
 
         $password = str_random(6);
