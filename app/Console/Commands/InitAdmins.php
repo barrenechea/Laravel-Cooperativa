@@ -64,7 +64,7 @@ class InitAdmins extends Command
             $user->name = 'Elías Gomez';
             $user->username = 'egomez';
             $user->password = bcrypt($password);
-            $user->email = 'egomez@alamedamaipu.cl';
+            $user->email = 'atacamanorteltda@gmail.com';
             $user->is_admin = true;
 
             $user->save();
