@@ -44,7 +44,7 @@ class InitPartner extends Command
      */
     public function handle()
     {
-        $this->cleanup();
+        //$this->cleanup();
 
         $socios = [];
 
@@ -123,7 +123,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '6007498-4',
             'nombre' => 'Ana Díaz Ceballos',
-            'email' => null,
+            'email' => 'anadiaz1313@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.63'],
                 ['AS', 'L.150'],
@@ -196,7 +196,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '22398145-3',
             'nombre' => 'Carla Ampuero Calani',
-            'email' => null,
+            'email' => 'karla.ampu@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.35'],
                 ['AS', 'L.36'],
@@ -536,7 +536,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '22215756-0',
             'nombre' => 'Ismael Huarachi Yampara',
-            'email' => null,
+            'email' => 'iuhy@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.134'],
             ],
@@ -545,7 +545,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '77473360-4',
             'nombre' => 'Inmobiliaria Jaime Salinas Ortiz EIRL',
-            'email' => null,
+            'email' => 'jjassosalina81@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.159'],
                 ['AS', 'L.174'],
@@ -723,7 +723,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '11474258-9',
             'nombre' => 'Luis Pavez Álvarez',
-            'email' => null,
+            'email' => 'traffictour@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.193'],
             ],
@@ -1188,7 +1188,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '11663508-9',
             'nombre' => 'Ximena Herrera Quiroz',
-            'email' => null,
+            'email' => 'ximenaherrera.00@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.29'],
                 ['AS', 'L.74'],
@@ -1264,45 +1264,55 @@ class InitPartner extends Command
             'ubicaciones' => [],
         ];
 
+        // foreach($socios as $socio)
+        // {
+        //     $user = new User;
+        //     $user->name = $socio['nombre'];
+        //     $user->username = $socio['run'];
+        //     $user->password = bcrypt(str_random(8));
+        //     $user->email = $socio['email'] ? $socio['email'] : $this->defaultMail;
+        //     $user->is_admin = false;
+        //     $user->Initialized = false;
+        //     $user->save();
+
+        //     $partner = new Partner;
+        //     $partner->user_id = $user->id;
+        //     $partner->address = ' ';
+        //     $partner->phone = ' ';
+        //     $partner->save();
+
+        //     foreach ($socio['ubicaciones'] as $location)
+        //     {
+        //         $locs = Location::where('code', $location[1])->get();
+        //         foreach ($locs as $loc) {
+        //             if($loc->sector->code == $location[0])
+        //             {
+        //                 $loc->partner_id = $partner->id;
+        //                 $loc->save();
+        //             }
+        //         }
+        //     }
+        // }
+
+        // if($this->remainingToCooperativa)
+        // {
+        //     $coopUser = User::where('username', '73923900-1')->first();
+
+        //     $coopLocations = Location::whereNull('partner_id')->get();
+        //     foreach ($coopLocations as $coopLocation)
+        //     {
+        //         $coopLocation->partner_id = $coopUser->partner->id;
+        //         $coopLocation->save();
+        //     }
+        // }
+
         foreach($socios as $socio)
         {
-            $user = new User;
-            $user->name = $socio['nombre'];
-            $user->username = $socio['run'];
-            $user->password = bcrypt(str_random(8));
-            $user->email = $socio['email'] ? $socio['email'] : $this->defaultMail;
-            $user->is_admin = false;
-            $user->Initialized = false;
-            $user->save();
-
-            $partner = new Partner;
-            $partner->user_id = $user->id;
-            $partner->address = ' ';
-            $partner->phone = ' ';
-            $partner->save();
-
-            foreach ($socio['ubicaciones'] as $location)
+            $user = User::where('username', 'LIKE', $socio['run'])->first();
+            if($user)
             {
-                $locs = Location::where('code', $location[1])->get();
-                foreach ($locs as $loc) {
-                    if($loc->sector->code == $location[0])
-                    {
-                        $loc->partner_id = $partner->id;
-                        $loc->save();
-                    }
-                }
-            }
-        }
-
-        if($this->remainingToCooperativa)
-        {
-            $coopUser = User::where('username', '73923900-1')->first();
-
-            $coopLocations = Location::whereNull('partner_id')->get();
-            foreach ($coopLocations as $coopLocation)
-            {
-                $coopLocation->partner_id = $coopUser->partner->id;
-                $coopLocation->save();
+                $user->email = $socio['email'] ? $socio['email'] : $this->defaultMail;
+                $user->save();
             }
         }
     }
