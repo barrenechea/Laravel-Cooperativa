@@ -59,8 +59,8 @@ class UpdateController extends Controller
 
         if(!Auth::user()->is_admin)
         {
-            Auth::user()->address = $request->input('address');
-            Auth::user()->phone = $request->input('phone');
+            Auth::user()->partner->address = $request->input('address');
+            Auth::user()->partner->phone = $request->input('phone');
         }
 
         if($request->input('newpassword'))
