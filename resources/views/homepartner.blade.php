@@ -53,7 +53,7 @@ Bienvenido(a), {{ Auth::user()->name }}!
               <td>{{ $billdetail->overdue_date ? $billdetail->overdue_date->format('d-m-Y') : 'No posee' }}</td>
               <td>{{ $billdetail->location->sector->name }}</td>
               <td>{{ $billdetail->location->code }}</td>
-              <td>{{ $billdetail->bill->description }}</td>
+              <td>{{ $billdetail->bill->description }}{{ $billdetail->vfpcode !== $billdetail->bill->vfpcode ? ' [Multa por atraso]' : '' }}</td>
               <td>${{ (number_format($billdetail->amount, 0, ',', '.')) }}</td>
               <td>${{ (number_format($billdetail->payments()->sum('amount'), 0, ',', '.')) }}</td>
               @if($billdetail->amount <= $billdetail->payments()->sum('amount'))

@@ -12,7 +12,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="box-header text-center">
-              <h3 class="box-title">Información del cobro - {{ $billdetail->bill->description }}</h3>
+              <h3 class="box-title">Información del cobro - {{ $billdetail->bill->description }}{{ $billdetail->vfpcode !== $billdetail->bill->vfpcode ? ' [Multa por atraso]' : '' }}</h3>
             </div>
           </div>
         </div>
