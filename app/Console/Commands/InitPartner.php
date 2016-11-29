@@ -453,7 +453,6 @@ class InitPartner extends Command
             'email' => null,
             'ubicaciones' => [
                 ['AM', 'L.BA5'],
-                ['AM', 'L.BA6'],
             ],
         ];
 
@@ -549,6 +548,7 @@ class InitPartner extends Command
             'email' => null,
             'ubicaciones' => [
                 ['AS', 'L.159'],
+                ['AS', 'L.174'],
             ],
         ];
 
@@ -974,6 +974,7 @@ class InitPartner extends Command
                 ['AS', 'L.49'],
                 ['AS', 'L.126'],
                 ['AM', 'L.64'],
+                ['AM', 'L.BA6'],
             ],
         ];
 
@@ -993,7 +994,6 @@ class InitPartner extends Command
             'email' => null,
             'ubicaciones' => [
                 ['AS', 'L.27'],
-                ['AS', 'L.33'],
                 ['AS', 'L.171'],
                 ['AS', 'L.190'],
                 ['AM', 'L.26'],
@@ -1057,7 +1057,6 @@ class InitPartner extends Command
             'email' => null,
             'ubicaciones' => [
                 ['AS', 'L.87'],
-                ['AS', 'L.174'],
                 ['AM', 'L.80'],
             ],
         ];
@@ -1133,7 +1132,7 @@ class InitPartner extends Command
             'nombre' => 'Tsung Ming Wu',
             'email' => null,
             'ubicaciones' => [
-                ['AM', 'M.E'],
+                ['AM', 'M.D'],
             ],
         ];
 
@@ -1226,6 +1225,7 @@ class InitPartner extends Command
             'nombre' => 'Fernando Gonzalez Garcés',
             'email' => null,
             'ubicaciones' => [
+                ['AS', 'L.33'],
                 ['AS', 'L.59'],
             ],
         ];

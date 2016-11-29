@@ -273,7 +273,7 @@ class DatabaseSeeder extends Seeder
 		}
 
 		DB::table('locations')->insert([
-			'type_id' => 1,
+			'type_id' => 6,
 			'sector_id' => 1,
 			'partner_id' => null,
 			'code' => 'L.EX1'
@@ -281,14 +281,23 @@ class DatabaseSeeder extends Seeder
 
 		for ($i=1; $i < 4; $i++) { 
 			DB::table('locations')->insert([
-				'type_id' => 1,
+				'type_id' => 6,
 				'sector_id' => 1,
 				'partner_id' => null,
 				'code' => 'L.B'.$i
 				]);
 		}
 
-		for ($i=1; $i < 7; $i++) { 
+		for ($i=1; $i < 5; $i++) { 
+			DB::table('locations')->insert([
+				'type_id' => 6,
+				'sector_id' => 1,
+				'partner_id' => null,
+				'code' => 'L.BA'.$i
+				]);
+		}
+
+		for ($i=5; $i < 7; $i++) { 
 			DB::table('locations')->insert([
 				'type_id' => 1,
 				'sector_id' => 1,
@@ -298,7 +307,7 @@ class DatabaseSeeder extends Seeder
 		}
 
 		DB::table('locations')->insert([
-			'type_id' => 1,
+			'type_id' => 6,
 			'sector_id' => 1,
 			'partner_id' => null,
 			'code' => 'L.CAS'
@@ -306,7 +315,7 @@ class DatabaseSeeder extends Seeder
 
 		for ($i=1; $i < 4; $i++) { 
 			DB::table('locations')->insert([
-				'type_id' => 2,
+				'type_id' => 1,
 				'sector_id' => 1,
 				'partner_id' => null,
 				'code' => 'M.'.($i === 1 ? 'C' : ($i === 2 ? 'D' : 'E'))
@@ -674,11 +683,6 @@ class DatabaseSeeder extends Seeder
 			]);
 
 		DB::table('bill_type')->insert([
-			'bill_id' => 2,
-			'type_id' => 2
-			]);
-
-		DB::table('bill_type')->insert([
 			'bill_id' => 3,
 			'type_id' => 1
 			]);
@@ -687,20 +691,10 @@ class DatabaseSeeder extends Seeder
 			'bill_id' => 4,
 			'type_id' => 1
 			]);
-
-		DB::table('bill_type')->insert([
-			'bill_id' => 4,
-			'type_id' => 2
-			]);
-
+		
 		DB::table('bill_type')->insert([
 			'bill_id' => 5,
 			'type_id' => 1
-			]);
-
-		DB::table('bill_type')->insert([
-			'bill_id' => 5,
-			'type_id' => 2
 			]);
 
 		DB::table('bill_type')->insert([
