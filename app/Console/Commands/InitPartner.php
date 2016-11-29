@@ -73,7 +73,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '9407686-2',
             'nombre' => 'Alejandro Esteban Mora Rodríguez',
-            'email' => null,
+            'email' => 'a_mora16@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.118'],
             ],
@@ -163,7 +163,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '22122772-7',
             'nombre' => 'Belker Alania Villanueva',
-            'email' => null,
+            'email' => 'jeanbelker11@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.55'],
                 ['AS', 'L.115'],
@@ -210,7 +210,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '11851699-0',
             'nombre' => 'Carlina Alarcón Castro',
-            'email' => null,
+            'email' => 'carlaalarcon23@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.41'],
                 ['AS', 'L.54'],
@@ -243,7 +243,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '14643478-9',
             'nombre' => 'Chin-Lang Lin',
-            'email' => null,
+            'email' => 'ash_groudon_0306@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.86'],
                 ['AS', 'L.160'],
@@ -263,7 +263,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '76589610-K',
             'nombre' => 'Com. Montero e Hijos Ltda.',
-            'email' => null,
+            'email' => 'miguel@monterosport.cl',
             'ubicaciones' => [
                 ['AS', 'L.20'],
                 ['AS', 'L.123'],
@@ -285,7 +285,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '7410037-6',
             'nombre' => 'Comunidad Hereditaria - Teresa Jofré Hernández',
-            'email' => null,
+            'email' => 'tjofreh@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.10'],
                 ['AS', 'L.169'],
@@ -296,7 +296,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '16942789-5',
             'nombre' => 'Dea Ho Kim',
-            'email' => null,
+            'email' => 'comercial.vip@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.19'],
                 ['AS', 'L.51'],
@@ -317,7 +317,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '22107444-0',
             'nombre' => 'Edgar Ticona Chura',
-            'email' => null,
+            'email' => 'eticona_1348@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.181'],
             ],
@@ -366,7 +366,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '9094738-9',
             'nombre' => 'Erika González Iturra',
-            'email' => null,
+            'email' => 'erika.gonzalez@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.9'],
                 ['AS', 'L.40'],
@@ -470,7 +470,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '8893861-5',
             'nombre' => 'Héctor Granado Flores',
-            'email' => 'mba_964@hotmail.com',
+            'email' => 'nba_964@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.25'],
             ],
@@ -501,7 +501,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '14755044-8',
             'nombre' => 'Hsiu Tuan Hsu',
-            'email' => null,
+            'email' => 'ventas@casatex.cl',
             'ubicaciones' => [
                 ['AS', 'L.32'],
                 ['AS', 'L.43'],
@@ -555,7 +555,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '8535372-1',
             'nombre' => 'Javier Medina Villagrán',
-            'email' => null,
+            'email' => 'yesterday@vtr.net',
             'ubicaciones' => [
                 ['AS', 'L.53'],
                 ['AM', 'L.51'],
@@ -614,7 +614,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '21468370-9',
             'nombre' => 'José Maldonado Medina',
-            'email' => null,
+            'email' => 'confeccionesfernanda45@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.121'],
             ],
@@ -674,7 +674,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '77073320-0',
             'nombre' => 'Lencerías Darinka Ltda.',
-            'email' => null,
+            'email' => 'lenceriasdarinkadk@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.4'],
                 ['AS', 'L.147'],
@@ -789,7 +789,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '9105619-4',
             'nombre' => 'María Fredes Escobar',
-            'email' => null,
+            'email' => 'rodrigo.alejandro.93@gmail.com',
             'ubicaciones' => [
                 ['AM', 'L.10'],
             ],
@@ -798,7 +798,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '10968043-5',
             'nombre' => 'María Ivette Badilla Badilla',
-            'email' => null,
+            'email' => 'mari.badillab@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.73'],
                 ['AS', 'L.98'],
@@ -856,7 +856,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '10476038-4',
             'nombre' => 'Mario Contreras Salgado',
-            'email' => null,
+            'email' => 'mariocontreras_38@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.6'],
                 ['AS', 'L.178'],
@@ -878,7 +878,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '13483469-2',
             'nombre' => 'Mirian de la Vega Rivera',
-            'email' => null,
+            'email' => 'wladimiraviles@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.57'],
                 ['AS', 'L.143'],
@@ -1045,7 +1045,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '7699435-8',
             'nombre' => 'Ricardo Orellana Labra',
-            'email' => null,
+            'email' => 'lenceriasdarinkadk@gmail.com',
             'ubicaciones' => [
                 ['AM', 'L.84'],
             ],
@@ -1073,7 +1073,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '9255017-6',
             'nombre' => 'Sergio Pulgar León',
-            'email' => null,
+            'email' => 'directochile02@yahoo.es',
             'ubicaciones' => [
                 ['AS', 'L.14'],
                 ['AS', 'L.31'],
@@ -1091,7 +1091,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '11887719-5',
             'nombre' => 'Silvia Araya Huerta',
-            'email' => 'silviardh@gmail.com',
+            'email' => 'silviarah@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.5'],
             ],
@@ -1201,7 +1201,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '14660891-4',
             'nombre' => 'Ydelma Requejo Mendoza',
-            'email' => null,
+            'email' => 'distribuidoramarlen@hotmail.com',
             'ubicaciones' => [
                 ['AS', 'L.58'],
                 ['AS', 'L.104'],
