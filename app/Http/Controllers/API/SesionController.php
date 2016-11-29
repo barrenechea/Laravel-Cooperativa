@@ -11,7 +11,6 @@ use App\Sector;
 use App\Bill;
 use App\Billdetail;
 use App\Payment;
-use App\Log;
 
 use Carbon\Carbon;
 
@@ -125,10 +124,6 @@ class SesionController extends Controller
             }
         }
         if(!isset($supposedDate)) return;
-        $log = new Log;
-        $log->user_id = 1;
-        $log->message = 'Supposed date';
-        $log->save();
         // We have a supposed date inside the Sesion description!
         // Now check parameters inside that "date"
         $exploded = explode('-', $supposedDate);
@@ -137,10 +132,6 @@ class SesionController extends Controller
             elseif(strlen($part) === 1 || strlen($part) === 2) $month = $part;
         }
         if(!isset($year) || !isset($month)) return;
-        $log = new Log;
-        $log->user_id = 1;
-        $log->message = 'Supposed date part 2';
-        $log->save();
         // We have a year and a month! We can continue
         // Now obtain an array with all the Sector codes
         $sectors = Sector::pluck('code')->all();
@@ -148,49 +139,30 @@ class SesionController extends Controller
         $match_sector=array_intersect($splitted, $sectors);
         if(count($match_sector) > 0)
         {
-            $log = new Log;
-            $log->user_id = 1;
-            $log->message = 'Match sector 1';
-            $log->save();
             // Found a sector match!
             $sector = Sector::where('code', $match_sector)->first();
             $locations = Location::where('sector_id', $sector->id)->pluck('code')->all();
             $match_location=array_intersect($splitted, $locations);
             if(count($match_location) > 0)
             {
-                $log = new Log;
-            $log->user_id = 1;
-            $log->message = 'Match location';
-            $log->save();
                 // Found a location match!
                 $location = Location::where('sector_id', $sector->id)->where('code', $match_location)->first();
                 if($location->partner_id)
                 {
-                    $log = new Log;
-                    $log->user_id = 1;
-                    $log->message = 'Has partner';
-                    $log->save();
                     //Verified that the location has a partner assigned
                     $billdetails = Billdetail::where('location_id', $location->id)->where('vfpcode', $sesion->codigo)->get();
                     foreach ($billdetails as $billdetail) {
                         $sesionDate = Carbon::createFromFormat('d-m-Y', '01-'.$month.'-'.$year)->subMonth();
                         if($billdetail->created_at->year === $sesionDate->year && $billdetail->created_at->month === $sesionDate->month)
                         {
-                            $log = new Log;
-                            $log->user_id = 1;
-                            $log->message = 'Date matches';
-                            $log->save();
                             // The dates matches correctly!
                             $payment = new Payment();
                             $payment->billdetail_id = $billdetail->id;
                             $payment->vfpsesion_id = $sesion->id;
                             $payment->amount = $sesion->haber;
+                            $payment->document_id = $sesion->numero;
                             $payment->save();
                             // Everything done! :D now stop running the foreach
-                            $log = new Log;
-                            $log->user_id = 1;
-                            $log->message = 'Success';
-                            $log->save();
                             break;
                         }
                     }
