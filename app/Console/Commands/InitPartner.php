@@ -459,7 +459,7 @@ class InitPartner extends Command
         $socios[] = [
             'run' => '9119176-8',
             'nombre' => 'Guadalupe Vidal Arratia',
-            'email' => null,
+            'email' => 'gvidalarratia@gmail.com',
             'ubicaciones' => [
                 ['AS', 'L.56'],
                 ['AS', 'L.179'],
