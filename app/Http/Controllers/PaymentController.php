@@ -10,6 +10,8 @@ use App\Payment;
 use App\Billdetail;
 use App\Location;
 
+use Carbon\Carbon;
+
 class PaymentController extends Controller
 {
 	public function list($location_id)
@@ -34,6 +36,9 @@ class PaymentController extends Controller
 	{
 		$payment = new Payment($request->all());
 		$payment->vfpsesion_id = null;
+		$payment->save();
+
+		$payment->created_at = Carbon::createFromFormat('d-m-Y', $request->input('date'));
 		$payment->save();
 
 		Session::flash('success', 'El pago se ha agregado exitosamente!');

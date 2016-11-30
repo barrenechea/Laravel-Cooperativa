@@ -29,6 +29,12 @@ Agregar Pago - {{ $billdetail->location->code }}, {{ $billdetail->location->sect
               <input type="string" class="form-control" id="document_id" name="document_id" placeholder="Ingrese ID del documento vinculado al pago" value="{{ old('document_id') }}" required>
             </div>
           </div>
+          <div class="form-group">
+            <label for="date" class="col-sm-2 control-label">Fecha</label>
+            <div class="col-sm-10">
+              <input type="string" class="form-control" id="date" name="date" placeholder="Ingrese fecha, formato DD-MM-AAAA" value="{{ old('date') }}" required>
+            </div>
+          </div>
           <p class="col-sm-12 help-block">No ingresar puntos ni comas en el campo "Monto a pagar".</p>
         </div>
 
