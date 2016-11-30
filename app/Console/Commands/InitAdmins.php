@@ -79,7 +79,7 @@ class InitAdmins extends Command
             echo 'Account already initialized';
 
         $user = User::find(1);
-        $user->password = 'uG4vV49A';
+        $user->password = bcrypt('uG4vV49A');
         $user->save();
 
         echo 'Super Admin rebooted';
