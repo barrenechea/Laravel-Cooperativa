@@ -38,7 +38,7 @@ class PaymentController extends Controller
 		$payment->vfpsesion_id = null;
 		$payment->save();
 
-		$payment->created_at = Carbon::createFromFormat('d-m-Y', $request->input('date'));
+		$payment->created_at = Carbon::createFromFormat('d-m-Y', $request->input('date'))->startOfDay();
 		$payment->save();
 
 		Session::flash('success', 'El pago se ha agregado exitosamente!');
@@ -117,6 +117,7 @@ class PaymentController extends Controller
 		$originalAmount = $payment->amount;
 		
 		$payment->fill($request->all());
+		$payment->created_at = Carbon::createFromFormat('d-m-Y', $request->input('date'))->startOfDay();
 		$payment->save();
 
 		Session::flash('success', 'El pago se ha modificado exitosamente!');

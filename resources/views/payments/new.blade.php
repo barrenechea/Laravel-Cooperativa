@@ -32,7 +32,7 @@ Agregar Pago - {{ $billdetail->location->code }}, {{ $billdetail->location->sect
           <div class="form-group">
             <label for="date" class="col-sm-2 control-label">Fecha</label>
             <div class="col-sm-10">
-              <input type="string" class="form-control" id="date" name="date" placeholder="Ingrese fecha, formato DD-MM-AAAA" value="{{ old('date') }}" required>
+              <input type="string" class="form-control" id="date" name="date" placeholder="Ingrese fecha, formato DD-MM-AAAA" value="{{ Carbon\Carbon::now()->format('d-m-Y') }}" required>
             </div>
           </div>
           <p class="col-sm-12 help-block">No ingresar puntos ni comas en el campo "Monto a pagar".</p>
