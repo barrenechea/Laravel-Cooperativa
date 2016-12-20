@@ -62,7 +62,7 @@ class ReportController extends Controller
 		// Generar Excel
 		Excel::create('CONTABILIDAD'.$date->format('-m-Y'), function($excel) use ($date, $incomes, $outcomes, $payments) 
 		{
-			/*
+			
 			$excel->sheet('INFORMACION', function($sheet) use ($date)
 			{
 				$sheet->setColumnFormat(array(
@@ -105,7 +105,7 @@ class ReportController extends Controller
 					$cells->setFontWeight('bold');
 				});
 			});
-			*/
+			
 			$excel->sheet('INGRESOS', function($sheet) use ($incomes, $payments, $date)
 			{
 				$sheet->setColumnFormat(array(
@@ -375,6 +375,7 @@ class ReportController extends Controller
 		foreach($overdue as $billdetail)
 		{
 			$dataArray[] = [
+					$billdetail->partner->user->username, // Nombre
 					$billdetail->partner->user->name, // Nombre
 					$billdetail->location->code, // Cod. Ubicacion
 					$billdetail->bill->description, // Descripcion del cobro
@@ -393,7 +394,7 @@ class ReportController extends Controller
 						'F' => '$#,##0',
 						'G' => '$#,##0',
 						));
-					$sheet->appendRow(['Nombre', 'Ubicación','Cobro','Fecha emisión','Días transcurridos', 'Monto a pagar', 'Monto pagado', 'Teléfono', 'Dirección']);
+					$sheet->appendRow(['RUN','Nombre','Ubicación','Cobro','Fecha emisión','Días transcurridos', 'Monto a pagar', 'Monto pagado', 'Teléfono', 'Dirección']);
 					foreach ($dataArray as $row) {
 						$sheet->appendRow($row);
 					}

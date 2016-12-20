@@ -13,7 +13,8 @@
           <thead>
             <tr>
               <th hidden>ID</th>
-              <th>Nombre y apellido</th>
+              <th>RUN</th>
+              <th>Nombre</th>
               <th>Email</th>
               <th>Dirección</th>
               <th>Teléfono</th>
@@ -27,6 +28,7 @@
             @foreach($partners as $partner)
             <tr>
               <td hidden>{{ $partner->id }}</td>
+              <td>{{ $partner->user->username }}</td>
               <td>{{ $partner->user->name }}</td>
               <td>{{ $partner->user->email }}</td>
               <td>{{ $partner->address === ' ' ? 'No llenado' : $partner->address }}</td>
