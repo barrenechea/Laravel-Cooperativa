@@ -344,8 +344,15 @@ class Kernel extends ConsoleKernel
      */  
     private function fetchUFValue()
     {
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', 'http://mindicador.cl/api')->getBody();
-        return json_decode($res)->uf->valor;
+        try
+        {
+            $client = new \GuzzleHttp\Client();
+            $res = $client->request('GET', 'http://mindicador.cl/api')->getBody();
+            return json_decode($res)->uf->valor;
+        }
+        catch(\Exception $e)
+        {
+            return $this->fetchUFValue();
+        }
     }
 }
