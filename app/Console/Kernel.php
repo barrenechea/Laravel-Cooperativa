@@ -134,7 +134,7 @@ class Kernel extends ConsoleKernel
                         {
                             if(!$location->partner_id)
                                 continue;
-                            if(!($bill->types()->whereIn('id', $location->type->id)->count()))
+                            if(!($bill->types()->where('id', $location->type->id)->count()))
                                 continue;
 
                             $billdetail = new Billdetail;
