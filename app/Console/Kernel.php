@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\FixBills::class,
+        Commands\FixDrysoft::class,
     ];
 
     /**
