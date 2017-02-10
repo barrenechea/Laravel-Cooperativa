@@ -25,10 +25,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\InitBills::class,
-        Commands\InitPartner::class,
-        Commands\InitAdmins::class,
-        Commands\InitPartnerMail::class,
+        Commands\FixBills::class,
     ];
 
     /**

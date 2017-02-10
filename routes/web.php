@@ -26,6 +26,8 @@ Route::get('api', function () {
 
 // Auth required routes
 Route::group(['middleware' => ['auth']], function () {
+	Route::get('debug', 'HomeController@debug');
+
 	Route::get('init', 'HomeController@init');
 	Route::post('init', 'HomeController@initsave');
 

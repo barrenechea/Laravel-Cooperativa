@@ -20,6 +20,7 @@ use App\Sesion;
 use App\Bill;
 use App\Payment;
 use App\Mailing;
+use App\Billdetail;
 
 use Validator;
 
@@ -180,5 +181,19 @@ class HomeController extends Controller
         $expiresAt = Carbon::now()->endOfDay();
         Cache::put('graphicdata', $graphicdata, $expiresAt);
         return $graphicdata;
+    }
+
+    public function debug()
+    {
+        if(Auth::user()->id !== 1)
+        {
+            Session::flash('warning', 'Usuario no autorizado');
+            return redirect('/home');
+        }
+
+        //Depuration function
+        $var = Billdetail::whereDay('created_at', 21)->whereMonth('created_at', 1)->whereYear('created_at', 2017)->get();
+
+        dd($var);
     }
 }

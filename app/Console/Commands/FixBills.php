@@ -9,21 +9,21 @@ use App\Billdetail;
 
 use Carbon\Carbon;
 
-class InitBills extends Command
+class FixBills extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'init:bills';
+    protected $signature = 'fix:bills';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate billdetails';
+    protected $description = 'Fix billdetails';
 
     /**
      * Create a new command instance.
@@ -42,16 +42,22 @@ class InitBills extends Command
      */
     public function handle()
     {
-        $bills = Bill::where('active', true)->get();
+        $bills = Bill::where('active', true)->where('payment_day', 21)->get();
 
         foreach ($bills as $bill)
         {
-            $preparedDate = $bill->payment_day;
-            $preparedDate .= '-11-2016';
+            $day = '21';
+            $month = '12';
+            $year = '2016';
+
+            $preparedDate = $day . '-' . $month . '-' . $year;
             $uf = $this->fetchUFValue($preparedDate);
             
             echo 'Running bill: ';
             echo $bill->description;
+            echo ' (';
+            echo $preparedDate;
+            echo ')';
             echo "\n";
 
             if($bill->sectors->count())
@@ -60,7 +66,7 @@ class InitBills extends Command
                 {
                     foreach($sector->locations as $location)
                     {
-                        if(!($location->partner_id) || !($bill->types->whereIn('id', $location->type->id)->count()))
+                        if(!($location->partner_id) || !($bill->types->where('id', $location->type->id)->count()))
                             continue;
 
                         $billdetail = new Billdetail;
@@ -82,8 +88,27 @@ class InitBills extends Command
                         $billdetail->overdue_billed = isset($bill->overdue_day) ? false : null;
                         $billdetail->save();
 
-                        $billdetail->created_at = '2016-11-21 05:45:00';
+                        $billdetail->created_at = $year . '-' . $month . '-' . $day .' 05:45:00';
                         $billdetail->save();
+
+                        if(isset($bill->overdue_day)
+                            && isset($bill->overdue_amount)
+                            && isset($bill->overdue_is_uf)
+                            && isset($bill->overdue_vfpcode))
+                        {
+                            // Has overdue settings, make attributes
+                            $date = $billdetail->created_at->copy()->addMonth();
+                            $date->day = $bill->overdue_day;
+                            $billdetail->overdue_date = $date;
+                            $billdetail->save();
+                        }
+
+                        echo 'ID: ';
+                        echo $billdetail->id;
+                        echo ' - Saved for partner: ';
+                        echo $billdetail->partner->user->name;
+                        echo ' (Sector: ' . $billdetail->location->sector->code . ' - Ubicacion: ' . $billdetail->location->code . ')';
+                        echo "\n";
                     }
                 }
             }
@@ -114,6 +139,28 @@ class InitBills extends Command
                     }
                     $billdetail->overdue_billed = isset($bill->overdue_day) ? false : null;
                     $billdetail->save();
+
+                    $billdetail->created_at = $year . '-' . $month . '-' . $day .' 05:45:00';
+                    $billdetail->save();
+
+                    if(isset($bill->overdue_day)
+                            && isset($bill->overdue_amount)
+                            && isset($bill->overdue_is_uf)
+                            && isset($bill->overdue_vfpcode))
+                        {
+                            // Has overdue settings, make attributes
+                            $date = $billdetail->created_at->copy()->addMonth();
+                            $date->day = $bill->overdue_day;
+                            $billdetail->overdue_date = $date;
+                            $billdetail->save();
+                        }
+
+                    echo 'ID: ';
+                    echo $billdetail->id;
+                    echo ' - Saved for partner: ';
+                    echo $billdetail->partner->user->name;
+                    echo ' (Sector: ' . $billdetail->location->sector->code . ' - Ubicacion: ' . $billdetail->location->code . ')';
+                    echo "\n";
                 }
             }
             // Logic for Group bills
@@ -150,6 +197,28 @@ class InitBills extends Command
                         }
                         $billdetail->overdue_billed = isset($bill->overdue_day) ? false : null;
                         $billdetail->save();
+
+                        $billdetail->created_at = $year . '-' . $month . '-' . $day .' 05:45:00';
+                        $billdetail->save();
+
+                        if(isset($bill->overdue_day)
+                            && isset($bill->overdue_amount)
+                            && isset($bill->overdue_is_uf)
+                            && isset($bill->overdue_vfpcode))
+                        {
+                            // Has overdue settings, make attributes
+                            $date = $billdetail->created_at->copy()->addMonth();
+                            $date->day = $bill->overdue_day;
+                            $billdetail->overdue_date = $date;
+                            $billdetail->save();
+                        }
+
+                        echo 'ID: ';
+                        echo $billdetail->id;
+                        echo ' - Saved for partner: ';
+                        echo $billdetail->partner->user->name;
+                        echo ' (Sector: ' . $billdetail->location->sector->code . ' - Ubicacion: ' . $billdetail->location->code . ')';
+                        echo "\n";
                     }
                 }
             }
