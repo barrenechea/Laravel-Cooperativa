@@ -42,14 +42,14 @@ class FixBills extends Command
      */
     public function handle()
     {
-        $this->fix(21, 12, 2016);
-        $this->fix(26, 12, 2016);
-        $this->fix(01, 01, 2017);
-        $this->fix(02, 01, 2017);
-        $this->fix(10, 01, 2017);
-        $this->fix(11, 01, 2017);
-        $this->fix(21, 01, 2017);
-        $this->fix(26, 01, 2017);
+        //$this->fix(21, 12, 2016);
+        //$this->fix(26, 12, 2016);
+        //$this->fix(01, 01, 2017);
+        //$this->fix(02, 01, 2017);
+        //$this->fix(10, 01, 2017);
+        //$this->fix(11, 01, 2017);
+        //$this->fix(21, 01, 2017);
+        //$this->fix(26, 01, 2017);
     }
 
     private function fix($day, $month, $year)
