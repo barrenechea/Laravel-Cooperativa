@@ -42,13 +42,25 @@ class FixBills extends Command
      */
     public function handle()
     {
-        $bills = Bill::where('active', true)->where('payment_day', 21)->get();
+        $this->fix(21, 12, 2016);
+        $this->fix(26, 12, 2016);
+        $this->fix(01, 01, 2017);
+        $this->fix(02, 01, 2017);
+        $this->fix(10, 01, 2017);
+        $this->fix(11, 01, 2017);
+        $this->fix(21, 01, 2017);
+        $this->fix(26, 01, 2017);
+    }
+
+    private function fix($day, $month, $year)
+    {
+        $bills = Bill::where('active', true)->where('payment_day', $day)->get();
 
         foreach ($bills as $bill)
         {
-            $day = '21';
-            $month = '12';
-            $year = '2016';
+            $day = strval($day);
+            $month = strval($month);
+            $year = strval($year);
 
             $preparedDate = $day . '-' . $month . '-' . $year;
             $uf = $this->fetchUFValue($preparedDate);

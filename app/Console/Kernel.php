@@ -252,6 +252,7 @@ class Kernel extends ConsoleKernel
             ->get();
             if($billdetails->count())
             {
+                $uf = $this->fetchUFValue();
                 foreach ($billdetails as $billdetail) {
                     if($billdetail->amount > $billdetail->payments->sum('amount'))
                     {
@@ -265,7 +266,6 @@ class Kernel extends ConsoleKernel
                             $newBillDetail->vfpcode = $billdetail->bill->overdue_vfpcode;
                             if($billdetail->bill->overdue_is_uf)
                             {
-                                $uf = $this->fetchUFValue();
                                 $amount = $billdetail->bill->overdue_amount * $uf;
                             }
                             else
@@ -291,7 +291,7 @@ class Kernel extends ConsoleKernel
             }
         })->dailyAt(\App::isLocal() ? Carbon::now()->format('H:i') : '06:15');
 
-        // This will generate Overdue stuff where not daily
+        // This will generate Overdue stuff where daily
         $schedule->call(function ()
         {
             $billdetails = Billdetail::whereNull('overdue_date')
@@ -303,12 +303,12 @@ class Kernel extends ConsoleKernel
             ->get();
             if($billdetails->count())
             {
+                $uf = $this->fetchUFValue();
                 foreach ($billdetails as $billdetail) {
                     if($billdetail->amount > $billdetail->payments->sum('amount'))
                     {
                         if($billdetail->bill->overdue_is_uf)
                         {
-                            $uf = $this->fetchUFValue();
                             $amount = $billdetail->bill->overdue_amount * $uf;
                         }
                         else
