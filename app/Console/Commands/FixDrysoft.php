@@ -54,13 +54,16 @@ class FixDrysoft extends Command
 
     private function fix()
     {
-        $tabaux10 = Tabaux10::onlyTrashed()->whereDay('deleted_at', 25)->restore();
-        $sesiones = Sesion::onlyTrashed()->whereDay('deleted_at', 25)->get();
-
         echo 'DRYCONA4 FIX';
         echo "\n";
+        $tabaux10 = Tabaux10::onlyTrashed()->whereDay('deleted_at', 25)->restore();
+        $sesiones = Sesion::onlyTrashed()->whereDay('deleted_at', 25)->restore();
+
+        echo 'DRYCONA4 RE-SYNC';
+        echo "\n";
+        $payments = Payment::whereNotNull('vfpsesion_id')->pluck('vfpsesion_id');
+        $sesiones = Sesion::where('vfptable', 'LIKE', 'DRYCONA4%')->whereNotIn('id', $payments)->get();
         foreach ($sesiones as $sesion) {
-            $sesion->restore();
             if($this->attemptToSync($sesion))
             {
                 echo 'Synced: ' . $sesion->detalle2 . ' - Glosa: ' . $sesion->glosa;
@@ -70,10 +73,8 @@ class FixDrysoft extends Command
 
         echo 'DRYCONA5 RE-SYNC';
         echo "\n";
-
         $payments = Payment::whereNotNull('vfpsesion_id')->pluck('vfpsesion_id');
         $sesiones = Sesion::where('vfptable', 'LIKE', 'DRYCONA5%')->whereNotIn('id', $payments)->get();
-
         foreach ($sesiones as $sesion) {
             if($this->attemptToSync($sesion))
             {
