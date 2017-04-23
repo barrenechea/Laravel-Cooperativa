@@ -17,7 +17,7 @@ class DebugController extends Controller
     	$returnData = [];
     	while (true) {
     		// use this date
-    		$bills = Bill::where('payment_day', $date->day)->whereDay('created_at', '>', $date->day)->whereMonth('created_at', '>', $date->month)->whereYear('created_at', '>', $date->year)->where('active', true)->get();
+    		$bills = Bill::where('payment_day', $date->day)->whereDay('created_at', '>', $date->day)->whereMonth('created_at', '>', $date->month)->whereYear('created_at', '>=', $date->year)->where('active', true)->get();
             if($bills->count()){
             	$returnData[] = $bills;
             }
