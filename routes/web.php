@@ -16,6 +16,8 @@ Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginF
 Route::post('login', ['as' => 'login.post', 'uses' => 'Auth\LoginController@login']);
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 
+Route::get('debug', 'DebugController@debug');
+
 Route::get('/', function () {
 	return redirect()->route('login');
 });
@@ -26,8 +28,6 @@ Route::get('api', function () {
 
 // Auth required routes
 Route::group(['middleware' => ['auth']], function () {
-	Route::get('debug', 'HomeController@debug');
-
 	Route::get('init', 'HomeController@init');
 	Route::post('init', 'HomeController@initsave');
 

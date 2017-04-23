@@ -54,10 +54,12 @@ class FixDrysoft extends Command
 
     private function fix()
     {
+        $day = 10;
+        $month = 2;
         echo 'DRYCONA4 FIX';
         echo "\n";
-        $tabaux10 = Tabaux10::onlyTrashed()->whereDay('deleted_at', 25)->restore();
-        $sesiones = Sesion::onlyTrashed()->whereDay('deleted_at', 25)->restore();
+        $tabaux10 = Tabaux10::onlyTrashed()->whereDay('deleted_at', $day)->whereMonth('deleted_at', $month)->restore();
+        $sesiones = Sesion::onlyTrashed()->whereDay('deleted_at', $day)->whereMonth('deleted_at', $month)->restore();
 
         echo 'DRYCONA4 RE-SYNC';
         echo "\n";
