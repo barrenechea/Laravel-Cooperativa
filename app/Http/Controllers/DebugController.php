@@ -15,9 +15,9 @@ class DebugController extends Controller
     	$date = Carbon::createFromFormat('Y-m-d', '2016-12-01');
     	$text = [];
     	while (true) {
+    		$text[] = $date->toDateTimeString();
     		if($date->day == 28 && $date->month == 2)
     			break;
-    		$text[] = $date->toDateTimeString();
     		$date->addDay();
     	}
     	$bills = Bill::all();
