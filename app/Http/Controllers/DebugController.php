@@ -16,6 +16,7 @@ class DebugController extends Controller
     	$text = [];
     	while ($date->day != 28 && $date->month != 2) {
     		$text[] = $date->toDateTimeString();
+    		$date->addDay();
     	}
     	$bills = Bill::all();
     	return json_encode($text);
