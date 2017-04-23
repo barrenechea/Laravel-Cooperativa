@@ -13,14 +13,21 @@ class DebugController extends Controller
     public function debug(Request $request)
     {
     	$date = Carbon::createFromFormat('Y-m-d', '2016-12-01');
-    	$text = [];
+    	$bills = Bill::all();
+    	$returnData = [];
     	while (true) {
-    		$text[] = $date->toDateTimeString();
+    		// use this date
+    		$bills = Bill::where('payment_day', $date->day)->whereDay('created_at', '>', $date->day)->whereMonth('created_at', '>', $date->month)->where('active', true)->get();
+            if($bills->count()){
+            	$returnData[] = $bills;
+            }
+
+    		//leave this alone
     		if($date->day == 28 && $date->month == 2)
     			break;
     		$date->addDay();
     	}
-    	$bills = Bill::all();
-    	return json_encode($text);
+    	
+    	return json_encode($returnData);
     }
 }
