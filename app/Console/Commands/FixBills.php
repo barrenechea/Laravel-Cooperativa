@@ -42,27 +42,27 @@ class FixBills extends Command
      */
     public function handle()
     {
-        $billdetails = Billdetail::all();
-        foreach ($billdetails as $billdetail) {
-            $payments = $billdetail->payments()->get();
-            if($payments->count() > 1){
-                $sum = 0;
-                foreach ($payments as $payment) {
-                    $sum += $payment->amount;
-                }
-                $difference = $sum - $billdetail->amount;
+        // $billdetails = Billdetail::all();
+        // foreach ($billdetails as $billdetail) {
+        //     $payments = $billdetail->payments()->get();
+        //     if($payments->count() > 1){
+        //         $sum = 0;
+        //         foreach ($payments as $payment) {
+        //             $sum += $payment->amount;
+        //         }
+        //         $difference = $sum - $billdetail->amount;
 
-                if($difference == $billdetail->amount){
-                    foreach ($payments as $payment) {
-                        if($payment->user_id == null)
-                            continue;
-                        echo $payment->id . "\n";
-                        $payment->delete();
-                        break;
-                    }
-                }
-            }
-        }
+        //         if($difference == $billdetail->amount){
+        //             foreach ($payments as $payment) {
+        //                 if($payment->user_id == null)
+        //                     continue;
+        //                 echo $payment->id . "\n";
+        //                 $payment->delete();
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     private function fetchUFValue($date = null)
