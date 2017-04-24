@@ -16,7 +16,7 @@ Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginF
 Route::post('login', ['as' => 'login.post', 'uses' => 'Auth\LoginController@login']);
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 
-Route::get('debug', 'DebugController@debug');
+Route::get('debug', 'DebugController@debugMissingBilldetails');
 
 Route::get('/', function () {
 	return redirect()->route('login');

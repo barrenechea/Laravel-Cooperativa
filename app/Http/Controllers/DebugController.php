@@ -10,23 +10,51 @@ use Carbon\Carbon;
 
 class DebugController extends Controller
 {
-    public function debug(Request $request)
+    public function debugMissingBilldetails(Request $request)
     {
     	$date = Carbon::createFromFormat('Y-m-d', '2016-12-01');
-    	$bills = Bill::all();
     	$returnData = [];
     	while (true) {
-    		// use this date
-    		$bills = Bill::where('payment_day', $date->day)->whereDay('created_at', '<', $date->day)->whereMonth('created_at', '<', $date->month)->whereYear('created_at', '<=', $date->year)->where('active', true)->get();
+    		// use $date HERE
+    		$bills = Bill::where('payment_day', $date->day)->whereDate('created_at', '<', $date->toDateString())->get();
             if($bills->count()){
-            	$returnData[] = $date->toDateTimeString();
-            	$returnData[] = $bills;
+            	foreach ($bills as $bill) {
+            		if($bill->end_bill != null && $date->gt($bill->end_bill))
+            			continue;
+            		
+            		$billdetails = $bill->billdetails()->whereMonth('created_at', $date->month)->get();
+            		if(!$billdetails->count()){
+            			$returnData[] = [$date->toDateString(), ('NOT FOUND FOR ' . $bill->description)];
+            		}
+            	}
             }
 
     		//leave this alone
-    		if($date->day == 28 && $date->month == 2)
+    		if($date->day == Carbon::today()->day && $date->month == Carbon::today()->month)
     			break;
     		$date->addDay();
+    	}
+    	
+    	return json_encode($returnData);
+    }
+
+    public function debugDuplicatedPayments(Request $request)
+    {
+    	$billdetails = Billdetail::all();
+    	$returnData = [];
+    	foreach ($billdetails as $billdetail) {
+    		$payments = $billdetail->payments()->get();
+    		if($payments->count() > 1){
+    			$sum = 0;
+    			foreach ($payments as $payment) {
+    				$sum += $payment->amount;
+    			}
+    			$difference = $sum - $billdetail->amount;
+
+    			if($difference == $billdetail->amount){
+    				$returnData[] = [$billdetail->bill->description, $payments];
+    			}
+    		}
     	}
     	
     	return json_encode($returnData);
