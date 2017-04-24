@@ -54,24 +54,24 @@ class FixDrysoft extends Command
 
     private function fix()
     {
-        $day = 10;
-        $month = 2;
-        echo 'DRYCONA4 FIX';
-        echo "\n";
-        $tabaux10 = Tabaux10::onlyTrashed()->whereDay('deleted_at', $day)->whereMonth('deleted_at', $month)->restore();
-        $sesiones = Sesion::onlyTrashed()->whereDay('deleted_at', $day)->whereMonth('deleted_at', $month)->restore();
+        // $day = 10;
+        // $month = 2;
+        // echo 'DRYCONA4 FIX';
+        // echo "\n";
+        //$tabaux10 = Tabaux10::onlyTrashed()->whereDay('deleted_at', $day)->whereMonth('deleted_at', $month)->restore();
+        //$sesiones = Sesion::onlyTrashed()->whereDay('deleted_at', $day)->whereMonth('deleted_at', $month)->restore();
 
-        echo 'DRYCONA4 RE-SYNC';
-        echo "\n";
-        $payments = Payment::whereNotNull('vfpsesion_id')->pluck('vfpsesion_id');
-        $sesiones = Sesion::where('vfptable', 'LIKE', 'DRYCONA4%')->whereNotIn('id', $payments)->get();
-        foreach ($sesiones as $sesion) {
-            if($this->attemptToSync($sesion))
-            {
-                echo 'Synced: ' . $sesion->detalle2 . ' - Glosa: ' . $sesion->glosa;
-                echo "\n";
-            }
-        }
+        // echo 'DRYCONA4 RE-SYNC';
+        // echo "\n";
+        // $payments = Payment::whereNotNull('vfpsesion_id')->pluck('vfpsesion_id');
+        // $sesiones = Sesion::where('vfptable', 'LIKE', 'DRYCONA4%')->whereNotIn('id', $payments)->get();
+        // foreach ($sesiones as $sesion) {
+        //     if($this->attemptToSync($sesion))
+        //     {
+        //         echo 'Synced: ' . $sesion->detalle2 . ' - Glosa: ' . $sesion->glosa;
+        //         echo "\n";
+        //     }
+        // }
 
         echo 'DRYCONA5 RE-SYNC';
         echo "\n";
