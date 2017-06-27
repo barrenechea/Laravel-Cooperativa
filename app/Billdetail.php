@@ -13,7 +13,7 @@ class Billdetail extends Model
     protected $dates = ['overdue_date', 'deleted_at'];
     protected $casts = [ 'overdue_billed' => 'boolean', ];
     protected $fillable = [
-    	'bill_id', 'location_id', 'partner_id', 'amount', 'overdue_date', 'overdue_billed', 'created_at'
+    	'bill_id', 'location_id', 'partner_id', 'vfpcode', 'amount', 'overdue_date', 'overdue_billed', 'created_at'
     ];
 
     public function payments()
