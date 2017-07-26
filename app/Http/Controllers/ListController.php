@@ -43,8 +43,6 @@ class ListController extends Controller
         $sectors = Sector::all();
         $types = Type::all();
 
-        dd($request->input('sector'));
-
         if($request->input('sector'))
             $locations = Location::where('sector_id', $request->input('sector'))->get();
         elseif($request->input('type'))
