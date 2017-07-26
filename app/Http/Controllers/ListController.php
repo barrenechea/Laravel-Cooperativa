@@ -43,9 +43,9 @@ class ListController extends Controller
         $sectors = Sector::all();
         $types = Type::all();
 
-        if($request->input('sector') !== null)
+        if($request->input('sector'))
             $locations = Location::where('sector_id', $request->input('sector'))->get();
-        elseif($request->input('type') !== null)
+        elseif($request->input('type'))
             $locations = Location::where('type_id', $request->input('type'))->get();
         else
             $locations = Location::all();
