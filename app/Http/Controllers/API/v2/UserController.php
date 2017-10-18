@@ -16,9 +16,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $admins = User::where('is_admin', true)->whereHas('roles', function($query) {
-            $query->whereIn('name', ['super_admin', 'view_list_billdetail_payment', 'add_payment', 'modify_payment', 'delete_payment', 'view_report_external_accounting', 'view_log']);
-        })->with('roles')->get();
+        $admins = User::where('is_admin', true)->with('roles')->get();
         return $admins->makeVisible('password')->makeHidden('is_admin')->makeHidden('initialized')->makeHidden('created_at')->makeHidden('updated_at');
     }
 
@@ -30,9 +28,7 @@ class UserController extends Controller
      */
     public function show(Request $request, $id)
     {   
-        $user = User::where('is_admin', true)->where('id', intval($id))->whereHas('roles', function($query) {
-            $query->whereIn('name', ['super_admin', 'view_list_billdetail_payment', 'add_payment', 'modify_payment', 'delete_payment', 'view_report_external_accounting', 'view_log']);
-        })->with('roles')->firstOrFail();
+        $user = User::where('is_admin', true)->where('id', intval($id))->with('roles')->firstOrFail();
         return $user->makeVisible('password')->makeHidden('is_admin')->makeHidden('initialized')->makeHidden('created_at')->makeHidden('updated_at');
     }
 }
