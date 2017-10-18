@@ -142,10 +142,24 @@ class UpdateController extends Controller
         }
 
         $user->save();
+        requestUpdateAccounting();
 
         Session::flash('success', '¡El perfil ha sido actualizado exitosamente!');
 
         return redirect('/list/admin');
+    }
+
+    private function requestUpdateAccounting()
+    {
+        try
+        {
+            $client = new \GuzzleHttp\Client();
+            return $client->request('GET', env('HTTP_API_UPDATE', 'http://contacoop.alamedamaipu.cl/api/v1/refreshaccounts'))->getBody();
+        }
+        catch(\Exception $e)
+        {
+            return;
+        }
     }
 
     public function newpartnerpassword($id)
