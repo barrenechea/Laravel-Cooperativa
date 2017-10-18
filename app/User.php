@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Mailing');
     }
 
+    public function logs()
+    {
+        return $this->hasMany('App\Log');
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Role');
