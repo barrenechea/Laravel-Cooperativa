@@ -69,6 +69,9 @@ class UpdateController extends Controller
 
         Auth::user()->save();
 
+        if(Auth::user()->is_admin)
+            requestUpdateAccounting();
+
         Session::flash('success', '¡Su perfil ha sido actualizado exitosamente!');
 
         return redirect('/home');
@@ -89,6 +92,8 @@ class UpdateController extends Controller
         $user->password = bcrypt($password);
         $user->initialized = false;
         $user->save();
+
+        requestUpdateAccounting();
 
         Mail::to($user)->queue(new Password($user, $password, false));
 
