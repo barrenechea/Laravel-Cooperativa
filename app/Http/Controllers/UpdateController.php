@@ -70,7 +70,7 @@ class UpdateController extends Controller
         Auth::user()->save();
 
         if(Auth::user()->is_admin)
-            requestUpdateAccounting();
+            $this->requestUpdateAccounting();
 
         Session::flash('success', '¡Su perfil ha sido actualizado exitosamente!');
 
@@ -93,7 +93,7 @@ class UpdateController extends Controller
         $user->initialized = false;
         $user->save();
 
-        requestUpdateAccounting();
+        $this->requestUpdateAccounting();
 
         Mail::to($user)->queue(new Password($user, $password, false));
 
@@ -147,7 +147,7 @@ class UpdateController extends Controller
         }
 
         $user->save();
-        requestUpdateAccounting();
+        $this->requestUpdateAccounting();
 
         Session::flash('success', '¡El perfil ha sido actualizado exitosamente!');
 
